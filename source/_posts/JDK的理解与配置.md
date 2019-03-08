@@ -1,10 +1,8 @@
 ---
 title: JDK的理解与配置
 date: 2019-03-08 19:46:32
-tags:
+tags: [java, jdk]
 ---
-
-# JDK的理解与配置
 
 ## 什么是JDK
 
