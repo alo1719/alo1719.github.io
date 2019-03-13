@@ -38,5 +38,5 @@ for path, dir_list, file_list in g:
     # 输出目录下所有文件夹名
     for dir_name in dir_list:
         print(os.path.join(path, dir_name))
-
+```
 
