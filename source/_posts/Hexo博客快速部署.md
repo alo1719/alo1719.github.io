@@ -6,21 +6,21 @@ tags: [javascript, hexo]
 
 ## 准备工作
 
-1. 安装Git, 我使用的是图形化Git工具[git-fork](https://git-fork.com/)的内嵌Git. 注意把`git.exe`所在目录添加到环境变量, 安装建议前先测试git环境.
+- 安装Git, 我使用的是图形化Git工具[git-fork](https://git-fork.com/)的内嵌Git. 注意把`git.exe`所在目录添加到环境变量, 安装建议前先测试git环境.
 
-2. 安装[Node.js](https://nodejs.org/en/), 推荐安装LTS版.
+- 安装[Node.js](https://nodejs.org/en/), 推荐安装LTS版.
 
-3. 安装npm(Node.js包管理工具)的国内镜像版cnpm:
+- 安装npm(Node.js包管理工具)的国内镜像版cnpm:
 
-```bash
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-```
+    ```bash
+    npm install -g cnpm --registry=https://registry.npm.taobao.org
+    ```
 
-4. 安装hexo:
+- 安装hexo:
 
-```bash
-cnpm install -g hexo-cli
-```
+    ```bash
+    cnpm install -g hexo-cli
+    ```
 <!-- more -->
 ## 配置Hexo
 
