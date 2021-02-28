@@ -2,14 +2,13 @@
 
 menu:
   主页: /
-  随笔: /tags/随笔/
 
 # SubNav
 subnav:
-  github: "#"
-  weibo: "#"
-  rss: "#"
-  zhihu: "#"
+  github: "https://github.com/alo1719"
+  # weibo: "#"
+  rss: "/atom.xml"
+  # zhihu: "#"
   #qq: "#"
   #weixin: "#"
   #jianshu: "#"
@@ -17,7 +16,7 @@ subnav:
   #segmentfault: "#"
   #bilibili: "#"
   #acfun: "#"
-  #mail: "mailto:litten225@qq.com"
+  mail: "mailto:1335250440@qq.com"
   #facebook: "#"
   #google: "#"
   #twitter: "#"
@@ -39,7 +38,7 @@ show_all_link: '展开全文'
 # 数学公式
 mathjax: false
 # 是否在新窗口打开链接
-open_in_new: false
+open_in_new: true
 
 # 打赏
 # 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏
@@ -65,7 +64,7 @@ top: true
 # Miscellaneous
 baidu_analytics: ''
 google_analytics: ''
-favicon: /favicon.png
+favicon: https://i.loli.net/2019/03/08/5c81e88fd409d.png
 
 #你的头像url
 avatar: https://i.loli.net/2019/03/08/5c81e88fd409d.png
@@ -116,15 +115,10 @@ slider:
 #  friends: false
 smart_menu:
   innerArchive: '所有文章'
-  friends: '友链'
+  friends: false
   aboutme: '关于我'
 
 friends:
   友情链接1: http://localhost:4000/
-  友情链接2: http://localhost:4000/
-  友情链接3: http://localhost:4000/
-  友情链接4: http://localhost:4000/
-  友情链接5: http://localhost:4000/
-  友情链接6: http://localhost:4000/
 
-aboutme: 很惭愧<br><br>只做了一点微小的工作<br>谢谢大家
+aboutme: 后端开发程序员，主要写Java，现居北京<br><br>有任何问题欢迎联系<br>1335250440@qq.com或者<br>zhangxinyi1719@outlook.com
