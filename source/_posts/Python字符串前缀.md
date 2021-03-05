@@ -2,16 +2,28 @@
 title: Python字符串前缀
 date: 2019-03-09 11:44:39
 tags: [python]
+categories: 入门教程
 ---
+
+## 字符与字节
+
+要搞清楚Python的字符编码问题，首先要区分两个概念：字符和字节。
+
+字符(character)是一个符号，例如"a"、“中”就是字符。而字节是计算机的储存单位，同样一个字符，例如"中"，在不同的编码下，对应的字节就不同。GBK编码下为双字节 `\xd6\xd0`，而UTF8编码下为三字节 `\xe4\xb8\xad`。
+
+所以，字符是对符号的抽象，而字节是字符在计算机上的实现。不仅对于Python，对于任何编程语言都是这样。
 
 ## u
 
-`u"sample-string"`表明Unicode字符串, 代表对字符串进行Unicode解码. 建议包含中文的字符串都表明编码.
+`u"sample-string"` 表明字符串为Unicode字符串，UTF-8也是Python3的默认字符串编码。因为历史原因（Python诞生的时候Unicode标准还没有确定），Python2是不支持Unicode编码的，因此存储中文、Emoji等符号就依赖于各个用户自己的实现，导致了很多的混乱。这一点在C++上体现的“淋漓尽致”，C++字符串的变种之多之杂，是一般程序员很难想象的。
 
-## r
-
-`r"sample-string"`表明raw string不对blackslash反斜线进行转义. 例如, `\n`即为两个字符不再代表换行.
+而另一门我们熟知的语言，Java就乘上了Unicode的东风。Java中所有的字符串都采用UTF-16编码，因此很少有程序员在Java中遇到字符串编码的问题。
+<!-- more -->
 
 ## b
 
-Python3中, 默认的str的Unicode编码, Python2中, 默认的str使用Bytes编码. `b"sample-string"`表明使用Bytes编码, 用到的地方很少.
+与之相对的，`b"sample-string"` 表明字符串是不经过编码的字节序列。在这里，"sample-string"其实具有一定的误导性，用 `\xe4\xb8\xad` 更能代表真实的使用场景。
+
+## r
+
+`r"sample-string"` 中的r代表raw string，即不对反斜线 `\` 进行转义。例如, `r"\n"` 便不再代表换行，而是字面意义上的反斜线和字母n。
