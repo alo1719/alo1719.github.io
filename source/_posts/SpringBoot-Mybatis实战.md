@@ -2,6 +2,7 @@
 title: SpringBoot+MyBatis实战
 date: 2019-04-14 22:35:05
 tags: [java，spring，mybatis]
+categories: [入门教程]
 ---
 
 ## ORM与MyBatis
@@ -21,6 +22,7 @@ Apache Maven，是一个软件项目管理及自动构建工具，使用项目�
 Controller用作URL映射；Service写业务逻辑；Dao 即 Data Access Object，数据访问对象，用途正如其名；Model定义实体类，即MyBatis从数据库中取出的实体。
 
 此外，Controller和Service命名相对固定，Dao常被命名为Mapper或者Repository，Model还常被命名为Entity或者Domain。以下使用Controller -> Service -> Dao -> Model 的命名。
+<!-- more -->
 
 ## SpringBoot+Mybatis配置
 
