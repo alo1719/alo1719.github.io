@@ -26,4 +26,4 @@ categories: 入门教程
 
 ## r
 
-`r"sample-string"` 中的r代表raw string，即不对反斜线 `\` 进行转义。例如, `r"\n"` 便不再代表换行，而是字面意义上的反斜线和字母n。
+`r"sample-string"` 中的r代表raw string，即不对反斜线 `\` 进行转义。例如，`r"\n"` 便不再代表换行，而是字面意义上的反斜线和字母n。
