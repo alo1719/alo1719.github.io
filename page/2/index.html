@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+  <link rel="mask-icon" href="https://i.loli.net/2019/03/08/5c81e88fd409d.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="立志每月产出一篇高质量博文✊✊">
+<meta property="og:type" content="website">
+<meta property="og:title" content="每一天敏捷生活">
+<meta property="og:url" content="https://alo1719.github.io/page/2/index.html">
+<meta property="og:site_name" content="每一天敏捷生活">
+<meta property="og:description" content="立志每月产出一篇高质量博文✊✊">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Agile40">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alo1719.github.io/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>每一天敏捷生活</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="每一天敏捷生活" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">每一天敏捷生活</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Agile Living Style</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">SpringBoot+MyBatis实战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-14 22:35:05" itemprop="dateCreated datePublished" datetime="2019-04-14T22:35:05+08:00">2019-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ORM与MyBatis"><a href="#ORM与MyBatis" class="headerlink" title="ORM与MyBatis"></a>ORM与MyBatis</h2><p>Object Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。</p>
+<p>MyBatis是ORM的一种实现框架，对JDBC进行了又一层的封装。和Hibernate这种重量级的ORM框架相比，MyBatis非常轻量，其源码可以在数天之间就全部看完。这是因为和Hibernate提供了全套映射机制、自动生成SQL语句相比，MyBatis选择了拥抱SQL，让程序员自己写SQL，只是把查询结果转换到POJO中。</p>
+<h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>Apache Maven，是一个软件项目管理及自动构建工具，使用项目对象模型 (Project Object Model，POM) 进行配置。</p>
+<h2 id="代码分层"><a href="#代码分层" class="headerlink" title="代码分层"></a>代码分层</h2><p>一般而言，一个Web项目，自顶向下的访问顺序为：Controller -&gt; Service -&gt; Dao -&gt; MyBatis -&gt; Database</p>
+<p>Controller用作URL映射；Service写业务逻辑；Dao 即 Data Access Object，数据访问对象，用途正如其名；Model定义实体类，即MyBatis从数据库中取出的实体。</p>
+<p>此外，Controller和Service命名相对固定，Dao常被命名为Mapper或者Repository，Model还常被命名为Entity或者Domain。以下使用Controller -&gt; Service -&gt; Dao -&gt; Model 的命名。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/04/14/Pandas%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/14/Pandas%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">Pandas访问数据的最佳实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-14 22:26:54" itemprop="dateCreated datePublished" datetime="2019-04-14T22:26:54+08:00">2019-04-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html">官方英文文档链接</a></p>
+<h2 id="不同数据维度对应的类"><a href="#不同数据维度对应的类" class="headerlink" title="不同数据维度对应的类"></a>不同数据维度对应的类</h2><p>从一维、二维到三维数据对应的类分别为：<code>Series</code>、<code>DataFrame</code> 和 <code>Panel</code>，索引方式分别为：<code>s.loc[indexer]</code>、<code>df.loc[row_indexer, column_indexer]</code> 和 <code>p.loc[item_indexer, major_indexer, minor_indexer]</code>。</p>
+<p>用常见的 Excel 来举例的话，<code>Series</code> 就是一行数据（一维）、<code>DataFrame</code> 就是一整张表（二维），而 <code>Panel</code> 则是整个Excel文件（三维，可能包含多张表）。</p>
+<h3 id="缺省切片"><a href="#缺省切片" class="headerlink" title="缺省切片"></a>缺省切片</h3><p>实际上，<code>DataFrame</code> 切片也不一定要传两个参数，<code>Panel</code> 切片也不一定要传三个参数，省略参数默认为空切片。例如，<code>p.loc[&#39;a&#39;]</code> 等价于 <code>p.loc[&#39;a&#39;, :, :]</code>，效果是选择了一张数据表。</p>
+<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>双引号指明间隔顺序，例如 <code>s[::2]</code> 表明从第一个元素开始每隔一个元素选择，而 <code>s[::-1]</code> 表明从最后一个开始往前选择。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/14/Pandas%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/" class="post-title-link" itemprop="url">Python字符串前缀</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-09 11:44:39" itemprop="dateCreated datePublished" datetime="2019-03-09T11:44:39+08:00">2019-03-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>要搞清楚Python的字符编码问题，首先要区分两个概念：字符和字节。</p>
+<p>字符(character)是一个符号，例如”a”、“中”就是字符。而字节是计算机的储存单位，同样一个字符，例如”中”，在不同的编码下，对应的字节就不同。GBK编码下为双字节 <code>\xd6\xd0</code>，而UTF8编码下为三字节 <code>\xe4\xb8\xad</code>。</p>
+<p>所以，字符是对符号的抽象，而字节是字符在计算机上的实现。不仅对于Python，对于任何编程语言都是这样。</p>
+<h2 id="u"><a href="#u" class="headerlink" title="u"></a>u</h2><p><code>u&quot;sample-string&quot;</code> 表明字符串为Unicode字符串，UTF-8也是Python3的默认字符串编码。因为历史原因（Python诞生的时候Unicode标准还没有确定），Python2是不支持Unicode编码的，因此存储中文、Emoji等符号就依赖于各个用户自己的实现，导致了很多的混乱。这一点在C++上体现的“淋漓尽致”，C++字符串的变种之多之杂，是一般程序员很难想象的。</p>
+<p>而另一门我们熟知的语言，Java就乘上了Unicode的东风。Java中所有的字符串都采用UTF-16编码，因此很少有程序员在Java中遇到字符串编码的问题。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/03/09/Python%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/09/Python%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Python遍历文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-09 11:43:50" itemprop="dateCreated datePublished" datetime="2019-03-09T11:43:50+08:00">2019-03-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在进行数据处理时，经常需要遍历一个文件夹，在Python中最简单的解决办法是使用 <code>os.walk()</code>。</p>
+<h2 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h2><p>函数声明如下:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">top, topdown=<span class="literal">True</span>, onerror=<span class="literal">None</span>, followlinks=<span class="literal">False</span></span>):</span></span><br></pre></td></tr></table></figure>
+
+<p>top为传入的根目录。</p>
+<p><code>os.walk()</code> 函数会递归地为根目录下的每一个文件夹（包括根目录本身），产生一个三元组 <code>(dirpath, dirnames, filenames)</code>。</p>
+<p><code>dirpath</code> 为当前文件夹路径；<code>dirnames</code> 为 <code>dirpath</code> 下所有文件夹的名称（非递归，类似于资源管理器中或Finder中看到的文件夹）；<code>filenames</code> 为 <code>dirpath</code> 下所有文件的名称（同样非递归）。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/09/Python%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/03/09/%E8%A7%A3%E5%86%B3Pandas-Error-Tokenizing-Data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/09/%E8%A7%A3%E5%86%B3Pandas-Error-Tokenizing-Data/" class="post-title-link" itemprop="url">解决Pandas Error Tokenizing Data</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-09 11:41:39" itemprop="dateCreated datePublished" datetime="2019-03-09T11:41:39+08:00">2019-03-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" itemprop="url" rel="index"><span itemprop="name">疑难杂症</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在使用Pandas读取表格时，如果表格内容不规整（例如Schema信息包含8列，但是某一行包含了9列信息），Pandas会报 <code>Pandas Error Tokenizing Data</code> 的错，程序会立即停止执行。报这一错误可以分为两种场景：</p>
+<h2 id="表格Schema信息解析异常"><a href="#表格Schema信息解析异常" class="headerlink" title="表格Schema信息解析异常"></a>表格Schema信息解析异常</h2><p>第一种场景是表格的Schema信息，也即第一行不规整，导致Pandas无法正确解析。</p>
+<p>据官方文档，如果 <code>sep=None</code>（不传sep参数则默认为None），pandas会<strong>自动推断</strong>分隔符，但是在某些场景下自动推断并不好用。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df = pandas.read_csv(fileName, sep=<span class="string">&#x27;delimiter&#x27;</span>, header=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/09/%E8%A7%A3%E5%86%B3Pandas-Error-Tokenizing-Data/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/03/08/JDK%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/08/JDK%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">JDK的理解与配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:46:32" itemprop="dateCreated datePublished" datetime="2019-03-08T19:46:32+08:00">2019-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是JDK"><a href="#什么是JDK" class="headerlink" title="什么是JDK"></a>什么是JDK</h2><p>Sun公司在创造Java这一门语言时便有提到Java技术体系至少包括4个部分:</p>
+<ol>
+<li>Java程序设计语言</li>
+<li>各平台上的Java虚拟机 (Java Virtual Machine，JVM)</li>
+<li>Java API类库</li>
+<li>一系列辅助工具，最知名的如javac</li>
+</ol>
+<p>而 2+3 构成了JRE（Java Runtime Environment，Java运行时环境），是Java程序运行依赖的最小环境。</p>
+<p>1+2+3+4 构成了JDK (Java Development Kit)，也即 JRE+1+4 是Java开发所依赖的最小环境。</p>
+<p>从低级向高级，从底层到高层而言，是JVM -&gt; JRE -&gt; JDK的顺序。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/08/JDK%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E9%85%8D%E7%BD%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Agile40"
+      src="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+  <p class="site-author-name" itemprop="name">Agile40</p>
+  <div class="site-description" itemprop="description">立志每月产出一篇高质量博文✊✊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1335250440@qq.com" title="E-Mail → mailto:1335250440@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Agile40</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
