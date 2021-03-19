@@ -573,8 +573,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器框架. Spring不仅仅局限于服务器端开发, 任何Java引用都能在简易性、可测试性和松耦合等方面从Spring中获益.</p>
-<h2 id="版本变更"><a href="#版本变更" class="headerlink" title="版本变更"></a>版本变更</h2><p>Spring 2.5引入了基于注解的组件扫描, 大量消除了显式XML配置.<br>Spring 3.0引入了基于Java的配置, 可以替代XML.<br>Spring 4.0引入了条件化配置. Spring Boot就是利用条件化配置实现自动配置的.</p>
+          <blockquote>
+<p>笔记摘录于《Spring 实战》第四版，结合个人总结与思考。</p>
+</blockquote>
+<p>Spring 是一个轻量级的控制反转 (IoC) 和面向切面 (AOP) 的容器框架。Spring 不仅仅局限于服务器端开发，任何 Java 应用都能在简易性、可测试性和松耦合等方面从 Spring 中获益。</p>
+<h2 id="版本变更"><a href="#版本变更" class="headerlink" title="版本变更"></a>版本变更</h2><p>Spring 2.5 引入了基于注解的组件扫描，大量消除了显式 XML 配置。<br>Spring 3.0 引入了基于 Java 的配置，可以替代 XML。<br>Spring 4.0 引入了条件化配置。Spring Boot 就是利用条件化配置实现自动配置的。</p>
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><p>POJO (Plain Old Java Object)，简单老式 Java 对象。Spring 竭力避免因自身的 API 弄乱你的应用代码。Spring 不会强制你实现 Spring 规范的接口或继承 Spring 规范的类，相反，在基于 Spring 构建的应用中，它的类通常没有任何痕迹表明你使用了 Spring。最坏的场景是，一个类或许会使用 Spring 注解，但它仍然是 POJO。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/08/08/Spring%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/#more" rel="contents">
