@@ -2,6 +2,7 @@
 title: Spring核心知识
 date: 2019-08-08 22:10:51
 tags: [java, spring]
+categories: 读书笔记
 ---
 
 > 笔记摘录于《Spring 实战》第四版，结合个人总结与思考。
