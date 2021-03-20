@@ -344,3 +344,47 @@ public class Audience {
 ## 微服务
 
 微服务架构强调的重点是：业务系统需要彻底的组件化和服务化，原有的单个业务系统会拆分为多个可以独立开发、设计、运行和运维的小应用，这些小应用之间通过服务完成交互和集成。在微服务架构中我们强调彻底的组件化和服务化，每个微服务都可以独立的部署和投产，其实也就意味着很多的微服务有自己独立的数据库。
+
+### Spring Cloud 生态圈
+
+- **Spring Cloud Config 配置中心**，利用 Git 集中管理程序的配置。
+- **Spring Cloud Netflix Eureka 服务中心**（类似于管家的概念，需要什么直接从这里取就可以了），一个基于 REST 的服务，用于定位服务，以实现服务发现和故障转移。
+- **Spring Cloud Netflix Hystrix 熔断器**，容错管理工具，旨在通过熔断机制控制节点，从而对延迟和故障提供更强大的容错能力。
+- **Spring Cloud Netflix Zuul 网关**，是在云平台上提供动态路由、监控、弹性、安全等边缘服务的框架。Web 后端所有请求的前门。
+-  Spring Cloud Netflix Archaius 配置管理 API。
+- **Spring Cloud Netflix Ribbon 负载均衡**。
+- **Spring Cloud Netflix Fegin REST客户端**。
+- **Spring Cloud Bus 消息总线**，利用分布式消息将服务和服务实例连接在一起，用于在一个集群中传播状态的变化。
+- **Spring Cloud Cluster 集群工具**。
+- Spring Cloud Consul 基于 Hashicorp Consul 实现的服务发现和配置管理。
+- **Spring Cloud Security 安全控制**。
+- **Spring Cloud Sleuth 分布式链路监控**，Spring Cloud 应用的分布式追踪系统，和 Zipkin、HTrace、ELK 兼容。
+- Spring Cloud Task 任务工具。
+- Spring Cloud Zookeeper 服务发现和配置管理，基于 Apache Zookeeper。
+- Spring Cloud for Amazon Web Services 快速和亚马逊网络服务集成。
+
+## Spring 解决循环依赖
+
+```java
+
+public class BeanA {
+    @Autowired
+    private BeanB beanB;
+}
+
+public class BeanB {
+    @Autowired
+    private BeanA beanA;
+}
+```
+
+IOC 容器在读到上面的代码时，会按照顺序，先去实例化 beanA。然后发现 beanA 依赖于 beanB，接在又去实例化 beanB。实例化 beanB 时，发现 beanB 又依赖于 beanA。如果容器不处理循环依赖的话，容器会无限执行上面的流程，直到内存溢出、程序崩溃。当然，Spring 是不会让这种情况发生的。在容器再次发现 beanB 依赖于 beanA 时，容器会获取 beanA 对象的一个早期的引用（early reference），并把这个早期引用注入到 beanB 中，让 beanB 先完成实例化。beanB 完成实例化，beanA 就可以获取到 beanB 的引用，beanA 随之完成实例化。
+
+| 缓存                  | 用途                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| singletonObjects      | 用于存放完全初始化好的 bean，从该缓存中取出的 bean 可以直接使用 |
+| earlySingletonObjects | 存放原始的 bean 对象（尚未填充属性），用于解决循环依赖       |
+| singletonFactories    | 存放 bean 工厂对象，用于解决循环依赖                         |
+
+这就是 Spring 的**三级缓存**机制。在创建 bean 的时候，首先想到的是从 cache 中获取这个单例的 bean，这个缓存就是 singletonObjects。如果获取不到，就再从二级缓存 earlySingletonObjects 中获取。如果还是获取不到且允许 singletonFactories 通过getObject() 获取，就从三级缓存 singletonFactory.getObject() 获取，如果获取到了则把工厂对象从 singletonFactories 中移除，并把 bean 放入 earlySingletonObjects 中。
+
