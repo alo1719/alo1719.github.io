@@ -731,6 +731,9 @@
 </tbody></table>
 <p>这就是 Spring 的<strong>三级缓存</strong>机制。在创建 bean 的时候，首先想到的是从 cache 中获取这个单例的 bean，这个缓存就是 singletonObjects。如果获取不到，就再从二级缓存 earlySingletonObjects 中获取。如果还是获取不到且允许 singletonFactories 通过getObject() 获取，就从三级缓存 singletonFactory.getObject() 获取，如果获取到了则把工厂对象从 singletonFactories 中移除，并把 bean 放入 earlySingletonObjects 中。</p>
 ]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
       <tags>
         <tag>java</tag>
         <tag>spring</tag>
