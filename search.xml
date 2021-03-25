@@ -357,157 +357,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring Boot学习笔记</title>
-    <url>/2019/08/27/Spring-Boot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="Spring-Boot简介"><a href="#Spring-Boot简介" class="headerlink" title="Spring Boot简介"></a>Spring Boot简介</h2><p>Spring Boot提供了四个主要的特性, 能够改变开发Spring应用程序的方式:</p>
-<ul>
-<li>自动配置: Spring Boot的自动配置特性利用了Spring 4对条件化配置的支持, 合理地推测应用所需的bean并自动化配置它们.</li>
-<li>Spring Boot Starter: 将常用的依赖分组进行了整合, 将其合并到一个依赖中, 这样就可以一次性添加到项目的Maven或Gradle构建中.</li>
-<li>命令行接口(Command-line interface, CLI): Spring Boot的CLI发挥了Groovy编程语言的优势, 并结合自动配置进一步简化Spring应用的开发.</li>
-<li>Actuator: 深入运行中的Spring Boot应用程序, 在运行时检视应用程序内部情况.</li>
-</ul>
-<p>Spring Boot采用自动配置和Starter来消除Spring项目中的样板式配置.</p>
-<span id="more"></span>
-<p>自动配置指: 如果Spring Boot在应用程序的classpath里发现了H2数据库的库, 那么它就会自动配置一个嵌入式H2数据库. 如果在classpath中发现<code>JdbcTemplate</code>, 那么它还会配置一个<code>JdbcTemplate</code>的Bean.</p>
-<p>Spring Boot可以把Web应用程序变为可自执行的JAR文件, 不用部署到传统Java应用服务器里就能在命令行里运行. Spring Boot在应用程序里嵌入了一个Servlet容器(Tomcat, Jetty或Undertow). 从根本上来说, Spring Boot项目只是普通的Spring项目, 只是它们正好用到了Spring Boot的起步依赖和自动配置而已(没有它你自己也会去做).</p>
-<h2 id="Spring-Initializr"><a href="#Spring-Initializr" class="headerlink" title="Spring Initializr"></a>Spring Initializr</h2><p>Spring Initializr能提供一个基本的项目结构, 以及一个用于构建代码的Maven或Gradle构建说明文件. 也可以用Spring Boot CLI初始化项目.</p>
-<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><code>build.gradle</code>: Gradle构建说明文件.<br><code>pom.xml</code>: Maven构建说明文件.<br><code>src/main/java/myapp/Application.java</code>: 一个带有<code>main()</code>方法的类, 用于引导启动应用程序. 它不仅是启动引导类, 也是配置类.<br><code>src/test/java/myapp/ApplicationTests.java</code>: 一个空的JUnit测试类, 加载了一个使用Spring Boot自动配置功能的Spring应用程序上下文.<br><code>src/main/resources/application.properties</code>: 一个空的properties文件, 可以根据需要添加配置属性.<br><code>src/main/resources/static</code>: 存放Web应用程序的静态内容.<br><code>src/main/resources/templates</code>: 存放呈现模型数据的模板.<br><code>src/test/resources</code>: 存放测试资源.</p>
-<h2 id="Starter依赖"><a href="#Starter依赖" class="headerlink" title="Starter依赖"></a>Starter依赖</h2><p>Spring Boot提供更加粗粒度的依赖, 例如, <code>spring-boot-starter-web</code>包含了<code>spring-boot-starter</code>、 <code>spring-boot-starter-tomcat</code>、 <code>jackson-databind</code>、 <code>spring-web</code>、 <code>spring-webmvc</code>的依赖. <code>spring-boot-starter-test</code>为测试模块, 包括JUnit, Hamcrest和Mockito. <code>spring-boot-starter</code>是核心模块, 包括自动配置支持/日志和YAML.</p>
-<p>如果使用Maven进行管理, 配置方式为:</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>使用Gradle的话配置方式为:</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> &#123;</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">    <span class="keyword">def</span> hello() &#123;</span><br><span class="line">        <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>只需要<code>spring run HelloController.groovy</code>即可启动整个应用程序.</p>
-<h2 id="SpringBootApplication注解"><a href="#SpringBootApplication注解" class="headerlink" title="@SpringBootApplication注解"></a>@SpringBootApplication注解</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ReadingListApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@SpringBootApplication</code>开启了Spring的组件扫描和Spring Boot的自动配置功能. 实际上, <code>@SpringBootApplication</code>将<code>@SpringBootConfiguration</code>, <code>@ComponentScan</code>和<code>@EnableAutoConfiguration</code>三个有用的注解组合在了一起. 源码如下所示:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h3><p>首先来看<code>@SpringBootConfiguration</code>的源码:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中的<code>@Configuration</code>作用是配置Spring容器, 源自Spring. <code>@Configuration</code>和<code>@SpringBootConfiguration</code>都是将当前类标注为配置类, 并将当前类里以<code>@Bean</code>注解标记的方法的实例注入到Spring容器中, 实例名就是方法名.</p>
-<h3 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h3><p><code>@EnableAutoConfiguration</code>的源码如下:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(AutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@EnableAutoConfiguration</code>注解启用自动配置, 可以帮助<code>SpringBoot</code>应用将符合条件的<code>@Configuration</code>配置都加载到当前IoC容器之中.</p>
-<p>从宏观角度概括, <code>@EnableAutoConfiguration</code>从classpath下扫描所有的 <code>META-INF/spring.factories</code> 配置文件, 并将 <code>spring.factories</code> 文件中的 <code>EnableAutoConfiguration</code> 对应的配置项通过反射机制实例化为对应标注了 <code>@Configuration</code> 的形式的IoC容器配置类, 然后注入IoC容器.</p>
-<h3 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h3><p><code>@ComponentScan</code> 对应于XML配置形式中的 <code>context:component-scan</code>, 用于将一些标注了特定注解的bean定义批量采集注册到Spring的IoC容器之中, 这些特定的注解大致包括:</p>
-<ul>
-<li>@Controller</li>
-<li>@Entity</li>
-<li>@Component</li>
-<li>@Service</li>
-<li>@Repository</li>
-</ul>
-<p>等等</p>
-<h2 id="application-properties文件"><a href="#application-properties文件" class="headerlink" title="application.properties文件"></a>application.properties文件</h2><p>加入一行<code>server.port=8000</code>就可以把监听端口从默认的8080改变到8000.</p>
-<p><code>application.properties</code>文件可以细粒度地调整Spring Boot地自动配置. 完全不用告诉Spring Boot加载<code>application.properties</code>, 只要它存在就会被加载, Spring和应用程序代码都能获取其中的属性.</p>
-<h2 id="Spring-Boot构建过程解析"><a href="#Spring-Boot构建过程解析" class="headerlink" title="Spring Boot构建过程解析"></a>Spring Boot构建过程解析</h2><p>Spring Boot为Gradle和Maven提供了构建插件, 以便辅助构建Spring Boot项目. 构建插件的主要功能是把项目打包成一个可执行的超级JAR(uber-JAR), 其中的内容能够用<code>java -jar</code>来运行应用程序.</p>
-<p>使用Maven构建的话还可以将<code>spring-boot-starter-parent</code>作为上一级, 利用Maven的依赖管理功能, 继承很多常用库的依赖版本, 不用再去指定版本号. Gradle原生没有这样的功能, Spring Boot Gradle插件提供了这个特性.</p>
-<h3 id="排除传递依赖"><a href="#排除传递依赖" class="headerlink" title="排除传递依赖"></a>排除传递依赖</h3><p>Spring Boot的Web起步依赖传递依赖了Jackson JSON库, 排除掉传递依赖可以为项目瘦身.</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>) &#123;   exclude <span class="attr">group:</span> <span class="string">&#x27;com.fasterxml.jackson.core&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Maven总是会用最近的依赖, 而Gradle使用库的更新版本. 所以Gradle使用老版本的Jackson时需要把Web起步依赖传递依赖的版本排除掉, 并加入老版本.</p>
-<h3 id="定义领域模型"><a href="#定义领域模型" class="headerlink" title="定义领域模型"></a>定义领域模型</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy=GenerationType.AUTO)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String reader;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getID</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setID</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReader</span><span class="params">(String reader)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reader = reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@Entity</code>注解表明它是一个JPA实体, <code>id</code>属性加了<code>@Id</code>和<code>@GeneratedValue</code>注解, 说明这个字段是实体的唯一标识, 并且这个字段的值是自动生成的.</p>
-<h3 id="定义仓库接口"><a href="#定义仓库接口" class="headerlink" title="定义仓库接口"></a>定义仓库接口</h3><p>把<code>Book</code>对象持久化到数据库仓库. 因为用了Spring Data JPA, 只要简单地定义一个接口, 拓展一下Spring Data JPA地<code>JpaRepository</code>接口.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadingListRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Book</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Book&gt; <span class="title">findByReader</span><span class="params">(String reader)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过拓展<code>JpaRepository</code>, <code>ReadingListRepository</code>直接继承了18个执行常用持久化操作的方法. <code>JpaRepository</code>是个泛型接口, 有两个参数: 仓库操作的领域对象类型, 及其ID属性的类型. 此外, 还增加了一个<code>findByTitle()</code>方法, 可以根据标题来查找阅读列表.</p>
-<h3 id="创建Web界面"><a href="#创建Web界面" class="headerlink" title="创建Web界面"></a>创建Web界面</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReadingListRepository readingListRepository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReadingListController</span><span class="params">(ReadingListRepository readingListRepository)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.readingListRepository = readingListRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readersBooks</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Model model)</span> </span>&#123;</span><br><span class="line">        List&lt;Book&gt; readingList = readingListRepository.findByReader(reader);</span><br><span class="line">        <span class="keyword">if</span> (readingList != <span class="keyword">null</span>) &#123;</span><br><span class="line">            model.addAttribute(<span class="string">&quot;books&quot;</span>, readingList);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;readingList&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.POST)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addToReadingList</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Book book)</span> </span>&#123;</span><br><span class="line">        book.setReader(reader);</span><br><span class="line">        readingListRepository.save(book);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/&#123;reader&#125;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>readersBooks()</code>处理<code>/&#123;reader&#125;</code>上的HTTP GET请求, 根据路径里指定的读者, 从(通过控制器的构造器注入的)仓库获取Book列表. 随后将这个列表塞入模型, 用的键是books, 最后返回readingList作为呈现模型的试图逻辑名称.</p>
-<p><code>addToReadingList()</code>处理<code>/&#123;reader&#125;</code>上的HTTP POST请求, 将请求正文里的数据绑定到一个Book对象上. 该方法把Book对象的reader属性设置为读者的姓名, 随后通过仓库的<code>save()</code>方法保存修改后的Book对象, 最后重定向到/{reader}(控制器中的另一个方法会处理该请求).</p>
-<p>书中的前端页面采用了Thymeleaf模板, 此处不再赘述.</p>
-<p>至此, 一个完整的Spring Boot应用程序构建完成.</p>
-<h2 id="覆盖Spring-Boot自动配置"><a href="#覆盖Spring-Boot自动配置" class="headerlink" title="覆盖Spring Boot自动配置"></a>覆盖Spring Boot自动配置</h2><p>Spring Boot对安全特性的自动配置做得还不够好. 覆盖自动配置很简单, 就当自动配置不存在, 直接显式地写一段配置. 这段显式配置的形式不限, Spring支持的XML和Groovy形式配置都可以.</p>
-<h2 id="通过属性文件外置配置"><a href="#通过属性文件外置配置" class="headerlink" title="通过属性文件外置配置"></a>通过属性文件外置配置</h2><p>Spring Boot应用程序有多种设置途径. Spring Boot能从多种属性源获得属性, 包括如下几处:</p>
-<ol>
-<li>命令行参数</li>
-<li><code>java:comp/env</code>里的JNDI属性</li>
-<li>JVM系统属性</li>
-<li>操作系统环境变量</li>
-<li>随机生成的带<code>random.*</code>前缀的属性(在设置其他属性时, 可以引用它们, 比如<code>$&#123;random.long&#125;</code>)</li>
-<li>应用程序以外的application.properties或者appliaction.yml文件</li>
-<li>打包在应用程序内的application.properties或者appliaction.yml文件</li>
-<li>通过<code>@PropertySource</code>标注的属性源</li>
-<li>默认属性</li>
-</ol>
-<p>这个列表按照优先级排序, 也就是说, 任何在高优先级属性源里设置的属性都会覆盖低优先级的相同属性.</p>
-<p>application.properties和application.yml文件能放在以下四个位置.</p>
-<ol>
-<li>外置, 在相对于应用程序运行目录的/config子目录里.</li>
-<li>外置，在应用程序运行的目录里</li>
-<li>内置，在config包内</li>
-<li>内置，在classpath根目录</li>
-</ol>
-<p>同样, 这个列表按照优先级排序. 也就是说, /config子目录里的application.properties会覆盖应用程序classpath里的application.properties中的相同属性.</p>
-<h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><p>在application.properties中设置(也可以用application.yml配置):</p>
-<p>更改日志配置:</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">logging.path=/var/logs/</span><br><span class="line">logging.file=BookWorm.log</span><br><span class="line">logging.level.root=WARN</span><br><span class="line">logging.level.root.org.springframework.security=DEBUG</span><br></pre></td></tr></table></figure>
-
-<p>配置数据源:</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">dbuser</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">dbpass</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Spring-Boot测试"><a href="#Spring-Boot测试" class="headerlink" title="Spring Boot测试"></a>Spring Boot测试</h2><p>在编写单元测试的时候, Spring通常不需要介入. 但是, 集成测试要用到Spring.</p>
-<p>Spring自1.1.1版就向集成测试提供了极佳的支持. 自Spring 2.5开始, 集成测试支持的形式就变成了SpringJUnit4ClassRunner. 这是一个JUnit类运行器, 会为JUnit测试加载Spring应用程序上下文, 并为测试类自动织入所需的Bean.</p>
-<p>要恰当地测试一个Web应用程序, 你需要投入一些实际的HTTP请求, 确认它能正确地处理那些请求. 幸运的是, Spring Boot开发者有两个可选的方案能实现这类测试.</p>
-<ul>
-<li>Spring Mock MVC: 能在一个近似真实的模拟Servlet容器里测试控制器, 而不用实际启动应用服务器.</li>
-<li>Web集成测试: 在嵌入式Servlet容器(比如Tomcat或Jetty)里启动应用程序, 在真正的应用服务器里执行测试.</li>
-</ul>
-<h2 id="Groovy与Spring-Boot-CLI"><a href="#Groovy与Spring-Boot-CLI" class="headerlink" title="Groovy与Spring Boot CLI"></a>Groovy与Spring Boot CLI</h2><p>Groovy并不要求有<code>public</code>和<code>private</code>这样的限定符, 也不要求行尾有分号.</p>
-<h2 id="Actuator"><a href="#Actuator" class="headerlink" title="Actuator"></a>Actuator</h2><p>要启用Actuator的端点, 只需在项目中引入Actuator的起步依赖即可.</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.springframework.boot:spring-boot-starter-actuator&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="获得Bean装配报告"><a href="#获得Bean装配报告" class="headerlink" title="获得Bean装配报告"></a>获得Bean装配报告</h3><p>向<code>/beans</code>发起GET请求后, 会获得Bean装配报告的JSON文档. 所有的Bean条目都有5类信息.</p>
-<ul>
-<li>bean: Bean的名称或ID</li>
-<li>resource: <code>.class</code>文件的物理位置, 通常是一个URL, 指向构建出的JAR文件. 这会随着 应用程序的构建和运行方式发生变化.</li>
-<li>dependencies: 当前Bean注入的Bean ID列表.</li>
-<li>scope: Bean的作用域(通常是单例).</li>
-<li>type: Bean的Java类型.</li>
-</ul>
-<p><code>/autoconfig</code>端点能报告为什么会有这个Bean, 或者为什么没有这个Bean. <code>/env</code>端点会生成应用程序可用的所有环境属性的列表, 包括环境变量、JVM属性、命令行参数，以及application.properties或application.yml提供的属性. <code>/env</code>还能获取单个属性的值, 例如<code>/env/amazon.associate_id</code>.</p>
-<p><code>/mappings</code>罗列出应用程序发布的全部端点. <code>/metrics</code>端点能查看运行时数据, 例如GC、内存、线程池等等. <code>/trace</code>端点能报告所有Web请求的详细信息. <code>/dump</code>端点生成当前线程活动的快照. <code>/health</code>端点列出健康指示器, 例如数据库是否能连上、邮件服务器是否能连上等.</p>
-<h2 id="部署Spring-Boot应用程序"><a href="#部署Spring-Boot应用程序" class="headerlink" title="部署Spring Boot应用程序"></a>部署Spring Boot应用程序</h2><h3 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h3><ul>
-<li>在IDE中运行应用程序</li>
-<li>使用Maven的<code>spring-boot:run</code>或Gradle的<code>bootRun</code></li>
-<li>使用Maven或Gradle生成可运行的JAR文件, 随后在命令行中运行</li>
-<li>使用Spring Boot CLI在命令行中运行Groovy脚本</li>
-<li>使用Spring Boot CLI来生成可运行的JAR文件, 随后在命令行中运行</li>
-</ul>
-<p>追对应用服务器的部署, 常需要把应用程序打包成一个WAR文件.</p>
-<h3 id="构建WAR文件"><a href="#构建WAR文件" class="headerlink" title="构建WAR文件"></a>构建WAR文件</h3><p>如果使用Gradle, 只需应用WAR插件<code>apply plugin: &#39;war&#39;</code>, 并在<code>build.gradle</code>里用war配置替换原来的jar配置(只需把jar换成war).</p>
-<p>使用Maven的话, 获取WAR会更加容易, 只要把<code>&lt;packaing&gt;</code>元素的值从jar改成war. 但是以上方法要启用Spring MVC DispatcherServlet的<code>web.xml</code>文件或者Servlet初始化类.</p>
-<p>而Spring Boot提供的SpringBootServletInitializer是一个支持Spring Boot的Spring WebApplicationInitializer实现.</p>
-<p>要使用SpringBootServletInitializer, 只需创建一个子类, 覆盖configure()方法来指定Spring配置类.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListServletInitializer</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> SpringApplicationBuilder <span class="title">configure</span><span class="params">( SpringApplicationBuilder builder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> builder.sources(Application.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>configure()</code>方法传入了一个SpringApplicationBuilder参数, 并将其作为结果返回. 期间它调用了<code>sources()</code>方法注册了一个Spring配置类(即Application.class). 这个类既是启动类(带有main方法), 也是一个Spring配置类.</p>
-<p>之后可以使用<code>gradle build</code>或者<code>mvn package</code>打包.</p>
-<h2 id="Spring-Boot开发者工具"><a href="#Spring-Boot开发者工具" class="headerlink" title="Spring Boot开发者工具"></a>Spring Boot开发者工具</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&quot;org.springframework.boot:spring-boot-devtools&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>以添加开发者工具. 在激活了开发者工具后, Classpath里对文件做任何修改都会触发应用程序重启. 为了让重启速度够快, 不会修改的类(比如第三方JAR文件里的类)都加载到了基础类加载器里, 而应用程序的代码则会加载到一个单独的重启类加载器里. 检测到变更时, 只有重启类加载器重启.</p>
-]]></content>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot+MyBatis实战</title>
     <url>/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/</url>
     <content><![CDATA[<h2 id="ORM与MyBatis"><a href="#ORM与MyBatis" class="headerlink" title="ORM与MyBatis"></a>ORM与MyBatis</h2><p>Object Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。</p>
@@ -567,6 +416,162 @@
       </categories>
       <tags>
         <tag>java，spring，mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot 知识</title>
+    <url>/2019/08/27/SpringBoot%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<blockquote>
+<p>笔记摘录于《Spring Boot 实战》第四版，结合个人总结与思考。</p>
+</blockquote>
+<h2 id="Spring-Boot简介"><a href="#Spring-Boot简介" class="headerlink" title="Spring Boot简介"></a>Spring Boot简介</h2><p>Spring Boot 提供了四个主要的特性，能够改变开发 Spring 应用程序的方式：</p>
+<ul>
+<li>自动配置：Spring Boot 的自动配置特性利用了 Spring 4 对条件化配置的支持，合理地推测应用所需的 bean 并自动化配置它们。</li>
+<li>Spring Boot Starter：将常用的依赖分组进行了整合，将其合并到一个依赖中，这样就可以一次性添加到项目的 Maven 或 Gradle 构建中。</li>
+<li>命令行接口 (Command-line interface, CLI)：Spring Boot 的 CLI 发挥了 Groovy 编程语言的优势，并结合自动配置进一步简化 Spring 应用的开发。</li>
+<li>Actuator：深入运行中的 Spring Boot 应用程序，在运行时检视应用程序内部情况。</li>
+</ul>
+<p>Spring Boot 采用自动配置和 Starter 来消除 Spring 项目中的样板式配置。</p>
+<p>自动配置指：如果 Spring Boot 在应用程序的 classpath 里发现了 H2 数据库的库，那么它就会自动配置一个嵌入式 H2 数据库。如果在 classpath 中发现 <code>JdbcTemplate</code>，那么它还会配置一个 <code>JdbcTemplate</code> 的 Bean。</p>
+<p>Spring Boot 可以把 Web 应用程序变为可自执行的 JAR 文件，不用部署到传统 Java 应用服务器里就能在命令行里运行。Spring Boot 在应用程序里嵌入了一个 Servlet 容器（Tomcat、Jetty 或 Undertow）。从根本上来说，Spring Boot 项目只是普通的 Spring 项目，只是它们正好用到了 Spring Boot 的起步依赖和自动配置而已（没有 Spring Boot 程序员自己也会去做）。</p>
+<span id="more"></span>
+
+<h2 id="Spring-Initializr"><a href="#Spring-Initializr" class="headerlink" title="Spring Initializr"></a>Spring Initializr</h2><p>Spring Initializr 能提供一个基本的项目结构，以及一个用于构建代码的 Maven 或 Gradle 构建说明文件。也可以用 Spring Boot CLI 初始化项目。</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><code>build.gradle</code>：Gradle 构建说明文件。<br><code>pom.xml</code>：Maven 构建说明文件。<br><code>src/main/java/myapp/Application.java</code>：一个带有 <code>main()</code> 方法的类，用于引导启动应用程序。它不仅是启动引导类，也是配置类。<br><code>src/test/java/myapp/ApplicationTests.java</code>：一个空的 JUnit 测试类，加载了一个使用 Spring Boot 自动配置功能的 Spring 应用程序上下文。<br><code>src/main/resources/application.properties</code>：一个空的 properties 文件，可以根据需要添加配置属性。<br><code>src/main/resources/static</code>：存放 Web 应用程序的静态内容。<br><code>src/main/resources/templates</code>：存放呈现模型数据的模板。<br><code>src/test/resources</code>：存放测试资源。</p>
+<h2 id="Starter依赖"><a href="#Starter依赖" class="headerlink" title="Starter依赖"></a>Starter依赖</h2><p>Spring Boot 提供更加粗粒度的依赖，例如，<code>spring-boot-starter-web</code> 包含了 <code>spring-boot-starter</code>、<code>spring-boot-starter-tomcat</code>、<code>jackson-databind</code>、<code>spring-web</code>、<code>spring-webmvc</code>的依赖。<code>spring-boot-starter-test</code> 为测试模块，包括 JUnit，Hamcrest 和 Mockito。<code>spring-boot-starter</code> 是核心模块，包括自动配置支持、日志和 YAML。</p>
+<p>如果使用Maven进行管理，配置方式为：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用Gradle的话配置方式为：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> &#123;</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">    <span class="keyword">def</span> hello() &#123;</span><br><span class="line">        <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要 <code>spring run HelloController.groovy</code> 即可启动整个应用程序。</p>
+<h2 id="SpringBootApplication-注解"><a href="#SpringBootApplication-注解" class="headerlink" title="@SpringBootApplication 注解"></a>@SpringBootApplication 注解</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ReadingListApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@SpringBootApplication</code> 开启了 Spring 的组件扫描和 Spring Boot 的自动配置功能。实际上，<code>@SpringBootApplication</code> 将 <code>@SpringBootConfiguration</code>，<code>@ComponentScan</code> 和 <code>@EnableAutoConfiguration</code> 三个有用的注解组合在了一起。源码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h3><p>首先来看 <code>@SpringBootConfiguration</code> 的源码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的 <code>@Configuration</code> 作用是配置 Spring 容器，源自 Spring。<code>@Configuration</code> 和 <code>@SpringBootConfiguration</code> 都是将当前类标注为配置类，并将当前类里以 <code>@Bean</code> 注解标记的方法的实例注入到 Spring 容器中，实例名就是方法名。</p>
+<h3 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h3><p><code>@EnableAutoConfiguration</code> 的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(AutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@EnableAutoConfiguration</code> 注解启用自动配置，可以帮助 SpringBoot 应用将符合条件的 <code>@Configuration</code> 配置都加载到当前 IoC 容器之中。</p>
+<h3 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h3><p><code>@ComponentScan</code> 对应于XML配置形式中的 <code>context:component-scan</code>，用于将一些标注了特定注解的 bean 定义批量采集注册到Spring 的 IoC 容器之中，这些特定的注解大致包括：</p>
+<ul>
+<li>@Controller</li>
+<li>@Entity</li>
+<li>@Component</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ul>
+<h2 id="application-properties文件"><a href="#application-properties文件" class="headerlink" title="application.properties文件"></a>application.properties文件</h2><p>加入一行 <code>server.port=8000</code> 就可以把监听端口从默认的 8080 改变到 8000。</p>
+<p><code>application.properties</code> 文件可以细粒度地调整 Spring Boot 的自动配置。完全不用告诉 Spring Boot 加载 <code>application.properties</code>，只要它存在就会被加载，Spring 和应用程序代码都能获取其中的属性。</p>
+<h2 id="Spring-Boot构建过程解析"><a href="#Spring-Boot构建过程解析" class="headerlink" title="Spring Boot构建过程解析"></a>Spring Boot构建过程解析</h2><p>Spring Boot 为 Gradle 和 Maven 提供了构建插件，以便辅助构建 Spring Boot 项目。构建插件的主要功能是把项目打包成一个可执行的超级 JAR (uber-JAR)，其中的内容能够用 <code>java -jar</code> 来运行应用程序。</p>
+<p>使用 Maven 构建的话还可以将 <code>spring-boot-starter-parent</code> 作为上一级，利用 Maven 的依赖管理功能，继承很多常用库的依赖版本，不用再去指定版本号。Gradle 原生没有这样的功能，Spring Boot Gradle 插件提供了这个特性。</p>
+<h3 id="排除传递依赖"><a href="#排除传递依赖" class="headerlink" title="排除传递依赖"></a>排除传递依赖</h3><p>Spring Boot 的 Web 起步依赖传递依赖了 Jackson JSON 库，排除掉传递依赖可以为项目瘦身。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>) &#123;</span><br><span class="line">    exclude <span class="attr">group:</span> <span class="string">&#x27;com.fasterxml.jackson.core&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Maven 总是会用最近的依赖，而 Gradle 使用库的更新版本。所以 Gradle 使用老版本的 Jackson 时需要把 Web 起步依赖传递依赖的版本排除掉，并加入老版本。</p>
+<h3 id="定义领域模型"><a href="#定义领域模型" class="headerlink" title="定义领域模型"></a>定义领域模型</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy=GenerationType.AUTO)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String reader;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getID</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setID</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReader</span><span class="params">(String reader)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reader = reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Entity</code> 注解表明它是一个 JPA 实体，<code>id</code> 属性加了 <code>@Id</code> 和 <code>@GeneratedValue</code> 注解，说明这个字段是实体的唯一标识，并且这个字段的值是自动生成的。</p>
+<h3 id="定义仓库接口"><a href="#定义仓库接口" class="headerlink" title="定义仓库接口"></a>定义仓库接口</h3><p>把 <code>Book</code> 对象持久化到数据库。因为用了 Spring Data JPA，只要简单地定义一个接口，拓展一下 Spring Data JPA 的<code>JpaRepository</code> 接口。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadingListRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Book</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Book&gt; <span class="title">findByReader</span><span class="params">(String reader)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过拓展 <code>JpaRepository</code>，<code>ReadingListRepository</code> 直接继承了 18 个执行常用持久化操作的方法。<code>JpaRepository</code> 是个泛型接口，有两个参数: 数据库操作的领域对象类型，及其 ID 属性的类型。此外，还增加了一个 <code>findByReader()</code> 方法，可以根据读者来查找阅读列表。</p>
+<h3 id="创建Web界面"><a href="#创建Web界面" class="headerlink" title="创建Web界面"></a>创建Web界面</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReadingListRepository readingListRepository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReadingListController</span><span class="params">(ReadingListRepository readingListRepository)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.readingListRepository = readingListRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readersBooks</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Model model)</span> </span>&#123;</span><br><span class="line">        List&lt;Book&gt; readingList = readingListRepository.findByReader(reader);</span><br><span class="line">        <span class="keyword">if</span> (readingList != <span class="keyword">null</span>) &#123;</span><br><span class="line">            model.addAttribute(<span class="string">&quot;books&quot;</span>, readingList);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;readingList&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.POST)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addToReadingList</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Book book)</span> </span>&#123;</span><br><span class="line">        book.setReader(reader);</span><br><span class="line">        readingListRepository.save(book);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/&#123;reader&#125;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>readersBooks()</code> 处理 <code>/&#123;reader&#125;</code> 上的 HTTP GET 请求，根据路径里指定的读者，从（通过控制器的构造器注入的）Repo 获取 Book 列表。随后将这个列表塞入模型，用的键是 books，最后返回 readingList 作为呈现模型的视图逻辑名称。</p>
+<p><code>addToReadingList()</code> 处理 <code>/&#123;reader&#125;</code> 上的 HTTP POST 请求，将请求正文里的数据绑定到一个 Book 对象上。该方法把 Book 对象的 reader 属性设置为读者的姓名，随后通过仓库的 <code>save()</code> 方法保存修改后的 Book 对象，最后重定向到 <code>/&#123;reader&#125;</code>（控制器中的另一个方法会处理该请求）。</p>
+<p>书中的前端页面采用了 Thymeleaf 模板，此处不再赘述。</p>
+<p>至此，一个完整的 Spring Boot 应用程序构建完成。</p>
+<h2 id="覆盖Spring-Boot自动配置"><a href="#覆盖Spring-Boot自动配置" class="headerlink" title="覆盖Spring Boot自动配置"></a>覆盖Spring Boot自动配置</h2><p>Spring Boot 对安全特性的自动配置做得还不够好。覆盖自动配置很简单，就当自动配置不存在，直接显式地写一段配置。这段显式配置的形式不限，Spring 支持的 XML 和 Groovy 形式配置都可以。</p>
+<h2 id="通过属性文件外置配置"><a href="#通过属性文件外置配置" class="headerlink" title="通过属性文件外置配置"></a>通过属性文件外置配置</h2><p>Spring Boot 应用程序有多种设置途径。Spring Boot 能从多种属性源获得属性，包括如下几处:</p>
+<ol>
+<li>命令行参数</li>
+<li><code>java:comp/env</code> 里的 JNDI 属性</li>
+<li>JVM 系统属性</li>
+<li>操作系统环境变量</li>
+<li>随机生成的带 <code>random.*</code> 前缀的属性（在设置其他属性时，可以引用它们，比如 <code>$&#123;random.long&#125;</code>）</li>
+<li>应用程序以外的 application.properties 或者 appliaction.yml 文件</li>
+<li>打包在应用程序内的 application.properties 或者 appliaction.yml 文件</li>
+<li>通过 <code>@PropertySource</code> 标注的属性源</li>
+<li>默认属性</li>
+</ol>
+<p>这个列表按照优先级排序，也就是说，任何在高优先级属性源里设置的属性都会覆盖低优先级的相同属性。</p>
+<p>application.properties 和 application.yml 文件能放在以下四个位置。</p>
+<ol>
+<li>外置，在相对于应用程序运行目录的 <code>/config</code> 子目录里</li>
+<li>外置，在应用程序运行的目录里</li>
+<li>内置，在 config 包内</li>
+<li>内置，在 classpath 根目录</li>
+</ol>
+<p>同样，这个列表按照优先级排序。也就是说，<code>/config</code> 子目录里的 application.properties 会覆盖应用程序 classpath 里的application.properties 中的相同属性。</p>
+<h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><p>在 application.properties 中设置（也可以用application.yml配置）：</p>
+<p>更改日志配置：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">logging.path=/var/logs/</span><br><span class="line">logging.file=BookWorm.log</span><br><span class="line">logging.level.root=WARN</span><br><span class="line">logging.level.root.org.springframework.security=DEBUG</span><br></pre></td></tr></table></figure>
+
+<p>配置数据源:</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">dbuser</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">dbpass</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Boot测试"><a href="#Spring-Boot测试" class="headerlink" title="Spring Boot测试"></a>Spring Boot测试</h2><p>在编写单元测试的时候，Spring 通常不需要介入。但是，集成测试要用到 Spring。</p>
+<p>Spring 自 1.1.1 版就向集成测试提供了极佳的支持。自 Spring 2.5 开始，集成测试支持的形式就变成了 SpringJUnit4ClassRunner。这是一个 JUnit 类运行器，会为 JUnit 测试加载 Spring 应用程序上下文，并为测试类自动织入所需的 Bean。</p>
+<p>要恰当地测试一个 Web 应用程序，你需要投入一些实际的 HTTP 请求，确认它能正确地处理那些请求。幸运的是，Spring Boot 开发者有两个可选的方案能实现这类测试。</p>
+<ul>
+<li>Spring Mock MVC：能在一个近似真实的模拟 Servlet 容器里测试控制器，而不用实际启动应用服务器。</li>
+<li>Web 集成测试：在嵌入式 Servlet 容器（比如 Tomcat 或 Jetty）里启动应用程序，在真正的应用服务器里执行测试。</li>
+</ul>
+<h2 id="Groovy与Spring-Boot-CLI"><a href="#Groovy与Spring-Boot-CLI" class="headerlink" title="Groovy与Spring Boot CLI"></a>Groovy与Spring Boot CLI</h2><p>Groovy并不要求有 <code>public</code> 和 <code>private</code> 这样的限定符，也不要求行尾有分号。</p>
+<h2 id="Actuator"><a href="#Actuator" class="headerlink" title="Actuator"></a>Actuator</h2><p>要启用 Actuator 的端点，只需在项目中引入 Actuator 的起步依赖即可。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.springframework.boot:spring-boot-starter-actuator&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获得Bean装配报告"><a href="#获得Bean装配报告" class="headerlink" title="获得Bean装配报告"></a>获得Bean装配报告</h3><p>向 <code>/beans</code> 发起 GET 请求后，会获得 Bean 装配报告的 JSON 文档。所有的 Bean 条目都有 5 类信息。</p>
+<ul>
+<li>bean：Bean的名称或ID。</li>
+<li>resource：<code>.class</code> 文件的物理位置，通常是一个 URL，指向构建出的 JAR 文件。这会随着应用程序的构建和运行方式发生变化。</li>
+<li>dependencies：当前 Bean 注入的 Bean ID 列表。</li>
+<li>scope：Bean 的作用域（通常是单例）。</li>
+<li>type：Bean 的 Java 类型。</li>
+</ul>
+<p><code>/autoconfig</code> 端点能报告为什么会有这个 Bean，或者为什么没有这个 Bean。<code>/env</code> 端点会生成应用程序可用的所有环境属性的列表，包括环境变量、JVM 属性、命令行参数，以及 application.properties 或 application.yml 提供的属性。<code>/env</code> 还能获取单个属性的值，例如 <code>/env/amazon.associate_id</code>。</p>
+<p><code>/mappings</code> 罗列出应用程序发布的全部端点。<code>/metrics</code> 端点能查看运行时数据，例如 GC、内存、线程池等等。<code>/trace</code> 端点能报告所有Web请求的详细信息。<code>/dump</code> 端点生成当前线程活动的快照。<code>/health</code> 端点列出健康指示器，例如数据库是否能连上、邮件服务器是否能连上等。</p>
+<h2 id="部署Spring-Boot应用程序"><a href="#部署Spring-Boot应用程序" class="headerlink" title="部署Spring Boot应用程序"></a>部署Spring Boot应用程序</h2><h3 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h3><ul>
+<li>在 IDE 中运行应用程序</li>
+<li>使用 Maven的 <code>spring-boot:run</code> 或 Gradle 的 <code>bootRun</code></li>
+<li>使用 Maven 或 Gradle 生成可运行的 JAR 文件，随后在命令行中运行</li>
+<li>使用 Spring Boot CLI 在命令行中运行 Groovy 脚本</li>
+<li>使用 Spring Boot CLI 来生成可运行的 JAR 文件，随后在命令行中运行</li>
+</ul>
+<p>针对应用服务器的部署，常需要把应用程序打包成一个 WAR 文件。</p>
+<h3 id="构建WAR文件"><a href="#构建WAR文件" class="headerlink" title="构建WAR文件"></a>构建WAR文件</h3><p>如果使用 Gradle，只需应用 WAR 插件 <code>apply plugin: &#39;war&#39;</code>，并在 <code>build.gradle</code> 里用 war 配置替换原来的 jar 配置（只需把jar换成war）。</p>
+<p>使用 Maven 的话，获取 WAR 会更加容易，只要把 <code>&lt;packaing&gt;</code> 元素的值从 jar 改成 war。但是以上方法要启用 Spring MVC DispatcherServlet 的 <code>web.xml</code> 文件或者 Servlet 初始化类。</p>
+<p>而 Spring Boot 提供的 SpringBootServletInitializer 是一个支持 Spring Boot 的 Spring WebApplicationInitializer 实现。</p>
+<p>要使用SpringBootServletInitializer，只需创建一个子类，覆盖 configure() 方法来指定 Spring 配置类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListServletInitializer</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> SpringApplicationBuilder <span class="title">configure</span><span class="params">(SpringApplicationBuilder builder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> builder.sources(Application.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>configure()</code> 方法传入了一个 SpringApplicationBuilder 参数，并将其作为结果返回。期间它调用了 <code>sources()</code> 方法注册了一个 Spring 配置类（即 Application.class）。这个类既是启动类（带有 main 方法)，也是一个 Spring 配置类。</p>
+<p>之后可以使用 <code>gradle build</code> 或者 <code>mvn package</code> 打包。</p>
+<h2 id="Spring-Boot开发者工具"><a href="#Spring-Boot开发者工具" class="headerlink" title="Spring Boot开发者工具"></a>Spring Boot开发者工具</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&quot;org.springframework.boot:spring-boot-devtools&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以添加开发者工具。在激活了开发者工具后，classpath 里对文件做任何修改都会触发应用程序重启。为了让重启速度够快，不会修改的类（比如第三方 JAR 文件里的类）都加载到了基础类加载器里，而应用程序的代码则会加载到一个单独的重启类加载器里。检测到变更时，只有重启类加载器重启。</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
