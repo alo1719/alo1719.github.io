@@ -22,7 +22,7 @@ HTML 中的脚本必须位于 `<script>` 与 `</script>` 标签之间。
 ### 外链脚本实例
 
 ```html
-<script src=“myScript.js”>
+<script src="myScript.js">
 </script>
 ```
 <!-- more -->
@@ -40,13 +40,13 @@ World!");
 先定义一个按钮元素
 
 ```html
-<button type=“submit" class="btn" id="mybutton1”> 提交 </button>
+<button type="submit" class="btn" id="mybutton1"> 提交 </button>
 ```
 
 然后在 JavaScript 中写 `onclick` 函数
 
 ```js
-var button = document.getElementById(“mybutton1”);
+var button = document.getElementById("mybutton1");
 button.onclick = function() {
     //要写的东西
 }
@@ -108,7 +108,7 @@ TypeScript 是微软开发的开源语言。它是 JavaScript 的一个超集，
 1. 为 ECharts 准备一个具备宽高的 DOM 容器
 
    ```html
-   <div id=“main" style="width: 600px;height: 400px;”>
+   <div id="main" style="width: 600px;height: 400px;">
    </div>
    ```
 
@@ -129,7 +129,7 @@ TypeScript 是微软开发的开源语言。它是 JavaScript 的一个超集，
                 data:['销量']
             },
             xAxis: {
-                data: [“衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子”]
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
             },
             yAxis: {},
             series: [{

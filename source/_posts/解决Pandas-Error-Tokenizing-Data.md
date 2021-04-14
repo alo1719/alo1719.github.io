@@ -1,7 +1,7 @@
 ---
 title: 解决Pandas Error Tokenizing Data
 date: 2019-03-09 11:41:39
-tags: [python，pandas]
+tags: [python, pandas]
 categories: 疑难杂症
 ---
 

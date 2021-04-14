@@ -1,7 +1,7 @@
 ---
 title: LNMP配置过程记录
 date: 2019-07-09 21:25:45
-tags: [linux，nginx]
+tags: [linux, nginx]
 ---
 
 我最近从把服务器从 CentOS 迁移到了 Ubuntu（[我为什么选择放弃CentOS](https://feng.si/posts/2019/07/centos-the-last-linux-distro-you-should-ever-consider/)），本文记录一下其中踩的坑。
