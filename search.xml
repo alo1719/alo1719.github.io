@@ -318,6 +318,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Python字符串前缀</title>
+    <url>/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/</url>
+    <content><![CDATA[<h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>要搞清楚Python的字符编码问题，首先要区分两个概念：字符和字节。</p>
+<p>字符(character)是一个符号，例如”a”、“中”就是字符。而字节是计算机的储存单位，同样一个字符，例如”中”，在不同的编码下，对应的字节就不同。GBK编码下为双字节 <code>\xd6\xd0</code>，而UTF8编码下为三字节 <code>\xe4\xb8\xad</code>。</p>
+<p>所以，字符是对符号的抽象，而字节是字符在计算机上的实现。不仅对于Python，对于任何编程语言都是这样。</p>
+<h2 id="u"><a href="#u" class="headerlink" title="u"></a>u</h2><p><code>u&quot;sample-string&quot;</code> 表明字符串为Unicode字符串，UTF-8也是Python3的默认字符串编码。因为历史原因（Python诞生的时候Unicode标准还没有确定），Python2是不支持Unicode编码的，因此存储中文、Emoji等符号就依赖于各个用户自己的实现，导致了很多的混乱。这一点在C++上体现的“淋漓尽致”，C++字符串的变种之多之杂，是一般程序员很难想象的。</p>
+<p>而另一门我们熟知的语言，Java就乘上了Unicode的东风。Java中所有的字符串都采用UTF-16编码，因此很少有程序员在Java中遇到字符串编码的问题。</p>
+<span id="more"></span>
+
+<h2 id="b"><a href="#b" class="headerlink" title="b"></a>b</h2><p>与之相对的，<code>b&quot;sample-string&quot;</code> 表明字符串是不经过编码的字节序列。在这里，”sample-string”其实具有一定的误导性，用 <code>\xe4\xb8\xad</code> 更能代表真实的使用场景。</p>
+<h2 id="r"><a href="#r" class="headerlink" title="r"></a>r</h2><p><code>r&quot;sample-string&quot;</code> 中的r代表raw string，即不对反斜线 <code>\</code> 进行转义。例如，<code>r&quot;\n&quot;</code> 便不再代表换行，而是字面意义上的反斜线和字母n。</p>
+]]></content>
+      <categories>
+        <category>入门教程</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python遍历文件</title>
     <url>/2019/03/09/Python%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>在进行数据处理时，经常需要遍历一个文件夹，在Python中最简单的解决办法是使用 <code>os.walk()</code>。</p>
@@ -405,26 +425,6 @@
         <tag>java</tag>
         <tag>spring</tag>
         <tag>mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python字符串前缀</title>
-    <url>/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/</url>
-    <content><![CDATA[<h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>要搞清楚Python的字符编码问题，首先要区分两个概念：字符和字节。</p>
-<p>字符(character)是一个符号，例如”a”、“中”就是字符。而字节是计算机的储存单位，同样一个字符，例如”中”，在不同的编码下，对应的字节就不同。GBK编码下为双字节 <code>\xd6\xd0</code>，而UTF8编码下为三字节 <code>\xe4\xb8\xad</code>。</p>
-<p>所以，字符是对符号的抽象，而字节是字符在计算机上的实现。不仅对于Python，对于任何编程语言都是这样。</p>
-<h2 id="u"><a href="#u" class="headerlink" title="u"></a>u</h2><p><code>u&quot;sample-string&quot;</code> 表明字符串为Unicode字符串，UTF-8也是Python3的默认字符串编码。因为历史原因（Python诞生的时候Unicode标准还没有确定），Python2是不支持Unicode编码的，因此存储中文、Emoji等符号就依赖于各个用户自己的实现，导致了很多的混乱。这一点在C++上体现的“淋漓尽致”，C++字符串的变种之多之杂，是一般程序员很难想象的。</p>
-<p>而另一门我们熟知的语言，Java就乘上了Unicode的东风。Java中所有的字符串都采用UTF-16编码，因此很少有程序员在Java中遇到字符串编码的问题。</p>
-<span id="more"></span>
-
-<h2 id="b"><a href="#b" class="headerlink" title="b"></a>b</h2><p>与之相对的，<code>b&quot;sample-string&quot;</code> 表明字符串是不经过编码的字节序列。在这里，”sample-string”其实具有一定的误导性，用 <code>\xe4\xb8\xad</code> 更能代表真实的使用场景。</p>
-<h2 id="r"><a href="#r" class="headerlink" title="r"></a>r</h2><p><code>r&quot;sample-string&quot;</code> 中的r代表raw string，即不对反斜线 <code>\</code> 进行转义。例如，<code>r&quot;\n&quot;</code> 便不再代表换行，而是字面意义上的反斜线和字母n。</p>
-]]></content>
-      <categories>
-        <category>入门教程</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -793,6 +793,59 @@
       <tags>
         <tag>java</tag>
         <tag>aop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从实用角度剖析 MySQL 的 Explain 语句</title>
+    <url>/2021/05/26/%E4%BB%8E%E5%AE%9E%E7%94%A8%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90MySQL%E7%9A%84Explain%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<p>MySQL 的 Explain 语句常用来分析慢 SQL 的原因，会返回以下的数据：</p>
+<p>select_type、table、partitions、type、possible_keys、key、key_len、ref、rows、filtered、extra。</p>
+<p>其中最重要的是 type、rows、key 和 extra 这四个字段。</p>
+<h2 id="MySQL-逻辑架构"><a href="#MySQL-逻辑架构" class="headerlink" title="MySQL 逻辑架构"></a>MySQL 逻辑架构</h2><p>先介绍一下基础知识，MySQL 的逻辑架构：</p>
+<p>客户端-&gt;（查询缓存，5.7.20 已 deprecated，8.0 已移除）-&gt;解析器（生成解析树）-&gt;预处理器（生成新解析树）-&gt;查询优化器（生成查询计划）-&gt;执行引擎（执行调度）-&gt;存储引擎（数据查找）-&gt;执行引擎（数据过滤、排序等）-&gt;客户端和查询缓存</p>
+<h2 id="type、rows-和-key-字段"><a href="#type、rows-和-key-字段" class="headerlink" title="type、rows 和 key 字段"></a>type、rows 和 key 字段</h2><p>type 字段用来说明连接的类型。连接类型从快到慢可以分为以下几种：</p>
+<ol>
+<li><p>const，system：最多一个匹配行，使用主键或者 unique 索引</p>
+</li>
+<li><p>eq_ref：返回一行数据，通常在联接（join）时出现，使用主键或 unique 索引</p>
+</li>
+<li><p>ref：使用 key 的<strong>最左前缀</strong>，且 key 不是主键或 unique 键</p>
+<span id="more"></span></li>
+<li><p>range：索引范围扫描，对索引的扫描开始于某一点，返回匹配的行</p>
+</li>
+<li><p>index：以索引的顺序进行<strong>全表扫描</strong>，优点是不用排序，缺点是还要全表扫描</p>
+</li>
+<li><p>all：全表扫描</p>
+</li>
+</ol>
+<p>其中，rows 字段是 MySQL 估算的为了找到所需记录而需要检索的行数，用来给查询优化器选择 key 作参考。</p>
+<p>index、all 类型要走全表扫描，一般来说 rows 对应的行数会很大。所以线上环境是要避免 index 和 all 的连接类型。</p>
+<p>key 字段说明了用到了什么索引，如果没有用到索引就为 null。</p>
+<p><strong>index</strong> 类型其实是相当有迷惑性的，名字上是<strong>索引</strong>，实际上根本没有利用索引进行查询，只是在全表扫描的基础上用索引进行排序，这点特别值得注意。</p>
+<h2 id="extra-字段"><a href="#extra-字段" class="headerlink" title="extra 字段"></a>extra 字段</h2><p>extra 字段用来说明额外的<strong>重要信息</strong>。从快到慢可以分为以下几种：</p>
+<ol>
+<li><p>using index：索引覆盖，查询只用到索引即可，无需读取数据块</p>
+</li>
+<li><p>using where：在存储引擎返回记录后再做过滤</p>
+</li>
+<li><p>using temporary：使用临时表，通常在使用 GROUP BY，ORDER BY 时出现</p>
+</li>
+<li><p>using filesort：用到非索引顺序的额外排序，当 ORDER BY 未用到索引时发生（有可能是内存排序，也有可能是外排）</p>
+</li>
+</ol>
+<p>在线上环境要注意尽量避免 using temporary 和 using filesort。</p>
+<h2 id="排查慢-SQL-最佳实践"><a href="#排查慢-SQL-最佳实践" class="headerlink" title="排查慢 SQL 最佳实践"></a>排查慢 SQL 最佳实践</h2><ol>
+<li><p>先看 key 字段，看有没有用到索引。</p>
+</li>
+<li><p>再看 type 字段，不能是 index 或 all。</p>
+</li>
+<li><p>最后看 extra 字段，不能是 using temporary 或 using filesort。</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>mysql</tag>
+        <tag>database</tag>
       </tags>
   </entry>
   <entry>

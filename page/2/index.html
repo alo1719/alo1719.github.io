@@ -188,6 +188,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2019/03/08/5c81e88fd409d.png">
+      <meta itemprop="name" content="Agile40">
+      <meta itemprop="description" content="立志每月产出一篇高质量博文✊✊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每一天敏捷生活">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">LNMP配置过程记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-09 21:25:45" itemprop="dateCreated datePublished" datetime="2019-07-09T21:25:45+08:00">2019-07-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我最近从把服务器从 CentOS 迁移到了 Ubuntu（<a target="_blank" rel="noopener" href="https://feng.si/posts/2019/07/centos-the-last-linux-distro-you-should-ever-consider/">我为什么选择放弃CentOS</a>），本文记录一下其中踩的坑。</p>
+<h2 id="使用OneinStack配置LNMP"><a href="#使用OneinStack配置LNMP" class="headerlink" title="使用OneinStack配置LNMP"></a>使用OneinStack配置LNMP</h2><p>我是使用的一键包配置的LNMP，自己手动配置比较繁琐，也容易有失当之处。我用的一键包是OneinStack，Github有<a target="_blank" rel="noopener" href="https://github.com/oneinstack/lnmp">开源项目</a>，官网是 <code>https://oneinstack.com/</code>。</p>
+<p>我使用如下的配置自动安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz &amp;&amp; tar xzf oneinstack-full.tar.gz &amp;&amp; ./oneinstack/install.sh --nginx_option 1 --php_option 4 --phpcache_option 1 --phpmyadmin  --db_option 4 --dbinstallmethod 1 --dbrootpwd &lt;passwd&gt;</span><br></pre></td></tr></table></figure>
+
+<p>基于性能考虑，我使用了MySQL 5.5 和 PHP 5.6，分别可以通过 <code>service mysqld</code> 和 <code>service php-fpm</code> 管理。此外，Nginx通过 <code>service nginx</code> 管理。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -721,7 +791,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -734,7 +804,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
