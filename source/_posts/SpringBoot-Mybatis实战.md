@@ -1,7 +1,7 @@
 ---
 title: SpringBoot+MyBatis实战
 date: 2019-04-14 22:35:05
-tags: [java，spring，mybatis]
+tags: [java, spring, mybatis]
 categories: [入门教程]
 ---
 
