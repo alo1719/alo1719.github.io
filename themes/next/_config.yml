@@ -164,11 +164,11 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: https://i.loli.net/2019/03/08/5c81e88fd409d.png
+  url: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dgvALUtH6u7GaTEhnWQ/root/content
   # If true, the avatar will be dispalyed in circle.
-  rounded: false
+  rounded: true
   # If true, the avatar will be rotated with the cursor.
-  rotated: false
+  rotated: true
 
 # Posts / Categories / Tags in sidebar.
 site_state: true
@@ -178,8 +178,11 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
+  LinkedIn: https://www.linkedin.com/in/xinyizh3 || linkedin
+  E-Mail: mailto:zhangxinyi1719@gmail.com || envelope
   GitHub: https://github.com/alo1719 || github
-  E-Mail: mailto:1335250440@qq.com || envelope
+  Telegram: https://t.me/alo1719 || telegram
+  RSS: /atom.xml || rss
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -191,7 +194,7 @@ social:
 
 social_icons:
   enable: true
-  icons_only: true
+  icons_only: false
   transition: false
 
 # Blog rolls
