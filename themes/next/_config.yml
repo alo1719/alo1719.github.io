@@ -164,7 +164,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dgvALUtH6u7GaTEhnWQ/root/content
+  url: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dgvFBJcRjada4WKvkDw/root/content
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
@@ -641,7 +641,7 @@ gitalk:
   github_id: alo1719 # GitHub repo owner
   repo: alo1719.github.io # Repository name to store issues
   client_id: 64eb8b4a1dacb9e5b625 # GitHub Application Client ID
-  client_secret: # GitHub Application Client Secret
+  client_secret: 2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210 # GitHub Application Client Secret
   admin_user: alo1719 # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   labels: 'gitalk'
   distraction_free_mode: true # Facebook-like distraction free mode
