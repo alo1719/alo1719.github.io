@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="mask-icon" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ORM 与 MyBatisObject Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。 MyBatis 是 ORM 的一种实现框架，对 JDBC 进行了又一层的封装。和 Hibernate 这种重量级的 ORM 框架相比，MyBatis 非常轻量，其源码可以在数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot+MyBatis 实战">
+<meta property="og:url" content="https://alo1719.github.io/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="Avery&#39;s Blog">
+<meta property="og:description" content="ORM 与 MyBatisObject Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。 MyBatis 是 ORM 的一种实现框架，对 JDBC 进行了又一层的封装。和 Hibernate 这种重量级的 ORM 框架相比，MyBatis 非常轻量，其源码可以在数">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-04-15T05:35:05.000Z">
+<meta property="article:modified_time" content="2023-04-27T01:45:52.873Z">
+<meta property="article:author" content="Xinyi Avery Zhang">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alo1719.github.io/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SpringBoot+MyBatis 实战 | Avery's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Avery's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Avery's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Work on Web Dev, Infra Dev & ML</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+      <meta itemprop="name" content="Xinyi Avery Zhang">
+      <meta itemprop="description" content="M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Avery's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot+MyBatis 实战
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-14 22:35:05" itemprop="dateCreated datePublished" datetime="2019-04-14T22:35:05-07:00">2019-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ORM-与-MyBatis"><a href="#ORM-与-MyBatis" class="headerlink" title="ORM 与 MyBatis"></a>ORM 与 MyBatis</h2><p>Object Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。</p>
+<p>MyBatis 是 ORM 的一种实现框架，对 JDBC 进行了又一层的封装。和 Hibernate 这种重量级的 ORM 框架相比，MyBatis 非常轻量，其源码可以在数天之间就全部看完。这是因为和 Hibernate 提供了全套映射机制、自动生成 SQL 语句相比，MyBatis 选择了拥抱 SQL，让程序员自己写 SQL，只是把查询结果转换到 POJO 中。</p>
+<h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>Apache Maven，是一个软件项目管理及自动构建工具，使用项目对象模型 (Project Object Model, POM) 进行配置。</p>
+<h2 id="代码分层"><a href="#代码分层" class="headerlink" title="代码分层"></a>代码分层</h2><p>一般而言，一个 Web 项目，自顶向下的访问顺序为：Controller -&gt; Service -&gt; Dao -&gt; MyBatis -&gt; Database</p>
+<p>Controller 用作 URL 映射；Service 写业务逻辑；Dao 即 Data Access Object，数据访问对象，用途正如其名；Model 定义实体类，即 MyBatis 从数据库中取出的数据对应的 POJO。</p>
+<p>此外，Controller 和 Service 命名相对固定，Dao 常被命名为 Mapper 或者 Repository，Model 还常被命名为 Entity 或者 Domain。以下使用 Controller -&gt; Service -&gt; Dao -&gt; Model 的命名。</p>
+<span id="more"></span>
+
+<h2 id="SpringBoot-Mybatis-配置"><a href="#SpringBoot-Mybatis-配置" class="headerlink" title="SpringBoot+Mybatis 配置"></a>SpringBoot+Mybatis 配置</h2><h3 id="SpringBoot-基础结构"><a href="#SpringBoot-基础结构" class="headerlink" title="SpringBoot 基础结构"></a>SpringBoot 基础结构</h3><p><code>src/main/java</code> 程序开发以及主程序入口<br><code>src/main/resources</code> 配置文件<br><code>src/test/java</code> 测试程序</p>
+<p><code>src/main/java</code> 目录下：<br>model (entity, domain)：实体层，存放实体类；与数据库中的属性值基本保持一致，实现 get 和 set 的方法。<br>service：服务层，主要是业务类代码。<br>controller：控制层，负责页面访问控制。<br>dao (mapper, repository)：数据访问层，和数据库通信。</p>
+<h3 id="引入-Web-模块"><a href="#引入-Web-模块" class="headerlink" title="引入 Web 模块"></a>引入 Web 模块</h3><p>在 <code>pom.xml</code> 中添加 web 模块，也可在 IDEA 中的 Spring Initializr 中勾选：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>pom.xml</code> 中默认有两个模块：<code>spring-boot-starter</code> 和 <code>spring-boot-starter-test</code>。</p>
+<p><code>spring-boot-starter</code> 是核心模块，包括自动配置支持、日志和 YAML。如果引入了 <code>spring-boot-starter-web</code> 可以去掉此模块，因为 web 模块自动依赖此模块。</p>
+<p><code>spring-boot-starter-test</code> 是测试模块，包括 JUnit、Hamcrest 和 Mockito。</p>
+<p><code>mybatis-spring-boot-starter</code> 是 SpringBoot 集成的 MyBatis 模块，可以完全使用注解实现 CRUD，几乎完全不用写 XML 配置文件，轻松上手。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第一个-Controller"><a href="#第一个-Controller" class="headerlink" title="第一个 Controller"></a>第一个 Controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候访问 <code>http://localhost:8080/hello</code> 应该就可以看到 Hello World 了。</p>
+<h3 id="自定义-Property"><a href="#自定义-Property" class="headerlink" title="自定义 Property"></a>自定义 Property</h3><ol>
+<li><p>配置 Maven 文件，如果是使用 Intellij IDEA 中的 <code>Spring Initializr</code> 创建项目的话，Maven 应该是自动配置好的。</p>
+</li>
+<li><p>在 <code>resources/application.properties</code> 添加数据库连接的相关配置</p>
+ <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span> = <span class="string">jdbc:mysql://localhost:3306/test1?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span> = <span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span> = <span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<p> SpringBoot 会自动加载 <code>spring.datasource.*</code> 中的相关配置，数据源会自动注入到 sqlSessionFactory 中，sqlSessionFactory 会自动注入到 Mapper 中，做到开箱即用。</p>
+</li>
+</ol>
+<h3 id="Spring-Boot-常用注解"><a href="#Spring-Boot-常用注解" class="headerlink" title="Spring Boot 常用注解"></a>Spring Boot 常用注解</h3><h4 id="声明-Bean-的注解"><a href="#声明-Bean-的注解" class="headerlink" title="声明 Bean 的注解"></a>声明 Bean 的注解</h4><p><code>@Component</code>：没有明确角色的组件<br><code>@Service</code>：在业务逻辑层（service 层）使用<br><code>@Repository</code>：在数据访问层（dao 层）使用<br><code>@Controller</code>：在控制层（controller 层）使用<br><code>@RestController</code>：是一个组合注解，等于 <code>@Controller</code> + <code>@ResponseBody</code></p>
+<p>此外，<br><code>@Scope</code>：作用在类和方法上，用于配置 Spring Bean 的作用域<br><code>@RequestMapping</code>：用来处理请求地址映射<br><code>@ResponseBody</code>：支持将返回值放在 Response 体内，而不是返回一个视图</p>
+<h4 id="注入-Bean-的注解"><a href="#注入-Bean-的注解" class="headerlink" title="注入 Bean 的注解"></a>注入 Bean 的注解</h4><p><code>@Autowired</code>：实现自动装配，Spring IoC 容器扫描到 <code>@Autowired</code> 注解会去查询实现类，并自动注入。<br><code>@Qualifier</code>：如果 <code>@Autowired</code> 指定的是一个接口，它有多个实现类，那么需要 <code>@Qualifier</code> 注解指定注入的实现类的名称。</p>
+<h4 id="实现-Java-配置的注解"><a href="#实现-Java-配置的注解" class="headerlink" title="实现 Java 配置的注解"></a>实现 Java 配置的注解</h4><p><code>@Configuration</code> 注解声明当前类是一个配置类，相当于 Spring 中的一个 XML 文件。<br><code>@Bean</code> 注解作用在方法上，声明当前方法的返回值是一个 Java Bean。</p>
+<h3 id="MyBatis-注解"><a href="#MyBatis-注解" class="headerlink" title="MyBatis 注解"></a>MyBatis 注解</h3><p>可以使用接口+注解的方式取代 XML 配置 Mapper 的方式，以完成 Dao 层的编写。在项目小、数据库交互少的情况下，这是更简洁、更优雅的方式。但当项目增长到一定规模，有大量复杂的 CRUD 的情况下，还是使用 XML 配置文件管理 SQL 语句更有效率。</p>
+<p><code>@Select</code> 负责查询。<br><code>@Insert</code> 负责插入。<br><code>@Update</code> 负责修改。<br><code>@Delete</code> 负责删除。<br><code>@Result</code> 修饰返回的结果集，关联实体类属性和数据库字段。如果实体类属性和数据库字段保持一致，就不需要这个注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM user WHERE name = #&#123;name&#125;&quot;)</span></span><br><span class="line">    <span class="function">User <span class="title">findByName</span><span class="params">(<span class="meta">@Param(&quot;name&quot;)</span> String name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert(&quot;INSERT INTO user(name,age) VALUES(#&#123;name&#125;,#&#123;age&#125;)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(<span class="meta">@Param(&quot;name&quot;)</span> String name, <span class="meta">@Param(&quot;age&quot;)</span> Integer age)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update(&quot;UPDATE user SET age=#&#123;age&#125; WHERE name=#&#123;name&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete(&quot;DELETE FROM user WHERE id =#&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实体类的编写"><a href="#实体类的编写" class="headerlink" title="实体类的编写"></a>实体类的编写</h3><p>在实体类中定义属性，实现 get 和 set 方法，把数据库中的数据转换成 Java 程序能理解的实体类。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>以下以展示汽车销量的应用为例。</p>
+<p>在 Controller 中注入依赖的 Service。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarSaleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    CarSaleService carSaleService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &#123;&quot;/car/TotalSaleMonth&quot;&#125;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CarTotalSaleMonth <span class="title">getCarTotalSaleEveryMonth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> carSaleService.getCarTotalSaleEveryMonth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Service：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarSaleService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@AutoWired</span></span><br><span class="line">    CarSaleDao carSaleDao;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> CarTotalSaleMonth <span class="title">getCarTotalSaleEveryMonth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> carSaleDao.selectCarTotalSaleEveryMonth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Dao：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CarSaleDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">// car_sale_month 是数据表名，其中存着 month1...month12 总共 12 个属性值</span></span><br><span class="line">    <span class="meta">@Select(&#123;&quot;select * from car_sale_month&quot;&#125;)</span></span><br><span class="line">    <span class="function">CarTotalSaleMonth <span class="title">selectCarTotalSaleEveryMonth</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Model：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarTotalSaleMonth</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> month1;</span><br><span class="line">    <span class="keyword">int</span> month2;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">int</span> month12;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMonth1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> month1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMonth1</span><span class="params">(<span class="keyword">int</span> month1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.month1 = month1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+              <a href="/tags/spring/" rel="tag"><i class="fa fa-tag"></i> spring</a>
+              <a href="/tags/mybatis/" rel="tag"><i class="fa fa-tag"></i> mybatis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/14/Pandas%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="prev" title="Pandas访问数据的最佳实践">
+      <i class="fa fa-chevron-left"></i> Pandas访问数据的最佳实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/" rel="next" title="LNMP配置过程记录">
+      LNMP配置过程记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ORM-%E4%B8%8E-MyBatis"><span class="nav-number">1.</span> <span class="nav-text">ORM 与 MyBatis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven"><span class="nav-number">2.</span> <span class="nav-text">Maven</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">代码分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-Mybatis-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">SpringBoot+Mybatis 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot-%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">SpringBoot 基础结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-Web-%E6%A8%A1%E5%9D%97"><span class="nav-number">4.2.</span> <span class="nav-text">引入 Web 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-Controller"><span class="nav-number">4.3.</span> <span class="nav-text">第一个 Controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Property"><span class="nav-number">4.4.</span> <span class="nav-text">自定义 Property</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.5.</span> <span class="nav-text">Spring Boot 常用注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E-Bean-%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.5.1.</span> <span class="nav-text">声明 Bean 的注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5-Bean-%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.5.2.</span> <span class="nav-text">注入 Bean 的注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-Java-%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.5.3.</span> <span class="nav-text">实现 Java 配置的注解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis-%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.6.</span> <span class="nav-text">MyBatis 注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB%E7%9A%84%E7%BC%96%E5%86%99"><span class="nav-number">4.7.</span> <span class="nav-text">实体类的编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.8.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xinyi Avery Zhang"
+      src="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+  <p class="site-author-name" itemprop="name">Xinyi Avery Zhang</p>
+  <div class="site-description" itemprop="description">M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/xinyizh3" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;xinyizh3" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangxinyi1719@gmail.com" title="E-Mail → mailto:zhangxinyi1719@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/alo1719" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinyi Avery Zhang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '64eb8b4a1dacb9e5b625',
+      clientSecret: '2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210',
+      repo        : 'alo1719.github.io',
+      owner       : 'alo1719',
+      admin       : ['alo1719'],
+      id          : '398276be4768c05aa0817ec7df0cd2ae',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

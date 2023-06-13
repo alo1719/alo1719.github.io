@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="mask-icon" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="断路器 (Circuit Breaker) 一词来源于电气工程，在软件领域则是一种设计模式。 它的作用类似于家庭里的空气开关，当某一个电器发生故障时，所在房间的空气开关会自动断路，防止故障扩散到其他房间，引发更大的事故。 它的一个典型应用场景是：一个服务要发送 100 个请求，其中 99 个请求都正常，但是其中 1 个请求的接口发生了故障，要等待 5 秒。那么这个服务要完成加载就需要 5 秒以上的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="断路器与 Resilience4j">
+<meta property="og:url" content="https://alo1719.github.io/2020/03/01/%E6%96%AD%E8%B7%AF%E5%99%A8%E4%B8%8EResilience4j/index.html">
+<meta property="og:site_name" content="Avery&#39;s Blog">
+<meta property="og:description" content="断路器 (Circuit Breaker) 一词来源于电气工程，在软件领域则是一种设计模式。 它的作用类似于家庭里的空气开关，当某一个电器发生故障时，所在房间的空气开关会自动断路，防止故障扩散到其他房间，引发更大的事故。 它的一个典型应用场景是：一个服务要发送 100 个请求，其中 99 个请求都正常，但是其中 1 个请求的接口发生了故障，要等待 5 秒。那么这个服务要完成加载就需要 5 秒以上的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/01/oDvSaYkwhUGVHMO.jpg">
+<meta property="article:published_time" content="2020-03-01T22:55:40.000Z">
+<meta property="article:modified_time" content="2023-04-27T01:45:53.243Z">
+<meta property="article:author" content="Xinyi Avery Zhang">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="circuit breaker">
+<meta property="article:tag" content="resilience4j">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/01/oDvSaYkwhUGVHMO.jpg">
+
+<link rel="canonical" href="https://alo1719.github.io/2020/03/01/%E6%96%AD%E8%B7%AF%E5%99%A8%E4%B8%8EResilience4j/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>断路器与 Resilience4j | Avery's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Avery's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Avery's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Work on Web Dev, Infra Dev & ML</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2020/03/01/%E6%96%AD%E8%B7%AF%E5%99%A8%E4%B8%8EResilience4j/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+      <meta itemprop="name" content="Xinyi Avery Zhang">
+      <meta itemprop="description" content="M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Avery's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          断路器与 Resilience4j
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-01 14:55:40" itemprop="dateCreated datePublished" datetime="2020-03-01T14:55:40-08:00">2020-03-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>断路器 (Circuit Breaker) 一词来源于电气工程，在软件领域则是一种设计模式。</p>
+<p>它的作用类似于家庭里的空气开关，当某一个电器发生故障时，所在房间的空气开关会自动断路，防止故障扩散到其他房间，引发更大的事故。</p>
+<p>它的一个典型应用场景是：一个服务要发送 100 个请求，其中 99 个请求都正常，但是其中 1 个请求的接口发生了故障，要等待 5 秒。那么这个服务要完成加载就需要 5 秒以上的时间。如果发生故障的请求不在核心链路上，那么引入断路器就能以某种策略，不再请求那个出故障的接口，让服务正常加载。</p>
+<p>如果出故障的接口在核心链路上，可以为这个请求加上降级策略：如果调用该接口出现了故障，那么断路器可以将请求指向一个备用接口，来实现高可用性。</p>
+<h2 id="断路器的状态"><a href="#断路器的状态" class="headerlink" title="断路器的状态"></a>断路器的状态</h2><p>断路器有三种状态：Closed、Open 和 Half-Open。</p>
+<p><img src="https://i.loli.net/2020/03/01/oDvSaYkwhUGVHMO.jpg" alt="h_2732904-992404e807e83288.jpg"></p>
+<p>Closed 状态是断路器连通的状态，是默认状态；</p>
+<p>当失败次数达到某个阈值，就会进入 Open 状态，这个时候断路器会拦截所有调用并直接抛出 Exception；</p>
+<p>Half-Open 状态是“尝试”状态，在 Open 状态下会不定时尝试接口是否正常，若仍有故障退回 Open 状态，故障消除了的话就回到 Closed 状态。</p>
+<span id="more"></span>
+
+<h2 id="Hystrix-和-Resilience4j"><a href="#Hystrix-和-Resilience4j" class="headerlink" title="Hystrix 和 Resilience4j"></a>Hystrix 和 Resilience4j</h2><p>Java 语言生态中，常见的断路器有两个：Hystrix 和 Resilience4j。Hystrix 由 Netfilx 开发，目前已经停止开发，所以本文将以 Resilience4j 为主。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/resilience4j/resilience4j">Resilience4j</a> 是一个开源项目，在 Github 进行托管，其特点是全部代码都遵从函数式编程范式。</p>
+<h2 id="引入-Resilience4j"><a href="#引入-Resilience4j" class="headerlink" title="引入 Resilience4j"></a>引入 Resilience4j</h2><p>如果使用 Spring Boot 的话，只需要使用：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.resilience4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>resilience4j-spring-boot2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Resilience4j"><a href="#使用-Resilience4j" class="headerlink" title="使用 Resilience4j"></a>使用 Resilience4j</h2><p>Resilience4j 默认使用装饰者模式，但在 Spring Boot 项目中肯定是用 <code>@CircuitBreaker</code> 的 AOP 注解更方便、侵入性也更小。</p>
+<p>详细的使用文档可以看 <a target="_blank" rel="noopener" href="https://resilience4j.readme.io/docs">这里</a>。</p>
+<h2 id="Resilience4j-组件"><a href="#Resilience4j-组件" class="headerlink" title="Resilience4j 组件"></a>Resilience4j 组件</h2><p>Retry：重试<br>Circuit Breaker：断路器<br>Rate Limiter：限制比率<br>Time Limiter：限制时间<br>Bulkhead：隔板，控制等待区（环形缓冲区）容量<br>Cache：缓存<br>Fallback：后备</p>
+<h2 id="Resilience4j-配置文件"><a href="#Resilience4j-配置文件" class="headerlink" title="Resilience4j 配置文件"></a>Resilience4j 配置文件</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resilience4j.circuitbreaker:</span></span><br><span class="line">    <span class="attr">backends:</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">        <span class="comment"># The size of ring buffer when the CircuitBreaker is closed</span></span><br><span class="line">        <span class="attr">ringBufferSizeInClosedState:</span> <span class="number">3</span></span><br><span class="line">        <span class="attr">ringBufferSizeInHalfOpenState:</span> <span class="number">3</span></span><br><span class="line">        <span class="comment"># The wait duration in millis which defines how long the CircuitBreaker should stay open before it switches to half open</span></span><br><span class="line">        <span class="attr">waitInterval:</span> <span class="number">1000</span></span><br><span class="line">        <span class="comment"># The failure rate threshold above which the CircuitBreaker opens and starts short-curcuiting calls</span></span><br><span class="line">        <span class="attr">failureRateThreshold:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="演示内容"><a href="#演示内容" class="headerlink" title="演示内容"></a>演示内容</h2><ol>
+<li>断路器拦截请求的功能</li>
+<li>断路器自动恢复到 Half_Open 状态的功能</li>
+<li>Half_Open 的回归逻辑</li>
+<li>断路器拦截慢请求的功能</li>
+<li>断路器后备方法的使用（fallback 仍视作一次失败，要绕过的话可以使用 transitionToClosedState）</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+              <a href="/tags/circuit-breaker/" rel="tag"><i class="fa fa-tag"></i> circuit breaker</a>
+              <a href="/tags/resilience4j/" rel="tag"><i class="fa fa-tag"></i> resilience4j</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/21/JavaScript%E7%9F%A5%E8%AF%86/" rel="prev" title="JavaScript 知识">
+      <i class="fa fa-chevron-left"></i> JavaScript 知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/15/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9C%9F%E7%9A%84%E6%98%AF%E2%80%9C%E6%B5%8B%E8%AF%95%E2%80%9D%E5%90%97%EF%BC%9F/" rel="next" title="单元测试真的是“测试”吗？">
+      单元测试真的是“测试”吗？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%AD%E8%B7%AF%E5%99%A8%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">断路器的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hystrix-%E5%92%8C-Resilience4j"><span class="nav-number">2.</span> <span class="nav-text">Hystrix 和 Resilience4j</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-Resilience4j"><span class="nav-number">3.</span> <span class="nav-text">引入 Resilience4j</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Resilience4j"><span class="nav-number">4.</span> <span class="nav-text">使用 Resilience4j</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resilience4j-%E7%BB%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">Resilience4j 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resilience4j-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">Resilience4j 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA%E5%86%85%E5%AE%B9"><span class="nav-number">7.</span> <span class="nav-text">演示内容</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xinyi Avery Zhang"
+      src="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+  <p class="site-author-name" itemprop="name">Xinyi Avery Zhang</p>
+  <div class="site-description" itemprop="description">M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/xinyizh3" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;xinyizh3" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangxinyi1719@gmail.com" title="E-Mail → mailto:zhangxinyi1719@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/alo1719" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinyi Avery Zhang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '64eb8b4a1dacb9e5b625',
+      clientSecret: '2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210',
+      repo        : 'alo1719.github.io',
+      owner       : 'alo1719',
+      admin       : ['alo1719'],
+      id          : 'a9b935b56e7fd1789632f3fc5fbb60e0',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

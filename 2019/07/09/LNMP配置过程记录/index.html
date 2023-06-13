@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="mask-icon" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="我最近从把服务器从 CentOS 迁移到了 Ubuntu（我为什么选择放弃CentOS），本文记录一下其中踩的坑。 使用OneinStack配置LNMP我是使用的一键包配置的LNMP，自己手动配置比较繁琐，也容易有失当之处。我用的一键包是OneinStack，Github有开源项目，官网是 https:&#x2F;&#x2F;oneinstack.com&#x2F;。 我使用如下的配置自动安装: 1wget -c http:&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LNMP配置过程记录">
+<meta property="og:url" content="https://alo1719.github.io/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Avery&#39;s Blog">
+<meta property="og:description" content="我最近从把服务器从 CentOS 迁移到了 Ubuntu（我为什么选择放弃CentOS），本文记录一下其中踩的坑。 使用OneinStack配置LNMP我是使用的一键包配置的LNMP，自己手动配置比较繁琐，也容易有失当之处。我用的一键包是OneinStack，Github有开源项目，官网是 https:&#x2F;&#x2F;oneinstack.com&#x2F;。 我使用如下的配置自动安装: 1wget -c http:&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-10T04:25:45.000Z">
+<meta property="article:modified_time" content="2023-04-27T01:45:55.953Z">
+<meta property="article:author" content="Xinyi Avery Zhang">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alo1719.github.io/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>LNMP配置过程记录 | Avery's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Avery's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Avery's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Work on Web Dev, Infra Dev & ML</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+      <meta itemprop="name" content="Xinyi Avery Zhang">
+      <meta itemprop="description" content="M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Avery's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LNMP配置过程记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-09 21:25:45" itemprop="dateCreated datePublished" datetime="2019-07-09T21:25:45-07:00">2019-07-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>我最近从把服务器从 CentOS 迁移到了 Ubuntu（<a target="_blank" rel="noopener" href="https://feng.si/posts/2019/07/centos-the-last-linux-distro-you-should-ever-consider/">我为什么选择放弃CentOS</a>），本文记录一下其中踩的坑。</p>
+<h2 id="使用OneinStack配置LNMP"><a href="#使用OneinStack配置LNMP" class="headerlink" title="使用OneinStack配置LNMP"></a>使用OneinStack配置LNMP</h2><p>我是使用的一键包配置的LNMP，自己手动配置比较繁琐，也容易有失当之处。我用的一键包是OneinStack，Github有<a target="_blank" rel="noopener" href="https://github.com/oneinstack/lnmp">开源项目</a>，官网是 <code>https://oneinstack.com/</code>。</p>
+<p>我使用如下的配置自动安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz &amp;&amp; tar xzf oneinstack-full.tar.gz &amp;&amp; ./oneinstack/install.sh --nginx_option 1 --php_option 4 --phpcache_option 1 --phpmyadmin  --db_option 4 --dbinstallmethod 1 --dbrootpwd &lt;passwd&gt;</span><br></pre></td></tr></table></figure>
+
+<p>基于性能考虑，我使用了MySQL 5.5 和 PHP 5.6，分别可以通过 <code>service mysqld</code> 和 <code>service php-fpm</code> 管理。此外，Nginx通过 <code>service nginx</code> 管理。</p>
+<span id="more"></span>
+
+<h2 id="补充安装fileinfo模块"><a href="#补充安装fileinfo模块" class="headerlink" title="补充安装fileinfo模块"></a>补充安装fileinfo模块</h2><p>因为安装php fileinfo模块太过于吃内存，Oneinstack一键包在安装过程中是不包含fileinfo的，需要自己手动安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install.sh --php_extensions fileinfo</span><br></pre></td></tr></table></figure>
+
+<h2 id="手动链接PHP"><a href="#手动链接PHP" class="headerlink" title="手动链接PHP"></a>手动链接PHP</h2><p>估计是为了多版本PHP共存的考量，一键包并没有为PHP设置环境变量，于是需要手动设置一下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/php/bin/php /usr/<span class="built_in">local</span>/bin/php</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/php/bin/php /usr/bin/php</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置网站根目录权限"><a href="#设置网站根目录权限" class="headerlink" title="设置网站根目录权限"></a>设置网站根目录权限</h2><p>设置根目录权限以方便引用的执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown -R www.www /data/wwwroot/</span><br><span class="line">find /data/wwwroot/ -<span class="built_in">type</span> d -<span class="built_in">exec</span> chmod 755 &#123;&#125; \;</span><br><span class="line">find /data/wwwroot/ -<span class="built_in">type</span> f -<span class="built_in">exec</span> chmod 644 &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>对于某些应用，可能还需要手动 <code>chmod 777</code> 以解决权限问题。</p>
+<h2 id="解决PHP-disabled-function"><a href="#解决PHP-disabled-function" class="headerlink" title="解决PHP disabled function"></a>解决PHP disabled function</h2><p>PHP出于安全的考量，默认是禁用了一部分函数的，例如我遇到的就是 <code>passthru()</code> 函数被禁用了，需要手动配置。</p>
+<p>通过 <code>phpinfo()</code> 此函数创建的网页找到PHP配置文件 <code>php.ini</code> 的位置，并修改此文件，查找<code>disable_functions</code> 项，手动去掉自己需要的函数。</p>
+<h2 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h2><p>我自己新部署的服务器是 Ubuntu 18.04 LTS版本，和 CentOS 相比更<strong>完备</strong>、更<strong>省心</strong>。例如，同时带有 Python2 和 Python3（CentOS 7 只包含前者）；apt可以直接安装PHP 7.2（CentOS官方包管理器只提供PHP 5.4）；自带vim、git、lrzsz等常用命令；Linux内核领先好多个版本（直接影响是不需要升级内核就能开启BBR加速）。CentOS最受人诟病的就是陈旧无比的官方源，换了社区源又容易出现一些其他问题。倒不如直接使用 Ubuntu，背后有商业公司提供免费支持，出 bug 的概率比较低。</p>
+<p>我原先是在 CentOS 上手动搭建的 LAMP，现在替换到了 Ubuntu 上一键包的 LNMP，最直观的感受是 Nginx 相比 Apache 在速度上确实是有直观的提升的。其次，虽然一键包部署为了抹平 Linux 版本之间的差异，采用的是源码编译安装的方式，需要的安装时长在 20-50 分钟不等，但是确实很方便。安装的过程中不需要任何操作，且自带的探针、phpMyAdmin、Opcache缓存确实非常好用。此外还能通过 <code>vhost.sh</code> 脚本快速地添加虚拟主机并自动配置TLS证书，能够做到<em>开箱即用</em>，体验上是很棒的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+              <a href="/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/" rel="prev" title="SpringBoot+MyBatis 实战">
+      <i class="fa fa-chevron-left"></i> SpringBoot+MyBatis 实战
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/08/Spring%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/" rel="next" title="Spring核心知识">
+      Spring核心知识 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8OneinStack%E9%85%8D%E7%BD%AELNMP"><span class="nav-number">1.</span> <span class="nav-text">使用OneinStack配置LNMP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E5%AE%89%E8%A3%85fileinfo%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">补充安装fileinfo模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E9%93%BE%E6%8E%A5PHP"><span class="nav-number">3.</span> <span class="nav-text">手动链接PHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%BD%91%E7%AB%99%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="nav-number">4.</span> <span class="nav-text">设置网站根目录权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3PHP-disabled-function"><span class="nav-number">5.</span> <span class="nav-text">解决PHP disabled function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%83%B3"><span class="nav-number">6.</span> <span class="nav-text">个人感想</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xinyi Avery Zhang"
+      src="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+  <p class="site-author-name" itemprop="name">Xinyi Avery Zhang</p>
+  <div class="site-description" itemprop="description">M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/xinyizh3" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;xinyizh3" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangxinyi1719@gmail.com" title="E-Mail → mailto:zhangxinyi1719@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/alo1719" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinyi Avery Zhang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '64eb8b4a1dacb9e5b625',
+      clientSecret: '2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210',
+      repo        : 'alo1719.github.io',
+      owner       : 'alo1719',
+      admin       : ['alo1719'],
+      id          : '9cc51237729bc10fb418f2d7e983213d',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

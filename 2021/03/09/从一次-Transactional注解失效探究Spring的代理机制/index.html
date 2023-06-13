@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="mask-icon" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="问题还原1234567891011121314151617public class Demo &amp;#123;    public void processor(Message message) &amp;#123;                Result result &#x3D; save(message);    &amp;#125;    @Transactional(timeout &#x3D; 30, rollbackF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从一次@Transactional注解失效探究Spring AOP的代理机制">
+<meta property="og:url" content="https://alo1719.github.io/2021/03/09/%E4%BB%8E%E4%B8%80%E6%AC%A1-Transactional%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E6%8E%A2%E7%A9%B6Spring%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="Avery&#39;s Blog">
+<meta property="og:description" content="问题还原1234567891011121314151617public class Demo &amp;#123;    public void processor(Message message) &amp;#123;                Result result &#x3D; save(message);    &amp;#125;    @Transactional(timeout &#x3D; 30, rollbackF">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/LwIQDEdTHCt8Nfg.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/zY7OneaoR1vxD84.png">
+<meta property="article:published_time" content="2021-03-10T00:04:40.000Z">
+<meta property="article:modified_time" content="2023-04-27T01:45:52.676Z">
+<meta property="article:author" content="Xinyi Avery Zhang">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="aop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/03/10/LwIQDEdTHCt8Nfg.png">
+
+<link rel="canonical" href="https://alo1719.github.io/2021/03/09/%E4%BB%8E%E4%B8%80%E6%AC%A1-Transactional%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E6%8E%A2%E7%A9%B6Spring%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%BA%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>从一次@Transactional注解失效探究Spring AOP的代理机制 | Avery's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Avery's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Avery's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Work on Web Dev, Infra Dev & ML</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2021/03/09/%E4%BB%8E%E4%B8%80%E6%AC%A1-Transactional%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E6%8E%A2%E7%A9%B6Spring%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+      <meta itemprop="name" content="Xinyi Avery Zhang">
+      <meta itemprop="description" content="M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Avery's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从一次@Transactional注解失效探究Spring AOP的代理机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-09 16:04:40" itemprop="dateCreated datePublished" datetime="2021-03-09T16:04:40-08:00">2021-03-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="问题还原"><a href="#问题还原" class="headerlink" title="问题还原"></a>问题还原</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processor</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Result result = save(message);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(timeout = 30, rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">save</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        serviceA.save(message);</span><br><span class="line"></span><br><span class="line">        Result result = serviceB.save(message);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>集成测试方法会调用 <code>Demo.processor</code>，然后 <code>processor</code> 方法会调用带有 @Transactional 注解的 <code>save</code> 方法。save 方法中的 <code>serviceA.save</code> 和 <code>serviceB.save</code> 方法都是带有 @Transactional 注解的。</p>
+<p>但是经过测试发现，ServiceA 和 serviceB 的事务都能生效，但是 Demo 类中 save 方法的事务无法生效，会出现 serviceA 成功，serviceB 失败，数据库中只写入了 serviceA 的结果的情况。很明显，Demo.save 方法上的 @Transactional 注解失效了。</p>
+<span id="more"></span>
+
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>首先，我想到的是事务的传播方式。可是 @Transactional 注解默认的传播方式为 <code>Propagation.REQUIRED</code>，即如果当前存在事务，则加入该事务，如果当前不存在事务，则创建一个新的事务。在上面的例子中，Demo.save 方法中 serviceA.save 和 ServiceB.save 都包含事务，那么这三个事务会合成一个大事务，是符合预期的。</p>
+<p>之后，通过搜索引擎了解到，​这是 Spring AOP 动态代理造成的，因为只有当事务方法被当前类以外的代码调用时，才会由 Spring 生成的代理对象来管理。在 Demo 类上添加了 @Transactional 注解，问题解决。（@Transactional 注解可以放在类和方法上，放在类上，表明该类的所有 <code>public</code> 方法都配置相同的事务信息。当配置在方法上时，方法的事务配置会覆盖类的事务配置。）</p>
+<p>但同时带来了一个小问题，此时 processor 方法也加上了 @Transactional 注解，而这段代码本不需要事务，对性能会有一定影响。</p>
+<h2 id="探究Spring-AOP"><a href="#探究Spring-AOP" class="headerlink" title="探究Spring AOP"></a>探究Spring AOP</h2><p>上面提到，在 Spring 默认的代理模式下，只有目标方法由外部调用，才能被 Spring 的事务拦截器拦截。在同一个类中的两个方法直接调用，不会被 Spring 的事务拦截器拦截。</p>
+<p>但这种说法很奇怪。为什么只有目标方法由外部类调用，Spring 才能拦截这一请求呢？Spring 完全可以做到在调用带有 @Transactional 注解的方法时就进行拦截，不管这个方法是由谁调用的啊？</p>
+<p>所以说，搜索引擎上的归因<strong>没有讲到点子上</strong>。最起码，这个原因无法让人信服。要搞清楚这个问题，需要深入了解 Spring AOP 的实现方式。</p>
+<p>首先，我们知道 Spring AOP 是通过动态代理的方式实现的。那么，Spring 是在什么时候生成代理类的呢？网络上有人说是在运行时，有人说是在类加载期，但最准确的说法是在 <em>IoC容器初始化Bean</em> 时。详情可见<br><code>org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Create a proxy with the configured interceptors if the bean is</span></span><br><span class="line"><span class="comment">* identified as one to proxy by the subclass.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@see</span> #getAdvicesAndAdvisorsForBean</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(<span class="meta">@Nullable</span> Object bean, String beanName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (bean != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object cacheKey = getCacheKey(bean.getClass(), beanName);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.earlyProxyReferences.remove(cacheKey) != bean) &#123;</span><br><span class="line">            <span class="keyword">return</span> wrapIfNecessary(bean, beanName, cacheKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>回到上面的例子，在 Spring IoC 容器初始化 Demo 类时，Spring 扫描到该类中有方法使用了 @Transactional 注解，并且并没有实现接口，便使用 CGLIB 生成了代理类，此代理类继承 Demo，由这个代理类来统一接受请求。</p>
+<p>也就是说，不管 @Transactional 注解是加在 processor 上、加在 save 上或者加在类上，Spring 都会创建这个类的代理类，并不会因为外部调用的方法没有 @Transactional 注解就不生成代理类。</p>
+<p><img src="https://i.loli.net/2021/03/10/LwIQDEdTHCt8Nfg.png" alt="Snipaste_2021-03-10_16-41-25.png"></p>
+<p>但是 Spring AOP 无论是 JDK 动态代理，还是 CGLIB 动态代理，都保留了原类和增强类两个类。它的意思是，增强类仍然持有原类（CGLIB 采用继承的方式，JDK 动态代理采用反射的方式），体现在图中就是代理类把原类包装了起来，<em>原类并没有被增强</em>。</p>
+<p>当外部调用 processor 方法，代理类判断此方法不需进行事务拦截，直接调用原类。原类再调用 this.save，此时 this 指向的是原类，并不含有事务拦截逻辑（事务拦截逻辑在代理类中），因此注解失效。</p>
+<p>此时，如果外部调用 save 方法，是会经过代理类拦截的，于是产生了网络上“只有目标方法由外部调用，才能被 Spring 的事务拦截器拦截”的说法。</p>
+<p><img src="https://i.loli.net/2021/03/10/zY7OneaoR1vxD84.png" alt="Snipaste_2021-03-10_16-52-51.png"></p>
+<h2 id="深层原因"><a href="#深层原因" class="headerlink" title="深层原因"></a>深层原因</h2><p>从上图中可以看出，此时 @Transactional 注解失效的原因在于原类中的 this 并没有被增强。如果 this 能够指向外部的 Proxy 类，这个问题就不会发生了。或者更进一步，既然我们都有代理类了，为什么还需要原类？直接在原类上增强，生成一个新的类，并只用这个增强类不就<strong>一劳永逸</strong>了吗？实际上，AspectJ 就是用这种方式增强类、实现 AOP 的。</p>
+<p>但是 Spring AOP 采用这样的逻辑是有原因的。Spring AOP 的核心理念就是<strong>动态代理</strong>，并且把 JDK 代理（通过接口使用反射增强类）和 CGLIB 增强（使用字节码增强生成子类）两种实现方式封装在一起，并能无缝切换。因此，尽管 CGLIB 增强能够生成一个全新的类，但 Spring AOP 还是通过依附于原类生成代理类的方式进行增强。（从目前的视角看，JDK 代理相比于 CGLIB 增强没有任何优势，但在 Java 5 时代 JDK 代理的性能是显著优于 CGLIB 增强的，算是一个历史遗留问题了。）</p>
+<p>Spring AOP 采用动态代理的好处就是做到了<strong>非侵入</strong>。这样做一在 Debug 时会调用到原类，方便定位到问题，提高了排查问题的效率；二代码增强并不是 100% 成功的，最可怕的场景是类被成功增强了，但是逻辑不符合预期。Spring AOP 就算生成的代理类存在问题，起码还能保证原类的逻辑是正确的。若是像 AspectJ 这样只使用增强类，若是增强过程发生了问题，其后果就会严重很多。</p>
+<p>这也导致了 Spring AOP 相比于 AspectJ，功能很弱。例如，Spring AOP 只能在 public 方法上进行拦截，对于 private 和 protected 方法不会生效，AspectJ 没有这个限制。又例如，Spring AOP 没办法在类的属性上、构造器上进行拦截，AspectJ 没有这个限制。但引入 AspectJ 需要用到 AJC (AspectJ Compiler)，且不太好和 Lombok 共存，引入的成本比较高。</p>
+<p>总结而言，Spring AOP 的动态代理实现方式<strong>并不符合直觉</strong>，也因此导致了上面例子中的问题。但是它这样实现也是有利有弊的，最大的好处是做到了侵入性很弱。</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>如果事务方法会被类内部的方法使用，为了不让 @Transactional 注解失效，按解决成本从低到高排序，有三种方法：</p>
+<ol>
+<li>把事务方法提到一个单独的类中。这也是我最后使用的方法。</li>
+<li>使用编程式事务，手动开启事务。</li>
+<li>改用 AspectJ 进行 AOP 增强。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+              <a href="/tags/aop/" rel="tag"><i class="fa fa-tag"></i> aop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/15/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9C%9F%E7%9A%84%E6%98%AF%E2%80%9C%E6%B5%8B%E8%AF%95%E2%80%9D%E5%90%97%EF%BC%9F/" rel="prev" title="单元测试真的是“测试”吗？">
+      <i class="fa fa-chevron-left"></i> 单元测试真的是“测试”吗？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/26/%E4%BB%8E%E5%AE%9E%E7%94%A8%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90MySQL%E7%9A%84Explain%E8%AF%AD%E5%8F%A5/" rel="next" title="从实用角度剖析 MySQL 的 Explain 语句">
+      从实用角度剖析 MySQL 的 Explain 语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%BF%98%E5%8E%9F"><span class="nav-number">1.</span> <span class="nav-text">问题还原</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="nav-number">2.</span> <span class="nav-text">问题排查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E7%A9%B6Spring-AOP"><span class="nav-number">3.</span> <span class="nav-text">探究Spring AOP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%B1%82%E5%8E%9F%E5%9B%A0"><span class="nav-number">4.</span> <span class="nav-text">深层原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">5.</span> <span class="nav-text">最佳实践</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xinyi Avery Zhang"
+      src="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+  <p class="site-author-name" itemprop="name">Xinyi Avery Zhang</p>
+  <div class="site-description" itemprop="description">M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/xinyizh3" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;xinyizh3" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangxinyi1719@gmail.com" title="E-Mail → mailto:zhangxinyi1719@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/alo1719" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinyi Avery Zhang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '64eb8b4a1dacb9e5b625',
+      clientSecret: '2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210',
+      repo        : 'alo1719.github.io',
+      owner       : 'alo1719',
+      admin       : ['alo1719'],
+      id          : '7bb3c808b3e757de3db3c7b9513dd70c',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

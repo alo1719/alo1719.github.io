@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>JDK的理解与配置</title>
+    <url>/2019/03/08/JDK%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="什么是JDK"><a href="#什么是JDK" class="headerlink" title="什么是JDK"></a>什么是JDK</h2><p>Sun公司在创造Java这一门语言时便有提到Java技术体系至少包括4个部分:</p>
+<ol>
+<li>Java程序设计语言</li>
+<li>各平台上的Java虚拟机 (Java Virtual Machine，JVM)</li>
+<li>Java API类库</li>
+<li>一系列辅助工具，最知名的如javac</li>
+</ol>
+<p>而 2+3 构成了JRE（Java Runtime Environment，Java运行时环境），是Java程序运行依赖的最小环境。</p>
+<p>1+2+3+4 构成了JDK (Java Development Kit)，也即 JRE+1+4 是Java开发所依赖的最小环境。</p>
+<p>从低级向高级，从底层到高层而言，是JVM -&gt; JRE -&gt; JDK的顺序。</p>
+<span id="more"></span>
+
+<h2 id="Oracle-JDK-Open-JDK"><a href="#Oracle-JDK-Open-JDK" class="headerlink" title="Oracle JDK / Open JDK"></a>Oracle JDK / Open JDK</h2><p>市面上有两种常见的JDK，一种是Oracle JDK，另一种是Open JDK。两者的授权协议不一样，Open JDK大部分代码是开源的，Oracle JDK相比于Open JDK包含更多的东西，两者的核心功能是没有多少差别的。</p>
+<h2 id="JavaSE-JavaEE-JavaME"><a href="#JavaSE-JavaEE-JavaME" class="headerlink" title="JavaSE / JavaEE / JavaME"></a>JavaSE / JavaEE / JavaME</h2><p>JavaSE (Standard Edition) 通俗理解就是桌面端的软件。</p>
+<p>JavaEE (Enterprise Edition) 通俗理解是Web后端服务软件，实际上基于JavaSE而发展出来的一套 <em>规范</em> 接口。 像Spring Boot，Spring Cloud等用的都是JavaEE。</p>
+<p>JavaME (Micro Edition) 用于嵌入式开发，很少能用到。</p>
+<p>三者所依赖的都是JDK。</p>
+<h2 id="Oracle-JDK配置流程（Windows）"><a href="#Oracle-JDK配置流程（Windows）" class="headerlink" title="Oracle JDK配置流程（Windows）"></a>Oracle JDK配置流程（Windows）</h2><ol>
+<li><p>到<a href="https://www.oracle.com/technetwork/java/javase/downloads/index%E3%80%82html">Oracle官网</a>下载JDK (Java Development Kit)，JDK中包含了JRE (Java Runtime Environment)。</p>
+<p>推荐安装Java8最新的奇数版本号版本(例如8u201)，综合而言是最稳定最泛用的版本。</p>
+</li>
+<li><p>安装JDK以及JRE</p>
+<p>安装完毕可以进入JDK文件夹。</p>
+<p>bin目录中 <code>java.exe</code> 用来运行java程序，<code>javac.exe</code> 用来编译java程序。</p>
+</li>
+<li><p>配置环境变量</p>
+<p>打开 <code>计算机-属性-高级系统设置-高级-环境变量</code></p>
+<p>将JDK中的bin目录添加到环境变量。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>入门教程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jdk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript 知识</title>
+    <url>/2019/09/21/JavaScript%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<blockquote>
+<p>笔记摘录于《JavaScript 精粹》，结合个人总结与思考，以及其他学习资料。</p>
+</blockquote>
+<h2 id="JavaScript-Wiki"><a href="#JavaScript-Wiki" class="headerlink" title="JavaScript Wiki"></a>JavaScript Wiki</h2><p><a href="http://www.w3school.com.cn/jsref/index.asp">JavaScript 对象参考手册</a></p>
+<h2 id="JavaScript-安放位置"><a href="#JavaScript-安放位置" class="headerlink" title="JavaScript 安放位置"></a>JavaScript 安放位置</h2><p>HTML 中的脚本必须位于 <code>&lt;script&gt;</code> 与 <code>&lt;/script&gt;</code> 标签之间。</p>
+<p>脚本可被放置在 HTML 页面的 <code>&lt;body&gt;</code> 和 <code>&lt;head&gt;</code> 部分中。</p>
+<p>那些老旧的实例可能会在 <code>&lt;script&gt;</code> 标签中使用<code>type=&quot;text/javascript&quot;</code>。现在已经不必这样做了。JavaScript 是所有现代浏览器以及 HTML5 中的默认脚本语言。通常的做法是<strong>放入 <code>&lt;head&gt;</code> 部分</strong>中，或者<strong>放在页面底部</strong>。这样就可以把它们安置到同一处位置，不会干扰页面的内容。</p>
+<h3 id="外链脚本实例"><a href="#外链脚本实例" class="headerlink" title="外链脚本实例"></a>外链脚本实例</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;myScript.js&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="JavaScript-Syntax"><a href="#JavaScript-Syntax" class="headerlink" title="JavaScript Syntax"></a>JavaScript Syntax</h2><h3 id="折行范例"><a href="#折行范例" class="headerlink" title="折行范例"></a>折行范例</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;Hello \</span></span><br><span class="line"><span class="string">World!&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="按钮响应"><a href="#按钮响应" class="headerlink" title="按钮响应"></a>按钮响应</h3><p>先定义一个按钮元素</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">id</span>=<span class="string">&quot;mybutton1&quot;</span>&gt;</span> 提交 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在 JavaScript 中写 <code>onclick</code> 函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.getElementById(<span class="string">&quot;mybutton1&quot;</span>);</span><br><span class="line">button.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//要写的东西</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="联动HTML"><a href="#联动HTML" class="headerlink" title="联动HTML"></a>联动HTML</h2><p>JavaScript 能够改变页面中的所有 HTML 元素/属性、CSS 样式、事件。<br>修改 HTML 内容的最简单的方法是使用 <code>innerHTML</code> 属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(id).innerHTML = ... ;</span><br></pre></td></tr></table></figure>
+
+<p>js 可以对 <code>onclick</code>、<code>onmouseover</code> 等事件作出反应。</p>
+<h2 id="JavaScript-Window"><a href="#JavaScript-Window" class="headerlink" title="JavaScript Window"></a>JavaScript Window</h2><p><code>window.prompt()</code>：可以提示用户<em>输入内容</em><br><code>window.alert()</code>：弹出警告框</p>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><p><code>isNaN()</code>：判断是不是不是数字 (NaN = Not a Number)<br><code>document.writeln()</code> / <code>document.write()</code>：向 HTML 写入文本<br><code>Math.random()</code>：从 0 到 1 随机生成一个浮点数<br><code>console.log()</code>：向终端输出日志<br><code>console.info()</code>：向终端输出信息<br><code>Number.isInteger()</code>：判断是否是整数<br><code>String.fromCharCode()</code>：从字符编码创建一个字符串</p>
+<h2 id="JavaScript-组成部分"><a href="#JavaScript-组成部分" class="headerlink" title="JavaScript 组成部分"></a>JavaScript 组成部分</h2><ul>
+<li>核心 (ECMAScript)——核心语言功能</li>
+<li>文档对象模型 (DOM)——访问和操作网页内容的方法和接口</li>
+<li>浏览器对象模型 (BOM)——与浏览器交互的方法和接口</li>
+</ul>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>JSON (JavaScript Object Notation) 是⼀种轻量级的数据交换格式。它基于 ECMAScript 的⼀个⼦集。</p>
+<h3 id="CoffeeScript-TypeScript"><a href="#CoffeeScript-TypeScript" class="headerlink" title="CoffeeScript / TypeScript"></a>CoffeeScript / TypeScript</h3><p>CoffeeScript 是⼀套 JavaScript 的转译语⾔，诞生于 2009 年，它增强了 JavaScript 的简洁性与可读性。</p>
+<p>TypeScript 是微软开发的开源语言。它是 JavaScript 的一个超集，而且本质上向这个语言添加了可选的<strong>静态类型</strong>和<strong>基于类的面向对象</strong>编程。</p>
+<h2 id="JavaScript-应用"><a href="#JavaScript-应用" class="headerlink" title="JavaScript 应用"></a>JavaScript 应用</h2><ul>
+<li>Electron + Node.js + JavaScript：桌面应用</li>
+<li>Ionic + JavaScript：移动应用</li>
+<li>Node.js + JavaScript：网站前后台</li>
+<li>JavaScript + Tessl：硬件</li>
+</ul>
+<h2 id="echarts-js"><a href="#echarts-js" class="headerlink" title="echarts.js"></a>echarts.js</h2><h3 id="绘制一个简单图表"><a href="#绘制一个简单图表" class="headerlink" title="绘制一个简单图表"></a>绘制一个简单图表</h3><ol>
+<li><p>为 ECharts 准备一个具备宽高的 DOM 容器</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 600px;height: 400px;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 <code>echarts.init</code> 初始化一个 echarts 实例并通过 <code>setOption</code> 方法生成一个简单的柱状图</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">     <span class="comment">// 基于准备好的dom, 初始化 echarts 实例</span></span></span><br><span class="line"><span class="javascript">     <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;main&#x27;</span>));</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">     <span class="comment">// 指定图表的配置项和数据</span></span></span><br><span class="line"><span class="javascript">     <span class="keyword">var</span> option = &#123;</span></span><br><span class="line">         title: &#123;</span><br><span class="line"><span class="javascript">             text: <span class="string">&#x27;ECharts 入门示例&#x27;</span></span></span><br><span class="line">         &#125;,</span><br><span class="line">         tooltip: &#123;&#125;,</span><br><span class="line">         legend: &#123;</span><br><span class="line"><span class="javascript">             data:[<span class="string">&#x27;销量&#x27;</span>]</span></span><br><span class="line">         &#125;,</span><br><span class="line">         xAxis: &#123;</span><br><span class="line"><span class="javascript">             data: [<span class="string">&quot;衬衫&quot;</span>,<span class="string">&quot;羊毛衫&quot;</span>,<span class="string">&quot;雪纺衫&quot;</span>,<span class="string">&quot;裤子&quot;</span>,<span class="string">&quot;高跟鞋&quot;</span>,<span class="string">&quot;袜子&quot;</span>]</span></span><br><span class="line">         &#125;,</span><br><span class="line">         yAxis: &#123;&#125;,</span><br><span class="line">         series: [&#123;</span><br><span class="line"><span class="javascript">             name: <span class="string">&#x27;销量&#x27;</span>,</span></span><br><span class="line"><span class="javascript">             type: <span class="string">&#x27;bar&#x27;</span>,</span></span><br><span class="line">             data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">         &#125;]</span><br><span class="line">     &#125;;</span><br><span class="line"></span><br><span class="line"><span class="javascript">     <span class="comment">// 使用刚指定的配置项和数据显示图表</span></span></span><br><span class="line">     myChart.setOption(option);</span><br><span class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p>Node.js 是一个能够在服务器端运行 JavaScript 的开放源代码、跨平台 JavaScript 运行环境。在 Node.js 出现之前，JavaScript 通常作为客户端程序设计语言使用，以 JavaScript 写出的程序常在用户的浏览器上运行。Node.js 的出现使 JavaScript 也能用于服务端编程。Node.js 含有一系列内置模块，使得程序可以脱离 Apache HTTP Server 或 IIS，作为独立服务器运行。</p>
+<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><p>node.js 的包管理程序</p>
+<p>国内可以使用国内镜像</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https:<span class="comment">//registry.npm.taobao.org</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="词法作用域-Lexical-Scoping"><a href="#词法作用域-Lexical-Scoping" class="headerlink" title="词法作用域 (Lexical Scoping)"></a>词法作用域 (Lexical Scoping)</h2><p>JavaScript 的函数是基于词法作用域，而不是动态作用域 (Dynamic Scoping)。</p>
+<p>JavaScript 确实有函数作用域。那意味着定义在函数中的参数和变量<strong>在函数外部是不可见的</strong>, 而在一个函数内部任何位置定义的变量，在该函数内部任何地方都可见。</p>
+<p>很多现代语言都推荐尽可能延迟声明变量。而用在 JavaScript 上的话却会成为糟糕的建议，因为它<strong>缺少块级作用域</strong>。所以，最好的做法是在函数体的顶部声明函数中可能用到的所有变量。</p>
+<h2 id="弱类型"><a href="#弱类型" class="headerlink" title="弱类型"></a>弱类型</h2><p>JavaScript 是弱类型语言。</p>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p>JavaScript 中只有一种结构：对象，它并没有类这种说法。每个实例对象都有一个私有属性指向它的构造函数的原型对象 (prototype)。该原型对象也有一个自己的原型对象，层层向上直到一个对象的原型对象为 <code>null</code>。</p>
+<p>JavaScript 有一个无类型 (class-free) 对象系统，对象直接从其他对象继承属性。</p>
+<p>每个对象都连接到一个原型对象，并且它可以从中继承属性。所有通过对象字面量创建的对象都连接到 <code>Object.prototype</code>，它是 JavaScript 中的标配对象。原型链接只有在检索值的时候才会被用到。如果我们尝试去获取对象的某个属性值，但该对象没有此属性名，那么 JavaScript 会试着从原型对象中获取属性值。如果那个原型对象也没有该属性，那么再从它的原型中寻找，依此类推，直到该过程最后到达终点 <code>Object.prototype</code>。如果想要的属性完全不存在在原型链中，那么结果就是 <code>undefined</code> 值。这个过程称为<strong>委托</strong>。</p>
+<p>原型关系是一种<strong>动态</strong>的关系。如果我们添加一个新的属性到原型中，该属性会<em>立即对所有基于该原型创建的对象可见</em>。</p>
+<h3 id="hasOwnProperty-方法"><a href="#hasOwnProperty-方法" class="headerlink" title="hasOwnProperty 方法"></a>hasOwnProperty 方法</h3><p>如果对象拥有独有的属性，它将返回true。<code>hasOwnProperty</code> 方法不会检查原型链。</p>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>delete 运算符可以用来删除对象的属性。如果对象包含该属性，那么该属性就会被移除。他不会触及原型链中任何对象。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>JavaScript 支持 <code>//</code> 和 <code>/* */</code> 注释，但是后者会出现在正则表达式字面量中，所以只推荐使用 <code>//</code> 注释。</p>
+<h2 id="数字类型"><a href="#数字类型" class="headerlink" title="数字类型"></a>数字类型</h2><p>JavaScript 只有一个数字类型，内部表示为<strong>64 位浮点数</strong> (和 Java 中的 double 一样)。JavaScript 没有分离出整数类型，所以 1 和 1.0 的值相同。</p>
+<p><code>NaN</code> 是一个<strong>数值</strong>，表示一个不能产生正常结果的运算结果。NaN 不等于任何值，包括<em>它自己</em>。可以使用 <code>isNaN(number)</code> 检测NaN。</p>
+<p><code>Infinity</code> 表示所有大于 <code>1.79769313486231570e+308</code> 的值。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>和 Java 一样，Unicode 是一个 16 位的字符集。JavaScript 没有字符类型，要表示一个字符，只需创建只包含一个字符的字符串即可。和 Java 一样，字符串是不可变的。</p>
+<h2 id="代码域"><a href="#代码域" class="headerlink" title="代码域"></a>代码域</h2><p>当 <code>var</code> 被用在函数内部时，它定义的是这个函数的私有变量。不像大多数其他语言，JavaScript 中的代码块不会创建新的作用域。</p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>除了 <code>false</code>、<code>null</code>、<code>undefined</code>、<code>&#39;&#39;</code>（空字符串）、<code>0</code>（数字 0）、<code>NaN</code>（数字 NaN）之外，所有其他值都是真。值得注意的是，<code>&quot;false&quot;</code>（字符串false）也被当作真。</p>
+<h2 id="简单数据类型和对象"><a href="#简单数据类型和对象" class="headerlink" title="简单数据类型和对象"></a>简单数据类型和对象</h2><p>number、string、boolean、null 值和 undefined 值是简单数据类型，其他所有值<em>都是对象</em>。JavaScript 中的对象是可变的键控集合（keyed collections）。数组是对象，函数是对象，正则表达式也是对象。</p>
+<p>对象是属性的容器，其中每个属性都有名字和值。</p>
+<h2 id="对象字面量及其检索"><a href="#对象字面量及其检索" class="headerlink" title="对象字面量及其检索"></a>对象字面量及其检索</h2><p>一个<strong>对象字面量</strong>就是包围在一对花括号中的零个或多个“名/值”对。在对象字面量中，如果属性名是一个合法的 JavaScript 标识符且不是保留字，则并不强制要求用引号括住属性名。（例如 <code>first-name</code> 必须用引号括住，而 <code>first_name</code> 是否括住是可选的，因为 <code>-</code> 在标识符中是不合法的）。</p>
+<p>检索可以采用在 <code>[]</code> 中括住一个字符串表达式的方式，如果字符串表达式是一个字符串字面量，而且是一个合法的 JavaScript 标识符且不是保留字，也可以用 <code>.</code> 代替。如果尝试检索一个并不存在的成员属性的值，将返回 <code>undefined</code>。</p>
+<h2 id="对象的更新"><a href="#对象的更新" class="headerlink" title="对象的更新"></a>对象的更新</h2><p>使用赋值语句，如果属性名已经存在于对象中，那么属性值会被替换，如果没有那个属性名，那么该属性会被扩充到对象中。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>当实际参数 (arguments) 的个数与形式参数 (parameters) 的个数不匹配时，不会导致运行时错误。如果实际参数值多了，超出的参数值会被忽略。如果实际参数值过少，缺失的值会被替换为 <code>undefined</code>。对参数值不会进行类型检查：任何类型的值都可以被传递给任何参数。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>当一个函数被保存为对象的一个属性时，我们称它为一个方法。当一个方法被调用时，<code>this</code> 被绑定到该对象。</p>
+<p>倘若语言设计正确，那么当内部函数被调用时，<code>this</code> 应该仍然绑定到外部函数的 <code>this</code> 变量。这个设计错误的后果就是方法不能利用内部函数来帮助它工作，因为内部函数的 <code>this</code> 值被绑定了错误的值，所以不能共享该方法对对象的访问权。解决方法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 给 myObject 增加一个 double 方法（已有 add 方法）</span></span><br><span class="line">myObject.double = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        that.value = add(that.value, that.value);</span><br><span class="line">    &#125;;</span><br><span class="line">    helper();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以方法的形式调用double</span></span><br><span class="line">myObject.double();</span><br><span class="line"><span class="built_in">document</span>.writeln(myObject.value);</span><br></pre></td></tr></table></figure>
+
+<h2 id="new-关键字"><a href="#new-关键字" class="headerlink" title="new 关键字"></a>new 关键字</h2><p>如果在一个函数前面加上 <code>new</code> 来调用，那么背地里将会创建一个连接到该函数的 <code>prototype</code> 成员的新对象，同时 <code>this</code> 也会被绑定到那个新对象上。</p>
+<p>一个函数，如果创建的目的就是希望结合 <code>new</code> 的前缀来调用，那它就被称为<strong>构造器函数</strong>。按照约定，他们保存在以大写字母命名的变量里。不推荐使用这种形式的构造器函数。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个名为 quo 的构造函数</span></span><br><span class="line"><span class="comment">// 它构造出带有 get_status 方法和 status 私有属性的一个对象</span></span><br><span class="line"><span class="keyword">var</span> quo = <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        get_status: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> status;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造一个 quo 实例</span></span><br><span class="line"><span class="keyword">var</span> myQuo = quo(<span class="string">&quot;amazed&quot;</span>);</span><br><span class="line"><span class="built_in">document</span>.writeln(myQuo.get_status());</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>quo</code> 函数被设计成无须在前面加上 <code>new</code> 来使用，所以没有首字母大写。即使 <code>quo</code> 已经返回了，但 <code>get_status</code> 方法仍然享有访问 <code>quo</code> 对象的 <code>status</code> 属性的特权。<code>get_status</code> 方法并不是访问该参数的一个副本，它访问的就是该参数本身。这是可能的，因为该函数可以访问它被创建时所处的上下文环境。这被称为闭包。</p>
+<p>避免在循环中创建函数，它可能只会带来无谓的计算，还会引起混淆。可以现在循环之外创建一个辅助函数，让这个辅助函数再返回一个绑定了当前 <code>i</code> 值的函数，这样就不会导致混淆了。</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>我们可以使用函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。通过使用函数产生模块，我们几乎可以完全<strong>摒弃全局变量</strong>的使用，从而缓解这个 JavaScript 的<strong>最为糟糕的特性之一</strong>所带来的影响。</p>
+<p>模块模式的一般形式是：一个定义了私有变量和函数的函数；利用闭包创建可以访问私有变量和函数的特权函数；最后返回这个特权函数，或者把他们保存到一个可访问到的地方。</p>
+<h2 id="级联"><a href="#级联" class="headerlink" title="级联"></a>级联</h2><p>让方法返回 <code>this</code>。例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getElement(<span class="string">&#x27;myBoxDiv&#x27;</span>)</span><br><span class="line">    .move(<span class="number">350</span>, <span class="number">150</span>)</span><br><span class="line">    .width(<span class="number">100</span>)</span><br><span class="line">    .height(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript-的继承"><a href="#JavaScript-的继承" class="headerlink" title="JavaScript 的继承"></a>JavaScript 的继承</h2><h3 id="伪类-Pseudoclassical"><a href="#伪类-Pseudoclassical" class="headerlink" title="伪类 Pseudoclassical"></a>伪类 Pseudoclassical</h3><p>JavaScript 不直接让对象从其他对象继承，反而插入了一个多余的间接层：通过构造器函数产生那个对象。</p>
+<p>我们可以隐藏一些丑陋的细节，通过使用 method 方法来定义一个 inherits 方法实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.method(<span class="string">&#x27;inherits&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">Parent</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>inherits</code> 和 <code>method</code> 方法都返回 this, 这样允许我们采用级联的形式编程。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Mammal = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.says = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.saying || <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.saying = <span class="string">&#x27;meow&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">.inherits(Mammal)</span><br><span class="line">.method(<span class="string">&#x27;get_name&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.says() + <span class="string">&#x27; &#x27;</span> + <span class="built_in">this</span>.name + <span class="string">&#x27; &#x27;</span> + <span class="built_in">this</span>.says();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在有了行为像“类”的构造器函数，但是他们没有私有环境，所有属性都是公开的。无法访问 super（父类）的方法。</p>
+<p>更糟糕的是，如果在调用构造器函数时忘记了在前面加上 new 前缀，那么 this 不会被绑定到一个新对象上，而是被绑定到全局对象上。“伪类”形式可以给不熟悉 JavaScript 的程序员提供便利，但它也隐藏了该语言的真实的本质。在基于类的语言中，类继承是代码重用的唯一方式，而 JavaScript 有着更多且更好的选择。</p>
+<h3 id="原型Prototypal"><a href="#原型Prototypal" class="headerlink" title="原型Prototypal"></a>原型Prototypal</h3><p>在一个纯粹的原型模式中，我们摒弃类，转而专注于对象。一旦有了一个想要的对象，就可以利用 <code>Object.create</code> 方法创造出更多的实例。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myMammal = &#123;</span><br><span class="line">    name: <span class="string">&#x27;Herb the Mammal&#x27;</span>,</span><br><span class="line">    get_name: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> myCat = <span class="built_in">Object</span>.create(myMammal);</span><br><span class="line">myCat.name = <span class="string">&#x27;Henrietta&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这是一种差异化继承 (differential inheritance)。通过定制一个新的对象，我们指明它与所基于的基本对象的区别。</p>
+<h3 id="函数化Functional"><a href="#函数化Functional" class="headerlink" title="函数化Functional"></a>函数化Functional</h3><p>以上的继承模式的弱点就是没法保护隐私，对象的所有属性都是可见的。应用模块模式可以解决这个问题。</p>
+<p>我们从构造一个生成对象的函数开始。我们以小写字母开头来命名它，因为它并不需要使用 new 前缀。该函数包括 4 个步骤。</p>
+<ol>
+<li>创建一个新对象。有很多的方式去构造一个对象。它可以构造一个对象字面量，或者它可以和 new 前缀连用去调用一个构造器函数，或者它可以使用 <code>Object.create</code> 方法去构造一个已经存在的对象的新实例，或者它可以调用任意一个会返回一个对象的函数。</li>
+<li>有选择地定义私有实例变量和方法。这些就是函数中通过 var 语句定义的普通变量。</li>
+<li>给这个新对象扩充方法。这些方法拥有特权去访问参数，以及在第 2 步中通过 var 语句定义的变量。</li>
+<li>返回那个新对象。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title">constructor</span> = <span class="title">funciton</span> (<span class="params">spec, my</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> that, 其他的私有实例变量;</span><br><span class="line">    my = my || &#123;&#125;;</span><br><span class="line">    <span class="comment">// 把共享的变量和函数添加到 my 中;</span></span><br><span class="line">    that = 一个新对象;</span><br><span class="line">    <span class="comment">// 添加给 that 的特权方法</span></span><br><span class="line">    <span class="keyword">return</span> that;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>spec 对象包含构造器需要构造一个新实例的所有信息。spec 的内容可能会被复制到私有变量中，或者被其他函数改变，或者方法可以在需要的时候访问 spec 的信息。</p>
+<p>my 对象是一个为继承链中的构造器提供秘密共享的容器。my 对象可以选择性地使用。如果没有传入一个 my 对象，那么会创建一个 my 对象。</p>
+<p>接下来，声明该对象私有的实例变量和方法。通过简单地声明变量就可以做到。构造器的变量和内部函数变成了该实例的私有成员。内部函数可以访问spec、my、that, 以及其他私有变量。</p>
+<p>接下来，给 my 对象添加共享的秘密成员。这是通过赋值语句来实现的，例如<code>my.member = value;</code></p>
+<p>现在，我们构造了一个新对象并把它赋值给that。有很多方式可以构造一个新对象。我们可以使用对象字面量，可以用 new 运算符调用一个伪类构造器，可以在一个原型对象上使用 <code>Object.create</code> 方法，或者可以调用另一个函数化的构造器，传给它一个 spec 对象（可能就是传递给当前构造器的同一个 spec 对象）和 my 对象。my 对象允许其他的构造器分享我们放到 my 中的资料。其他构造器可能也会把自己可分享的秘密成员放进 my 对象里，以便我们的构造器可以利用它。</p>
+<p>接下来，我们扩充that, 加入组成该对象接口的特权方法。我们可以分配一个新函数成为 that 的成员方法。或者，更安全地，我们可以先把函数定义为私有方法，然后再把它们分配给that:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> methodical = <span class="function"><span class="keyword">function</span> (<span class="params"> </span>) </span>&#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;;</span><br><span class="line">that.methodical = methodical;</span><br></pre></td></tr></table></figure>
+
+<p>分两步去定义 methodical 的好处是，如果其他方法想要调用 methodical, 它们可以直接调用 <code>methodical()</code> 而不是 <code>that.methodical()</code>。如果该实例被破坏或篡改，甚至 <code>that.methodical()</code> 被替换掉了，调用 methodical 的方法同样会继续工作，因为它们私有的 methodical 不受该实例被修改的影响。</p>
+<p>最后，我们返回 that。</p>
+<p>函数化模式还给我们提供了一个处理父类方法的方法。我们会构造一个 <code>superior</code> 方法，它取得一个方法名并返回调用那个方法的函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.method(<span class="string">&#x27;superior&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>,</span><br><span class="line">        method = that[name];</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> method.apply(that, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mammal = <span class="function"><span class="keyword">function</span> (<span class="params">spec</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    that.get_name = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spec.name;</span><br><span class="line">    &#125;;</span><br><span class="line">    that.says = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spec.saying || <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> that;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myMammal = mammal(&#123; <span class="attr">name</span>: <span class="string">&#x27;Herb&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在，name 和 saying 属性是完全私有的。只有通过 get_name 和 says 两个特权方法才可以访问它们。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>JavaScript 没有数组一样的数据结构，作为替代，JavaScript 拥有一些类数组的对象。</p>
+<h3 id="数组字面量"><a href="#数组字面量" class="headerlink" title="数组字面量"></a>数组字面量</h3><p>一个数组字面量是在一对方括号中包围零个或多个用逗号分隔的值的表达式。数组字面量允许出现在任何表达式可以出现的地方。数组的第一个值将获得属性名 ‘0’，第二个值将获得属性名 ‘1’，依此类推。</p>
+<p>JavaScript 允许数组包含任意混合类型的值。</p>
+<h3 id="长度"><a href="#长度" class="headerlink" title="长度"></a>长度</h3><p>和大多数其他语言不同，JavaScript 数组的 length 是<strong>没有上界</strong>的。如果你用大于或等于当前 length 的数字作为下标来存储一个元素，那么 length 值会被增大以容纳新元素，不会发生数组越界错误。</p>
+<p>length 属性的值是这个数组的<em>最大整数属性名加上1</em>。它不一定等于数组里的属性的个数。</p>
+<p>你可以直接设置 length 的值。设置更大的 length 不会给数组分配更多的空间。而把 length 设小将导致所有下标大于等于新 length 的属性被删除。</p>
+<p>通过把下标指定为一个数组的当前 length，可以附加一个新元素到该数组的尾部（以下行为等价）：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">numbers[numbers.length] = <span class="string">&#x27;go&#x27;</span>;</span><br><span class="line">numbers.push(<span class="string">&#x27;go&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>JavaScript 的数组其实就是对象，所以可以用 delete 来移除元素，但是这样会在数组中留下一个空洞。</p>
+<p>JavaScript 数组有一个 splice 方法，第 1 个参数是数组中的一个序号，第 2 个参数是要删除的元素个数。任何额外的参数会在序号那个点的位置被插入到数组中。</p>
+<h3 id="混淆点"><a href="#混淆点" class="headerlink" title="混淆点"></a>混淆点</h3><p>JavaScript 本身对于数组和对象的区别是混乱的。<code>typeof</code> 运算符报告数组的类型是 <code>object</code>，这没有任何意义。</p>
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p>JavaScript 没有多维数组，但就像大多数类 C 语言一样，它支持元素为数组的数组。</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式起源于对形式语言 (formal language) 的数学研究。在 JavaScript 中，正则表达式的语法是对 Perl 版本的改进和发展，它非常接近于贝尔实验室 (Bell Labs) 最初提出的构想。正则表达式的书写规则出奇地复杂，在某些位置上的字符串可能解析为运算符，而仅在位置上稍微不同的相同字符串却可能被当做字面量。比不易书写更糟糕的是，这使得正则表达式不仅难以阅读，而且修改时充满危险。</p>
+<p>在 JavaScript 程序中，正则表达式必须写在一行中。</p>
+<h3 id="正则表达式入门"><a href="#正则表达式入门" class="headerlink" title="正则表达式入门"></a>正则表达式入门</h3><h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> parse_url = <span class="regexp">/^(?:([A-Za-z]+):)?(\/&#123;0,3&#125;)([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/</span></span><br></pre></td></tr></table></figure>
+
+<p><code>^</code> 表示此字符串的开始。</p>
+<p>针对 <code>(?:([A-Za-z]+):)?</code>，</p>
+<p><code>(?:...)</code> 表示一个非捕获型分组 (noncapturing group)。后缀 <code>?</code> 表示这个分组是可选的（重复 0 或 1 次）。</p>
+<p><code>(...)</code> 表示一个捕获型分组 (capturing group)。一个捕获型分组会复制它所匹配的文本，并把其放到数组里。每个捕获型分组都会被指定一个编号。第一个捕获型分组的编号是 1。</p>
+<p><code>[...]</code> 表示一个字符类，<code>A-Za-z</code> 这个字符类包含 26 个大写字母和 26 个小写字母。后缀 <code>+</code> 表示这个字符类会被匹配一次或多次。</p>
+<p>针对 <code>(\/&#123;0,3&#125;)</code>，</p>
+<p><code>\/</code> 表示应该匹配 <code>/</code> , 它用 <code>\</code> 来进行转义，这样它就不会被错误的解释为这个正则表达式的结束符。后缀 <code>&#123;0,3&#125;</code> 表示 <code>/</code> 会被匹配 0 次，或者 1-3 次。</p>
+<p>针对 <code>([0-9.\-A-Za-z]+)</code>，</p>
+<p>它会匹配一个主机名，由一个或多个数字、字母，以及 . 或 - 组成。<code>-</code> 会被转义为 <code>\-</code> 以防止与表示范围的连字符混淆。</p>
+<p>针对 <code>(?::(\d+))?</code>，</p>
+<p>又是一个可选的分组，以一个 <code>:</code> 加上一个或多个数字而组成的序列。<code>\d</code>表示一个数字字符。</p>
+<p>针对 <code>(?:\/([^?#]*))?</code>，</p>
+<p>另一个可选的分组，以一个 <code>/</code> 开始，之后的字符类 <code>[^?#]</code> 表示除了 <code>?</code> 和 <code>#</code> 之外的所有字符。<code>*</code> 表示这个字符类会被匹配 0 次或者多次。</p>
+<p>针对 <code>(?:\?([^#]*))?</code>，</p>
+<p>以 <code>?</code> 开始，包含 0 个或多个非 <code>#</code> 字符。</p>
+<p>针对 <code>(?:#(.*))?</code>，</p>
+<p>以 <code>#</code> 开始，<code>.</code> 会匹配除行结束符以外的所有字符。</p>
+<p><code>$</code> 表示这个字符串的结束。</p>
+<h4 id="标识"><a href="#标识" class="headerlink" title="标识"></a>标识</h4><p>i 标识：<code>//i</code> 表示匹配字母时忽略大小写。<br>g 标识：全局的，匹配多次。<br>m 标识：多行，<code>^</code> 和 <code>$</code> 能匹配行结束符。</p>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p>正则表达式字面量被包围在一对斜杠中。</p>
+<h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;into&quot;</span>.match(<span class="regexp">/in/i</span>nt/)</span><br></pre></td></tr></table></figure>
+
+<p>会在 into 中匹配 in，但是不会匹配int，因为 in 已被成功匹配了。</p>
+<h4 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h4><p><code>\n</code> 是换行符，<code>\r</code> 是回车符，<code>\t</code> 是制表符，并且 <code>\u</code> 允许指定一个 Unicode 字符来表示一个十六进制的常量。</p>
+<p><code>\d</code> 等同于 <code>[0-9]</code>，<code>\D</code> 则表示相反的 <code>[^0-9]</code>。<code>\w</code> 等同于 <code>[0-9A-Za-z]</code>。</p>
+<p><code>\1</code> 指向分组 1 所捕获到的文本的一个引用，<code>\2</code> 指向分组 2 的引用，以此类推。</p>
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><p>一个捕获型分组是一个被包围在圆括号中的正则表达式分支。</p>
+<p>非捕获型分组有一个 <code>(?:</code> 前缀，仅作简单的匹配，并不会捕获所匹配的文本。不会干扰捕获型分组的编号。</p>
+<h4 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h4><p>? 等同于 {0,1}, * 等同于 {0,}, + 等同于 {1,}</p>
+<h2 id="方法Methods"><a href="#方法Methods" class="headerlink" title="方法Methods"></a>方法Methods</h2><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><p><code>array.concat(item...)</code><br><code>array.join(separator)</code><br><code>array.pop()</code><br><code>array.push(item...)</code><br><code>array.reverse()</code><br><code>array.shift()</code><br><code>array.slice(start, end)</code><br><code>array.sort(comparefn)</code> 默认比较函数把要排序的元素视为字符串。<br><code>array.splice(start, deleteCount, item...)</code><br><code>array.unshift(item...)</code>  </p>
+<p><code>regexp.exec(string)</code> 如果成功匹配 regexp 和字符串string，会返回一个数组。数组中下标为 0 的元素将包含正则表达式 regexp 匹配的字符串，下标为 1 的元素是分组 1 捕获的文本，下标为 2 的元素是分组 2 捕获的文本，以此类推。匹配失败会返回null。<br><code>regexp.test(string)</code> 如果该 regexp 匹配string，返回true，否则返回false。</p>
+<p><code>string.indexOf(searchString, position)</code><br><code>string.replace(searchValue, replaceValue)</code> 如果 searchValue 是一个字符串，searchValue 只会在第 1 次出现的地方被替换。如果 searchValue 是一个正则表达式并且带有 g 标识，会替换所有的匹配。<br><code>string.slice(start, end)</code> 没有任何理由去使用 substring 方法，请使用 slice 替代他。</p>
+<h2 id="JavaScript-的代码风格"><a href="#JavaScript-的代码风格" class="headerlink" title="JavaScript 的代码风格"></a>JavaScript 的代码风格</h2><p>JavaScript 的弱类型和过度的容错性导致程序质量无法在编译时获得保障，所以为了弥补，我们应该按照严格的规范进行编码。</p>
+<p>当我现在评审一门语言的特性的时候，我把注意力放在那些有时很有用但偶尔很危险的特性上。那些是最糟糕的部分，因为我们很难辨别它们是否被正确使用。那是 bug 的藏身之地。</p>
+<h2 id="JavaScript-优美的特性"><a href="#JavaScript-优美的特性" class="headerlink" title="JavaScript 优美的特性"></a>JavaScript 优美的特性</h2><p>函数是顶级对象：函数是有词法作用域的闭包。<br>基于原型继承的动态对象：对象是无类别的。我们可以通过普通的赋值给任何对象增加一个新成员属性。一个对象可以从另一个对象继承成员属性。<br>对象字面量和数组字面量：这对创建新的对象和数组来说是一种非常方便的表示法。JavaScript 字面量是数据交换格式 JSON 的灵感之源。</p>
+<h2 id="JavaScript-毒瘤"><a href="#JavaScript-毒瘤" class="headerlink" title="JavaScript 毒瘤"></a>JavaScript 毒瘤</h2><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>全局变量就是在所有作用域中都可见的变量。全局变量在微型程序中可能会带来方便，但随着程序变得越来越大，它们很快变得难以管理。因为一个全局变量可以被程序的任何部分在任意时间修改，它们使得程序的行为变得极度复杂。在程序中使用全局变量降低了程序的可靠性。JavaScript 的问题不仅在于它允许使用全局变量，而且在于它依赖全局变量。JavaScript 没有链接器 (linker)，所有的编译单元都载入一个公共全局对象中。</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>在所有其他类似 C 语言风格的语言里，一个代码块（括在一对花括号中的一组语句）会创造一个作用域。代码块中声明的变量在其外部是不可见的。JavaScript 采用了这样的块语法，却没有提供块级作用域：代码块中声明的变量在包含此代码块的函数的任何位置都是可见的。</p>
+<p>在大多数语言中，一般来说，声明变量的最好的地方是在第一次用到它的地方。但这种做法在 JavaScript 里反而是一个坏习惯，因为它没有块级作用域。更好的方式是在每个函数的开头部分声明所有变量。</p>
+<h3 id="自动插入分号"><a href="#自动插入分号" class="headerlink" title="自动插入分号"></a>自动插入分号</h3><h3 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h3><p>JavaScript 保留的单词大多数并没有在语言中使用。</p>
+<h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h3><p>parseInt 如果字符串第 1 个字符是 0, 那么该字符串会基于八进制而不是十进制来求值。在八进制中，8 和 9 不是数字，所以 parseInt(“08”) 和 parseInt(“09”) 都产生 0 作为结果。这个错误会导致程序解析日期和时间时出现问题。幸运的是，parseInt 可以接受一个基数作为参数，如此一来 parseInt(“08”, 10) 结果为8。我建议你总是加上这个基数参数。</p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>进制的浮点数不能正确地处理十进制的小数，因此 0.1 + 0.2 不等于 0.3。这是 JavaScript 中最经常被报告的bug，并且它是遵循二进制浮点数算术标准而有意导致的结果。这个标准对很多应用都是适合的，但它违背了大多数你在中学所学过的关于数字的知识。幸运的是，浮点数中的整数运算是精确的，所以小数表现出来的错误可以通过指定精度来避免。</p>
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><p>typeof 不能辨别数字和NaN, 而且 NaN 也不等同于它自己。所以，<code>NaN === NaN</code> 的结果是false。JavaScript 提供了一个 isNaN 函数，可以辨别数字与NaN。</p>
+<h3 id="和"><a href="#和" class="headerlink" title="=== 和 !=="></a>=== 和 !==</h3><p>=== 和 !== 会按照期望的方式工作，如果两个运算数类型一致且拥有相同的值，那么 === 返回 true，!== 返回 false。而 == 和 != 只有在两个运算数类型一致时才会做出正确的判断，如果两个运算数是不同的类型，它们试图去强制转换值的类型。转换的规则复杂且难以记忆。</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LNMP配置过程记录</title>
+    <url>/2019/07/09/LNMP%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>我最近从把服务器从 CentOS 迁移到了 Ubuntu（<a href="https://feng.si/posts/2019/07/centos-the-last-linux-distro-you-should-ever-consider/">我为什么选择放弃CentOS</a>），本文记录一下其中踩的坑。</p>
+<h2 id="使用OneinStack配置LNMP"><a href="#使用OneinStack配置LNMP" class="headerlink" title="使用OneinStack配置LNMP"></a>使用OneinStack配置LNMP</h2><p>我是使用的一键包配置的LNMP，自己手动配置比较繁琐，也容易有失当之处。我用的一键包是OneinStack，Github有<a href="https://github.com/oneinstack/lnmp">开源项目</a>，官网是 <code>https://oneinstack.com/</code>。</p>
+<p>我使用如下的配置自动安装:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz &amp;&amp; tar xzf oneinstack-full.tar.gz &amp;&amp; ./oneinstack/install.sh --nginx_option 1 --php_option 4 --phpcache_option 1 --phpmyadmin  --db_option 4 --dbinstallmethod 1 --dbrootpwd &lt;passwd&gt;</span><br></pre></td></tr></table></figure>
+
+<p>基于性能考虑，我使用了MySQL 5.5 和 PHP 5.6，分别可以通过 <code>service mysqld</code> 和 <code>service php-fpm</code> 管理。此外，Nginx通过 <code>service nginx</code> 管理。</p>
+<span id="more"></span>
+
+<h2 id="补充安装fileinfo模块"><a href="#补充安装fileinfo模块" class="headerlink" title="补充安装fileinfo模块"></a>补充安装fileinfo模块</h2><p>因为安装php fileinfo模块太过于吃内存，Oneinstack一键包在安装过程中是不包含fileinfo的，需要自己手动安装:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install.sh --php_extensions fileinfo</span><br></pre></td></tr></table></figure>
+
+<h2 id="手动链接PHP"><a href="#手动链接PHP" class="headerlink" title="手动链接PHP"></a>手动链接PHP</h2><p>估计是为了多版本PHP共存的考量，一键包并没有为PHP设置环境变量，于是需要手动设置一下:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/php/bin/php /usr/<span class="built_in">local</span>/bin/php</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/php/bin/php /usr/bin/php</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置网站根目录权限"><a href="#设置网站根目录权限" class="headerlink" title="设置网站根目录权限"></a>设置网站根目录权限</h2><p>设置根目录权限以方便引用的执行:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chown -R www.www /data/wwwroot/</span><br><span class="line">find /data/wwwroot/ -<span class="built_in">type</span> d -<span class="built_in">exec</span> chmod 755 &#123;&#125; \;</span><br><span class="line">find /data/wwwroot/ -<span class="built_in">type</span> f -<span class="built_in">exec</span> chmod 644 &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>对于某些应用，可能还需要手动 <code>chmod 777</code> 以解决权限问题。</p>
+<h2 id="解决PHP-disabled-function"><a href="#解决PHP-disabled-function" class="headerlink" title="解决PHP disabled function"></a>解决PHP disabled function</h2><p>PHP出于安全的考量，默认是禁用了一部分函数的，例如我遇到的就是 <code>passthru()</code> 函数被禁用了，需要手动配置。</p>
+<p>通过 <code>phpinfo()</code> 此函数创建的网页找到PHP配置文件 <code>php.ini</code> 的位置，并修改此文件，查找<code>disable_functions</code> 项，手动去掉自己需要的函数。</p>
+<h2 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h2><p>我自己新部署的服务器是 Ubuntu 18.04 LTS版本，和 CentOS 相比更<strong>完备</strong>、更<strong>省心</strong>。例如，同时带有 Python2 和 Python3（CentOS 7 只包含前者）；apt可以直接安装PHP 7.2（CentOS官方包管理器只提供PHP 5.4）；自带vim、git、lrzsz等常用命令；Linux内核领先好多个版本（直接影响是不需要升级内核就能开启BBR加速）。CentOS最受人诟病的就是陈旧无比的官方源，换了社区源又容易出现一些其他问题。倒不如直接使用 Ubuntu，背后有商业公司提供免费支持，出 bug 的概率比较低。</p>
+<p>我原先是在 CentOS 上手动搭建的 LAMP，现在替换到了 Ubuntu 上一键包的 LNMP，最直观的感受是 Nginx 相比 Apache 在速度上确实是有直观的提升的。其次，虽然一键包部署为了抹平 Linux 版本之间的差异，采用的是源码编译安装的方式，需要的安装时长在 20-50 分钟不等，但是确实很方便。安装的过程中不需要任何操作，且自带的探针、phpMyAdmin、Opcache缓存确实非常好用。此外还能通过 <code>vhost.sh</code> 脚本快速地添加虚拟主机并自动配置TLS证书，能够做到<em>开箱即用</em>，体验上是很棒的。</p>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Pandas访问数据的最佳实践</title>
+    <url>/2019/04/14/Pandas%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<p><a href="http://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html">官方英文文档链接</a></p>
+<h2 id="不同数据维度对应的类"><a href="#不同数据维度对应的类" class="headerlink" title="不同数据维度对应的类"></a>不同数据维度对应的类</h2><p>从一维、二维到三维数据对应的类分别为：<code>Series</code>、<code>DataFrame</code> 和 <code>Panel</code>，索引方式分别为：<code>s.loc[indexer]</code>、<code>df.loc[row_indexer, column_indexer]</code> 和 <code>p.loc[item_indexer, major_indexer, minor_indexer]</code>。</p>
+<p>用常见的 Excel 来举例的话，<code>Series</code> 就是一行数据（一维）、<code>DataFrame</code> 就是一整张表（二维），而 <code>Panel</code> 则是整个Excel文件（三维，可能包含多张表）。</p>
+<h3 id="缺省切片"><a href="#缺省切片" class="headerlink" title="缺省切片"></a>缺省切片</h3><p>实际上，<code>DataFrame</code> 切片也不一定要传两个参数，<code>Panel</code> 切片也不一定要传三个参数，省略参数默认为空切片。例如，<code>p.loc[&#39;a&#39;]</code> 等价于 <code>p.loc[&#39;a&#39;, :, :]</code>，效果是选择了一张数据表。</p>
+<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>双引号指明间隔顺序，例如 <code>s[::2]</code> 表明从第一个元素开始每隔一个元素选择，而 <code>s[::-1]</code> 表明从最后一个开始往前选择。</p>
+<span id="more"></span>
+
+<h2 id="索引的不同选择"><a href="#索引的不同选择" class="headerlink" title="索引的不同选择"></a>索引的不同选择</h2><p><code>.loc</code> 方法主要适用于<em>标签</em> 的索引，出错时会报 <code>KeyError</code>。</p>
+<p><code>.loc</code> 接受：</p>
+<ul>
+<li>单个标签，例如 <code>&#39;a&#39;</code></li>
+<li>多个标签，例如 <code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code></li>
+<li>切片对象，例如 <code>&#39;a&#39;:&#39;f&#39;</code>（<code>&#39;a&#39;</code> 和 <code>&#39;f&#39;</code> 都包含在内）</li>
+<li>一个布尔数组</li>
+<li>一个函数</li>
+</ul>
+<p><code>.iloc</code> 主要用于数字位置的索引，出错时会报 <code>IndexError</code>。</p>
+<p><code>.iloc</code> 接受：</p>
+<ul>
+<li>一个数字, 例如 <code>5</code></li>
+<li>一组数字, 例如 <code>[4, 3, 0]</code></li>
+<li>切片对象, 例如 <code>1:7</code>（左闭右开）</li>
+<li>一个布尔数组</li>
+<li>一个函数</li>
+</ul>
+<h3 id="通过布尔切片"><a href="#通过布尔切片" class="headerlink" title="通过布尔切片"></a>通过布尔切片</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 示例一</span></span><br><span class="line">s = pd.Series(<span class="built_in">range</span>(-<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line">s[(s &lt; -<span class="number">1</span>) | (s &gt; <span class="number">0.5</span>)]</span><br><span class="line">s[~(s &lt; <span class="number">0</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例二</span></span><br><span class="line">df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;six&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;x&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: np.random.randn(<span class="number">7</span>)&#125;)</span><br><span class="line"><span class="comment"># criterion 是一个 boolean list</span></span><br><span class="line">criterion = df2[<span class="string">&#x27;a&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x.startswith(<span class="string">&#x27;t&#x27;</span>))</span><br><span class="line">df2[criterion]</span><br><span class="line"><span class="comment"># 等价的写法</span></span><br><span class="line">df2[[x.startswith(<span class="string">&#x27;t&#x27;</span>) <span class="keyword">for</span> x <span class="keyword">in</span> df2[<span class="string">&#x27;a&#x27;</span>]]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过函数切片"><a href="#通过函数切片" class="headerlink" title="通过函数切片"></a>通过函数切片</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成DataFrame</span></span><br><span class="line">df1 = pd.DataFrame(np.random.randn(<span class="number">6</span>, <span class="number">4</span>), index=<span class="built_in">list</span>(<span class="string">&#x27;abcdef&#x27;</span>), columns=<span class="built_in">list</span>(<span class="string">&#x27;ABCD&#x27;</span>))</span><br><span class="line"><span class="comment"># 通过函数切片</span></span><br><span class="line">df1.loc[<span class="keyword">lambda</span> df: df.A &gt; <span class="number">0</span>, :]</span><br></pre></td></tr></table></figure>
+
+<h2 id="交换DataFrame两列数据"><a href="#交换DataFrame两列数据" class="headerlink" title="交换DataFrame两列数据"></a>交换DataFrame两列数据</h2><p>正确的方法为：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">df[[<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;A&#x27;</span>]] = df[[<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>以下交换方法不起作用，因为pandas规定 <code>.loc</code> 和 <code>.iloc</code> 列对齐操作在赋值操作之前：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 没有效果</span></span><br><span class="line">df.loc[:, [<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;A&#x27;</span>]] = df[[<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>]]</span><br><span class="line"><span class="comment"># 解决方法</span></span><br><span class="line">df.loc[:, [<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;A&#x27;</span>]] = df[[<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>]].to_numpy()</span><br></pre></td></tr></table></figure>
+
+<h2 id="at-和-iat"><a href="#at-和-iat" class="headerlink" title="at 和 iat"></a>at 和 iat</h2><p>用处与 <code>loc</code> 和 <code>iloc</code> 类似，只不过 <code>at</code> 和 <code>iat</code> 只能获取单一Cell的数据，而 <code>loc</code> 和 <code>iloc</code> 可以获取一行、一列或者更复杂的数据。读单一Cell内数据的话， <code>at</code> 和 <code>iat</code> 会比<code>loc</code> 和 <code>iloc</code> 快很多。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python字符串前缀</title>
+    <url>/2019/03/09/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/</url>
+    <content><![CDATA[<h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>要搞清楚Python的字符编码问题，首先要区分两个概念：字符和字节。</p>
+<p>字符(character)是一个符号，例如”a”、“中”就是字符。而字节是计算机的储存单位，同样一个字符，例如”中”，在不同的编码下，对应的字节就不同。GBK编码下为双字节 <code>\xd6\xd0</code>，而UTF8编码下为三字节 <code>\xe4\xb8\xad</code>。</p>
+<p>所以，字符是对符号的抽象，而字节是字符在计算机上的实现。不仅对于Python，对于任何编程语言都是这样。</p>
+<h2 id="u"><a href="#u" class="headerlink" title="u"></a>u</h2><p><code>u&quot;sample-string&quot;</code> 表明字符串为Unicode字符串，UTF-8也是Python3的默认字符串编码。因为历史原因（Python诞生的时候Unicode标准还没有确定），Python2是不支持Unicode编码的，因此存储中文、Emoji等符号就依赖于各个用户自己的实现，导致了很多的混乱。这一点在C++上体现的“淋漓尽致”，C++字符串的变种之多之杂，是一般程序员很难想象的。</p>
+<p>而另一门我们熟知的语言，Java就乘上了Unicode的东风。Java中所有的字符串都采用UTF-16编码，因此很少有程序员在Java中遇到字符串编码的问题。</p>
+<span id="more"></span>
+
+<h2 id="b"><a href="#b" class="headerlink" title="b"></a>b</h2><p>与之相对的，<code>b&quot;sample-string&quot;</code> 表明字符串是不经过编码的字节序列。在这里，”sample-string”其实具有一定的误导性，用 <code>\xe4\xb8\xad</code> 更能代表真实的使用场景。</p>
+<h2 id="r"><a href="#r" class="headerlink" title="r"></a>r</h2><p><code>r&quot;sample-string&quot;</code> 中的r代表raw string，即不对反斜线 <code>\</code> 进行转义。例如，<code>r&quot;\n&quot;</code> 便不再代表换行，而是字面意义上的反斜线和字母n。</p>
+]]></content>
+      <categories>
+        <category>入门教程</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python 遍历文件</title>
+    <url>/2019/03/09/Python%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>在进行数据处理时，经常需要遍历一个文件夹，在 Python 中最简单的解决办法是使用 <code>os.walk()</code>。</p>
+<h2 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h2><p>函数声明如下：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">top, topdown=<span class="literal">True</span>, onerror=<span class="literal">None</span>, followlinks=<span class="literal">False</span></span>):</span></span><br></pre></td></tr></table></figure>
+
+<p>top 为传入的根目录。</p>
+<p><code>os.walk()</code> 函数会递归地为根目录下的每一个文件夹（包括根目录本身），产生一个三元组 <code>(dirpath, dirnames, filenames)</code>。</p>
+<p><code>dirpath</code> 为当前文件夹路径；<code>dirnames</code> 为 <code>dirpath</code> 下所有文件夹的名称（非递归，类似于资源管理器中或 Finder 中看到的文件夹）；<code>filenames</code> 为 <code>dirpath</code> 下所有文件的名称（同样非递归）。</p>
+<span id="more"></span>
+
+<p>需要完整的路径名可以使用 <code>os.path.join()</code>。</p>
+<p>topdown：设定为 Ture 表示一个目录的三元组将比它任何子文件夹的三元组先产生。设定为 False 表明一个目录的三元组将比它的任何子文件夹的三元组后产生。简单来讲，设定为 Ture，<code>dirpath</code> 是自顶向下产生的。</p>
+<p>followlinnks：此项设置为 True，可以访问软链接。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">g = os.walk(<span class="string">r&quot;d:\test&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> path, dir_list, file_list <span class="keyword">in</span> g:</span><br><span class="line">    <span class="comment"># 输出目录下所有文件</span></span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> file_list:</span><br><span class="line">        print(os.path.join(path, filename))</span><br><span class="line">    <span class="comment"># 输出目录下所有文件夹</span></span><br><span class="line">    <span class="keyword">for</span> dirname <span class="keyword">in</span> dir_list:</span><br><span class="line">        print(os.path.join(path, dirname))</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Python 的 <code>os.walk()</code> 确实很像人手动打开文件夹的过程：<code>dirpath</code> 为当前路径，<code>dirnames</code> 为当前路径下所有的文件夹，<code>filenames</code> 为当前路径下的所有文件。要查看更多文件，需要再打开 <code>dirnames</code> 中的子文件夹，确实很像 <code>walk</code>。和 JavaScript、Java 的文件遍历相比，确实有一点“优雅”的感觉😀。</p>
+]]></content>
+      <categories>
+        <category>入门教程</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL &quot;explain&quot; a programmer&#39;s perspective</title>
+    <url>/2022/10/13/SQL-explain-a-programmer&#39;s-perspective/</url>
+    <content><![CDATA[<p>MySQL’s <code>explain</code> statement is commonly used to analyze the cause of slow SQL and returns the following columns:</p>
+<p>select_type, table, partitions, type, possible_keys, key, key_len, ref, rows, filtered, extra.</p>
+<p>The most important fields are type, rows, key and extra.</p>
+<h2 id="Logical-Architecture-of-MySQL"><a href="#Logical-Architecture-of-MySQL" class="headerlink" title="Logical Architecture of MySQL"></a>Logical Architecture of MySQL</h2><p>Let’s start with the basics, the logical architecture of MySQL.</p>
+<p>Client -&gt; (Query Cache, 5.7.20 deprecated, 8.0 removed) -&gt; Parser (generates parse trees) -&gt; Preprocessor (generates new parse trees) -&gt; Query Optimizer (generates query plans) -&gt; Execution Engine (execution scheduling) -&gt; Storage Engine (data lookup) -&gt; Execution Engine (data filtering, sorting, etc.) -&gt; Client and Query Cache</p>
+<h2 id="“type”-“rows”-and-“key”-fields"><a href="#“type”-“rows”-and-“key”-fields" class="headerlink" title="“type”, “rows” and “key” fields"></a>“type”, “rows” and “key” fields</h2><p>The “type” field is used to indicate the type of connection. Connection types can be classified from fast to slow as follows:</p>
+<ol>
+<li><p>const, system: up to one matching row, using a primary key or unique index</p>
+</li>
+<li><p>eq_ref: returns a row of data, usually found in <code>join</code>, using a primary key or a unique index</p>
+</li>
+<li><p>ref: uses the <strong>leftmost prefix</strong> of the key, and the key is not a primary or unique key</p>
+</li>
+<li><p>range: index range scan, the scan of the index starts at a certain point and returns the matching row(s)</p>
+</li>
+<li><p>index: <strong>full table scan</strong> in the order of the index, the advantage is that there is no sorting, the disadvantage is that the whole table has to be scanned</p>
+</li>
+<li><p>all: full table scan</p>
+<span id="more"></span>
+
+</li>
+</ol>
+<p>The “rows” field is MySQL’s estimate of the number of rows needed to be scanned to find the desired record, and is used as a reference for the query optimizer to select keys.</p>
+<p>For types of “index” and “all”, the number of “rows” is usually very large for a full table scan. So “index” and “all” types should be avoided in an online environment.</p>
+<p>The “key” field indicates which index is used, if no index is used, it is null.</p>
+<p>The “<strong>index</strong>” type is actually quite confusing. It is <strong>index</strong>, but in fact there is no query using indices at all, just sorting with indices on the basis of a full table scan.</p>
+<h2 id="“extra”"><a href="#“extra”" class="headerlink" title="“extra”"></a>“extra”</h2><p>The “extra” field is used to indicate additional <strong>important information</strong>. They can be classified from fast to slow as follows:</p>
+<ol>
+<li><p>using index: index override, the query only uses the index, no need to read the data block</p>
+</li>
+<li><p>using where: filtering after the storage engine returns the records</p>
+</li>
+<li><p>using temporary: using temporary tables, usually seen when <code>GROUP BY</code>, <code>ORDER BY</code> appearing</p>
+</li>
+<li><p>using filesort: using non-index-ordered additional sorting, occurs when <code>ORDER BY</code> does not use indices (may be in-memory sorting, may also be external sorting)</p>
+</li>
+</ol>
+<p>In Online environments, “using temporary” and “using filesort” should be avoided.</p>
+<h2 id="Best-practice-to-debug-a-slow-SQL"><a href="#Best-practice-to-debug-a-slow-SQL" class="headerlink" title="Best practice to debug a slow SQL"></a>Best practice to debug a slow SQL</h2><ol>
+<li><p>Firstly, look at the “key” field, see whether indices are used.</p>
+</li>
+<li><p>Then look at the “type” field, it should not be “index” or “all”.</p>
+</li>
+<li><p>Finally, look at the “extra” field, it cannot be “using temporary” or “using filesort”.</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>mysql</tag>
+        <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot+MyBatis 实战</title>
+    <url>/2019/04/14/SpringBoot-Mybatis%E5%AE%9E%E6%88%98/</url>
+    <content><![CDATA[<h2 id="ORM-与-MyBatis"><a href="#ORM-与-MyBatis" class="headerlink" title="ORM 与 MyBatis"></a>ORM 与 MyBatis</h2><p>Object Relational Mapping (ORM)，对象关系映射，用于实现数据库系统和面向对象编程语言类型系统之间的数据转换。效果上，它创建了一个可在编程语言中使用的“虚拟对象数据库”。</p>
+<p>MyBatis 是 ORM 的一种实现框架，对 JDBC 进行了又一层的封装。和 Hibernate 这种重量级的 ORM 框架相比，MyBatis 非常轻量，其源码可以在数天之间就全部看完。这是因为和 Hibernate 提供了全套映射机制、自动生成 SQL 语句相比，MyBatis 选择了拥抱 SQL，让程序员自己写 SQL，只是把查询结果转换到 POJO 中。</p>
+<h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>Apache Maven，是一个软件项目管理及自动构建工具，使用项目对象模型 (Project Object Model, POM) 进行配置。</p>
+<h2 id="代码分层"><a href="#代码分层" class="headerlink" title="代码分层"></a>代码分层</h2><p>一般而言，一个 Web 项目，自顶向下的访问顺序为：Controller -&gt; Service -&gt; Dao -&gt; MyBatis -&gt; Database</p>
+<p>Controller 用作 URL 映射；Service 写业务逻辑；Dao 即 Data Access Object，数据访问对象，用途正如其名；Model 定义实体类，即 MyBatis 从数据库中取出的数据对应的 POJO。</p>
+<p>此外，Controller 和 Service 命名相对固定，Dao 常被命名为 Mapper 或者 Repository，Model 还常被命名为 Entity 或者 Domain。以下使用 Controller -&gt; Service -&gt; Dao -&gt; Model 的命名。</p>
+<span id="more"></span>
+
+<h2 id="SpringBoot-Mybatis-配置"><a href="#SpringBoot-Mybatis-配置" class="headerlink" title="SpringBoot+Mybatis 配置"></a>SpringBoot+Mybatis 配置</h2><h3 id="SpringBoot-基础结构"><a href="#SpringBoot-基础结构" class="headerlink" title="SpringBoot 基础结构"></a>SpringBoot 基础结构</h3><p><code>src/main/java</code> 程序开发以及主程序入口<br><code>src/main/resources</code> 配置文件<br><code>src/test/java</code> 测试程序</p>
+<p><code>src/main/java</code> 目录下：<br>model (entity, domain)：实体层，存放实体类；与数据库中的属性值基本保持一致，实现 get 和 set 的方法。<br>service：服务层，主要是业务类代码。<br>controller：控制层，负责页面访问控制。<br>dao (mapper, repository)：数据访问层，和数据库通信。</p>
+<h3 id="引入-Web-模块"><a href="#引入-Web-模块" class="headerlink" title="引入 Web 模块"></a>引入 Web 模块</h3><p>在 <code>pom.xml</code> 中添加 web 模块，也可在 IDEA 中的 Spring Initializr 中勾选：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>pom.xml</code> 中默认有两个模块：<code>spring-boot-starter</code> 和 <code>spring-boot-starter-test</code>。</p>
+<p><code>spring-boot-starter</code> 是核心模块，包括自动配置支持、日志和 YAML。如果引入了 <code>spring-boot-starter-web</code> 可以去掉此模块，因为 web 模块自动依赖此模块。</p>
+<p><code>spring-boot-starter-test</code> 是测试模块，包括 JUnit、Hamcrest 和 Mockito。</p>
+<p><code>mybatis-spring-boot-starter</code> 是 SpringBoot 集成的 MyBatis 模块，可以完全使用注解实现 CRUD，几乎完全不用写 XML 配置文件，轻松上手。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第一个-Controller"><a href="#第一个-Controller" class="headerlink" title="第一个 Controller"></a>第一个 Controller</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候访问 <code>http://localhost:8080/hello</code> 应该就可以看到 Hello World 了。</p>
+<h3 id="自定义-Property"><a href="#自定义-Property" class="headerlink" title="自定义 Property"></a>自定义 Property</h3><ol>
+<li><p>配置 Maven 文件，如果是使用 Intellij IDEA 中的 <code>Spring Initializr</code> 创建项目的话，Maven 应该是自动配置好的。</p>
+</li>
+<li><p>在 <code>resources/application.properties</code> 添加数据库连接的相关配置</p>
+ <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span> = <span class="string">jdbc:mysql://localhost:3306/test1?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span> = <span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span> = <span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<p> SpringBoot 会自动加载 <code>spring.datasource.*</code> 中的相关配置，数据源会自动注入到 sqlSessionFactory 中，sqlSessionFactory 会自动注入到 Mapper 中，做到开箱即用。</p>
+</li>
+</ol>
+<h3 id="Spring-Boot-常用注解"><a href="#Spring-Boot-常用注解" class="headerlink" title="Spring Boot 常用注解"></a>Spring Boot 常用注解</h3><h4 id="声明-Bean-的注解"><a href="#声明-Bean-的注解" class="headerlink" title="声明 Bean 的注解"></a>声明 Bean 的注解</h4><p><code>@Component</code>：没有明确角色的组件<br><code>@Service</code>：在业务逻辑层（service 层）使用<br><code>@Repository</code>：在数据访问层（dao 层）使用<br><code>@Controller</code>：在控制层（controller 层）使用<br><code>@RestController</code>：是一个组合注解，等于 <code>@Controller</code> + <code>@ResponseBody</code></p>
+<p>此外，<br><code>@Scope</code>：作用在类和方法上，用于配置 Spring Bean 的作用域<br><code>@RequestMapping</code>：用来处理请求地址映射<br><code>@ResponseBody</code>：支持将返回值放在 Response 体内，而不是返回一个视图</p>
+<h4 id="注入-Bean-的注解"><a href="#注入-Bean-的注解" class="headerlink" title="注入 Bean 的注解"></a>注入 Bean 的注解</h4><p><code>@Autowired</code>：实现自动装配，Spring IoC 容器扫描到 <code>@Autowired</code> 注解会去查询实现类，并自动注入。<br><code>@Qualifier</code>：如果 <code>@Autowired</code> 指定的是一个接口，它有多个实现类，那么需要 <code>@Qualifier</code> 注解指定注入的实现类的名称。</p>
+<h4 id="实现-Java-配置的注解"><a href="#实现-Java-配置的注解" class="headerlink" title="实现 Java 配置的注解"></a>实现 Java 配置的注解</h4><p><code>@Configuration</code> 注解声明当前类是一个配置类，相当于 Spring 中的一个 XML 文件。<br><code>@Bean</code> 注解作用在方法上，声明当前方法的返回值是一个 Java Bean。</p>
+<h3 id="MyBatis-注解"><a href="#MyBatis-注解" class="headerlink" title="MyBatis 注解"></a>MyBatis 注解</h3><p>可以使用接口+注解的方式取代 XML 配置 Mapper 的方式，以完成 Dao 层的编写。在项目小、数据库交互少的情况下，这是更简洁、更优雅的方式。但当项目增长到一定规模，有大量复杂的 CRUD 的情况下，还是使用 XML 配置文件管理 SQL 语句更有效率。</p>
+<p><code>@Select</code> 负责查询。<br><code>@Insert</code> 负责插入。<br><code>@Update</code> 负责修改。<br><code>@Delete</code> 负责删除。<br><code>@Result</code> 修饰返回的结果集，关联实体类属性和数据库字段。如果实体类属性和数据库字段保持一致，就不需要这个注解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM user WHERE name = #&#123;name&#125;&quot;)</span></span><br><span class="line">    <span class="function">User <span class="title">findByName</span><span class="params">(<span class="meta">@Param(&quot;name&quot;)</span> String name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert(&quot;INSERT INTO user(name,age) VALUES(#&#123;name&#125;,#&#123;age&#125;)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(<span class="meta">@Param(&quot;name&quot;)</span> String name, <span class="meta">@Param(&quot;age&quot;)</span> Integer age)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update(&quot;UPDATE user SET age=#&#123;age&#125; WHERE name=#&#123;name&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete(&quot;DELETE FROM user WHERE id =#&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实体类的编写"><a href="#实体类的编写" class="headerlink" title="实体类的编写"></a>实体类的编写</h3><p>在实体类中定义属性，实现 get 和 set 方法，把数据库中的数据转换成 Java 程序能理解的实体类。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>以下以展示汽车销量的应用为例。</p>
+<p>在 Controller 中注入依赖的 Service。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarSaleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    CarSaleService carSaleService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &#123;&quot;/car/TotalSaleMonth&quot;&#125;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CarTotalSaleMonth <span class="title">getCarTotalSaleEveryMonth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> carSaleService.getCarTotalSaleEveryMonth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Service：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarSaleService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@AutoWired</span></span><br><span class="line">    CarSaleDao carSaleDao;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> CarTotalSaleMonth <span class="title">getCarTotalSaleEveryMonth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> carSaleDao.selectCarTotalSaleEveryMonth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Dao：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CarSaleDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">// car_sale_month 是数据表名，其中存着 month1...month12 总共 12 个属性值</span></span><br><span class="line">    <span class="meta">@Select(&#123;&quot;select * from car_sale_month&quot;&#125;)</span></span><br><span class="line">    <span class="function">CarTotalSaleMonth <span class="title">selectCarTotalSaleEveryMonth</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配的 Model：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarTotalSaleMonth</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> month1;</span><br><span class="line">    <span class="keyword">int</span> month2;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">int</span> month12;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMonth1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> month1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMonth1</span><span class="params">(<span class="keyword">int</span> month1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.month1 = month1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>入门教程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot 知识</title>
+    <url>/2019/08/27/SpringBoot%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<blockquote>
+<p>笔记摘录于《Spring Boot 实战》第四版，结合个人总结与思考。</p>
+</blockquote>
+<h2 id="Spring-Boot简介"><a href="#Spring-Boot简介" class="headerlink" title="Spring Boot简介"></a>Spring Boot简介</h2><p>Spring Boot 提供了四个主要的特性，能够改变开发 Spring 应用程序的方式：</p>
+<ul>
+<li>自动配置：Spring Boot 的自动配置特性利用了 Spring 4 对条件化配置的支持，合理地推测应用所需的 bean 并自动化配置它们。</li>
+<li>Spring Boot Starter：将常用的依赖分组进行了整合，将其合并到一个依赖中，这样就可以一次性添加到项目的 Maven 或 Gradle 构建中。</li>
+<li>命令行接口 (Command-line interface, CLI)：Spring Boot 的 CLI 发挥了 Groovy 编程语言的优势，并结合自动配置进一步简化 Spring 应用的开发。</li>
+<li>Actuator：深入运行中的 Spring Boot 应用程序，在运行时检视应用程序内部情况。</li>
+</ul>
+<p>Spring Boot 采用自动配置和 Starter 来消除 Spring 项目中的样板式配置。</p>
+<p>自动配置指：如果 Spring Boot 在应用程序的 classpath 里发现了 H2 数据库的库，那么它就会自动配置一个嵌入式 H2 数据库。如果在 classpath 中发现 <code>JdbcTemplate</code>，那么它还会配置一个 <code>JdbcTemplate</code> 的 Bean。</p>
+<p>Spring Boot 可以把 Web 应用程序变为可自执行的 JAR 文件，不用部署到传统 Java 应用服务器里就能在命令行里运行。Spring Boot 在应用程序里嵌入了一个 Servlet 容器（Tomcat、Jetty 或 Undertow）。从根本上来说，Spring Boot 项目只是普通的 Spring 项目，只是它们正好用到了 Spring Boot 的起步依赖和自动配置而已（没有 Spring Boot 程序员自己也会去做）。</p>
+<span id="more"></span>
+
+<h2 id="Spring-Initializr"><a href="#Spring-Initializr" class="headerlink" title="Spring Initializr"></a>Spring Initializr</h2><p>Spring Initializr 能提供一个基本的项目结构，以及一个用于构建代码的 Maven 或 Gradle 构建说明文件。也可以用 Spring Boot CLI 初始化项目。</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><code>build.gradle</code>：Gradle 构建说明文件。<br><code>pom.xml</code>：Maven 构建说明文件。<br><code>src/main/java/myapp/Application.java</code>：一个带有 <code>main()</code> 方法的类，用于引导启动应用程序。它不仅是启动引导类，也是配置类。<br><code>src/test/java/myapp/ApplicationTests.java</code>：一个空的 JUnit 测试类，加载了一个使用 Spring Boot 自动配置功能的 Spring 应用程序上下文。<br><code>src/main/resources/application.properties</code>：一个空的 properties 文件，可以根据需要添加配置属性。<br><code>src/main/resources/static</code>：存放 Web 应用程序的静态内容。<br><code>src/main/resources/templates</code>：存放呈现模型数据的模板。<br><code>src/test/resources</code>：存放测试资源。</p>
+<h2 id="Starter依赖"><a href="#Starter依赖" class="headerlink" title="Starter依赖"></a>Starter依赖</h2><p>Spring Boot 提供更加粗粒度的依赖，例如，<code>spring-boot-starter-web</code> 包含了 <code>spring-boot-starter</code>、<code>spring-boot-starter-tomcat</code>、<code>jackson-databind</code>、<code>spring-web</code>、<code>spring-webmvc</code>的依赖。<code>spring-boot-starter-test</code> 为测试模块，包括 JUnit，Hamcrest 和 Mockito。<code>spring-boot-starter</code> 是核心模块，包括自动配置支持、日志和 YAML。</p>
+<p>如果使用Maven进行管理，配置方式为：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用Gradle的话配置方式为：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> &#123;</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">    <span class="keyword">def</span> hello() &#123;</span><br><span class="line">        <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要 <code>spring run HelloController.groovy</code> 即可启动整个应用程序。</p>
+<h2 id="SpringBootApplication-注解"><a href="#SpringBootApplication-注解" class="headerlink" title="@SpringBootApplication 注解"></a>@SpringBootApplication 注解</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ReadingListApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@SpringBootApplication</code> 开启了 Spring 的组件扫描和 Spring Boot 的自动配置功能。实际上，<code>@SpringBootApplication</code> 将 <code>@SpringBootConfiguration</code>，<code>@ComponentScan</code> 和 <code>@EnableAutoConfiguration</code> 三个有用的注解组合在了一起。源码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h3><p>首先来看 <code>@SpringBootConfiguration</code> 的源码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的 <code>@Configuration</code> 作用是配置 Spring 容器，源自 Spring。<code>@Configuration</code> 和 <code>@SpringBootConfiguration</code> 都是将当前类标注为配置类，并将当前类里以 <code>@Bean</code> 注解标记的方法的实例注入到 Spring 容器中，实例名就是方法名。</p>
+<h3 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h3><p><code>@EnableAutoConfiguration</code> 的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(AutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@EnableAutoConfiguration</code> 注解启用自动配置，可以帮助 SpringBoot 应用将符合条件的 <code>@Configuration</code> 配置都加载到当前 IoC 容器之中。</p>
+<h3 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h3><p><code>@ComponentScan</code> 对应于XML配置形式中的 <code>context:component-scan</code>，用于将一些标注了特定注解的 bean 定义批量采集注册到Spring 的 IoC 容器之中，这些特定的注解大致包括：</p>
+<ul>
+<li>@Controller</li>
+<li>@Entity</li>
+<li>@Component</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ul>
+<h2 id="application-properties文件"><a href="#application-properties文件" class="headerlink" title="application.properties文件"></a>application.properties文件</h2><p>加入一行 <code>server.port=8000</code> 就可以把监听端口从默认的 8080 改变到 8000。</p>
+<p><code>application.properties</code> 文件可以细粒度地调整 Spring Boot 的自动配置。完全不用告诉 Spring Boot 加载 <code>application.properties</code>，只要它存在就会被加载，Spring 和应用程序代码都能获取其中的属性。</p>
+<h2 id="Spring-Boot构建过程解析"><a href="#Spring-Boot构建过程解析" class="headerlink" title="Spring Boot构建过程解析"></a>Spring Boot构建过程解析</h2><p>Spring Boot 为 Gradle 和 Maven 提供了构建插件，以便辅助构建 Spring Boot 项目。构建插件的主要功能是把项目打包成一个可执行的超级 JAR (uber-JAR)，其中的内容能够用 <code>java -jar</code> 来运行应用程序。</p>
+<p>使用 Maven 构建的话还可以将 <code>spring-boot-starter-parent</code> 作为上一级，利用 Maven 的依赖管理功能，继承很多常用库的依赖版本，不用再去指定版本号。Gradle 原生没有这样的功能，Spring Boot Gradle 插件提供了这个特性。</p>
+<h3 id="排除传递依赖"><a href="#排除传递依赖" class="headerlink" title="排除传递依赖"></a>排除传递依赖</h3><p>Spring Boot 的 Web 起步依赖传递依赖了 Jackson JSON 库，排除掉传递依赖可以为项目瘦身。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>) &#123;</span><br><span class="line">    exclude <span class="attr">group:</span> <span class="string">&#x27;com.fasterxml.jackson.core&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Maven 总是会用最近的依赖，而 Gradle 使用库的更新版本。所以 Gradle 使用老版本的 Jackson 时需要把 Web 起步依赖传递依赖的版本排除掉，并加入老版本。</p>
+<h3 id="定义领域模型"><a href="#定义领域模型" class="headerlink" title="定义领域模型"></a>定义领域模型</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy=GenerationType.AUTO)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String reader;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getID</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setID</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReader</span><span class="params">(String reader)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reader = reader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Entity</code> 注解表明它是一个 JPA 实体，<code>id</code> 属性加了 <code>@Id</code> 和 <code>@GeneratedValue</code> 注解，说明这个字段是实体的唯一标识，并且这个字段的值是自动生成的。</p>
+<h3 id="定义仓库接口"><a href="#定义仓库接口" class="headerlink" title="定义仓库接口"></a>定义仓库接口</h3><p>把 <code>Book</code> 对象持久化到数据库。因为用了 Spring Data JPA，只要简单地定义一个接口，拓展一下 Spring Data JPA 的<code>JpaRepository</code> 接口。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadingListRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Book</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Book&gt; <span class="title">findByReader</span><span class="params">(String reader)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过拓展 <code>JpaRepository</code>，<code>ReadingListRepository</code> 直接继承了 18 个执行常用持久化操作的方法。<code>JpaRepository</code> 是个泛型接口，有两个参数: 数据库操作的领域对象类型，及其 ID 属性的类型。此外，还增加了一个 <code>findByReader()</code> 方法，可以根据读者来查找阅读列表。</p>
+<h3 id="创建Web界面"><a href="#创建Web界面" class="headerlink" title="创建Web界面"></a>创建Web界面</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReadingListRepository readingListRepository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReadingListController</span><span class="params">(ReadingListRepository readingListRepository)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.readingListRepository = readingListRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readersBooks</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Model model)</span> </span>&#123;</span><br><span class="line">        List&lt;Book&gt; readingList = readingListRepository.findByReader(reader);</span><br><span class="line">        <span class="keyword">if</span> (readingList != <span class="keyword">null</span>) &#123;</span><br><span class="line">            model.addAttribute(<span class="string">&quot;books&quot;</span>, readingList);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;readingList&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/&#123;reader&#125;&quot;, method=RequestMethod.POST)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addToReadingList</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@PathVariable(&quot;reader&quot;)</span> String reader, Book book)</span> </span>&#123;</span><br><span class="line">        book.setReader(reader);</span><br><span class="line">        readingListRepository.save(book);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/&#123;reader&#125;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>readersBooks()</code> 处理 <code>/&#123;reader&#125;</code> 上的 HTTP GET 请求，根据路径里指定的读者，从（通过控制器的构造器注入的）Repo 获取 Book 列表。随后将这个列表塞入模型，用的键是 books，最后返回 readingList 作为呈现模型的视图逻辑名称。</p>
+<p><code>addToReadingList()</code> 处理 <code>/&#123;reader&#125;</code> 上的 HTTP POST 请求，将请求正文里的数据绑定到一个 Book 对象上。该方法把 Book 对象的 reader 属性设置为读者的姓名，随后通过仓库的 <code>save()</code> 方法保存修改后的 Book 对象，最后重定向到 <code>/&#123;reader&#125;</code>（控制器中的另一个方法会处理该请求）。</p>
+<p>书中的前端页面采用了 Thymeleaf 模板，此处不再赘述。</p>
+<p>至此，一个完整的 Spring Boot 应用程序构建完成。</p>
+<h2 id="覆盖Spring-Boot自动配置"><a href="#覆盖Spring-Boot自动配置" class="headerlink" title="覆盖Spring Boot自动配置"></a>覆盖Spring Boot自动配置</h2><p>Spring Boot 对安全特性的自动配置做得还不够好。覆盖自动配置很简单，就当自动配置不存在，直接显式地写一段配置。这段显式配置的形式不限，Spring 支持的 XML 和 Groovy 形式配置都可以。</p>
+<h2 id="通过属性文件外置配置"><a href="#通过属性文件外置配置" class="headerlink" title="通过属性文件外置配置"></a>通过属性文件外置配置</h2><p>Spring Boot 应用程序有多种设置途径。Spring Boot 能从多种属性源获得属性，包括如下几处:</p>
+<ol>
+<li>命令行参数</li>
+<li><code>java:comp/env</code> 里的 JNDI 属性</li>
+<li>JVM 系统属性</li>
+<li>操作系统环境变量</li>
+<li>随机生成的带 <code>random.*</code> 前缀的属性（在设置其他属性时，可以引用它们，比如 <code>$&#123;random.long&#125;</code>）</li>
+<li>应用程序以外的 application.properties 或者 appliaction.yml 文件</li>
+<li>打包在应用程序内的 application.properties 或者 appliaction.yml 文件</li>
+<li>通过 <code>@PropertySource</code> 标注的属性源</li>
+<li>默认属性</li>
+</ol>
+<p>这个列表按照优先级排序，也就是说，任何在高优先级属性源里设置的属性都会覆盖低优先级的相同属性。</p>
+<p>application.properties 和 application.yml 文件能放在以下四个位置。</p>
+<ol>
+<li>外置，在相对于应用程序运行目录的 <code>/config</code> 子目录里</li>
+<li>外置，在应用程序运行的目录里</li>
+<li>内置，在 config 包内</li>
+<li>内置，在 classpath 根目录</li>
+</ol>
+<p>同样，这个列表按照优先级排序。也就是说，<code>/config</code> 子目录里的 application.properties 会覆盖应用程序 classpath 里的application.properties 中的相同属性。</p>
+<h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><p>在 application.properties 中设置（也可以用application.yml配置）：</p>
+<p>更改日志配置：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">logging.path=/var/logs/</span><br><span class="line">logging.file=BookWorm.log</span><br><span class="line">logging.level.root=WARN</span><br><span class="line">logging.level.root.org.springframework.security=DEBUG</span><br></pre></td></tr></table></figure>
+
+<p>配置数据源:</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">dbuser</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">dbpass</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Boot测试"><a href="#Spring-Boot测试" class="headerlink" title="Spring Boot测试"></a>Spring Boot测试</h2><p>在编写单元测试的时候，Spring 通常不需要介入。但是，集成测试要用到 Spring。</p>
+<p>Spring 自 1.1.1 版就向集成测试提供了极佳的支持。自 Spring 2.5 开始，集成测试支持的形式就变成了 SpringJUnit4ClassRunner。这是一个 JUnit 类运行器，会为 JUnit 测试加载 Spring 应用程序上下文，并为测试类自动织入所需的 Bean。</p>
+<p>要恰当地测试一个 Web 应用程序，你需要投入一些实际的 HTTP 请求，确认它能正确地处理那些请求。幸运的是，Spring Boot 开发者有两个可选的方案能实现这类测试。</p>
+<ul>
+<li>Spring Mock MVC：能在一个近似真实的模拟 Servlet 容器里测试控制器，而不用实际启动应用服务器。</li>
+<li>Web 集成测试：在嵌入式 Servlet 容器（比如 Tomcat 或 Jetty）里启动应用程序，在真正的应用服务器里执行测试。</li>
+</ul>
+<h2 id="Groovy与Spring-Boot-CLI"><a href="#Groovy与Spring-Boot-CLI" class="headerlink" title="Groovy与Spring Boot CLI"></a>Groovy与Spring Boot CLI</h2><p>Groovy并不要求有 <code>public</code> 和 <code>private</code> 这样的限定符，也不要求行尾有分号。</p>
+<h2 id="Actuator"><a href="#Actuator" class="headerlink" title="Actuator"></a>Actuator</h2><p>要启用 Actuator 的端点，只需在项目中引入 Actuator 的起步依赖即可。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.springframework.boot:spring-boot-starter-actuator&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获得Bean装配报告"><a href="#获得Bean装配报告" class="headerlink" title="获得Bean装配报告"></a>获得Bean装配报告</h3><p>向 <code>/beans</code> 发起 GET 请求后，会获得 Bean 装配报告的 JSON 文档。所有的 Bean 条目都有 5 类信息。</p>
+<ul>
+<li>bean：Bean的名称或ID。</li>
+<li>resource：<code>.class</code> 文件的物理位置，通常是一个 URL，指向构建出的 JAR 文件。这会随着应用程序的构建和运行方式发生变化。</li>
+<li>dependencies：当前 Bean 注入的 Bean ID 列表。</li>
+<li>scope：Bean 的作用域（通常是单例）。</li>
+<li>type：Bean 的 Java 类型。</li>
+</ul>
+<p><code>/autoconfig</code> 端点能报告为什么会有这个 Bean，或者为什么没有这个 Bean。<code>/env</code> 端点会生成应用程序可用的所有环境属性的列表，包括环境变量、JVM 属性、命令行参数，以及 application.properties 或 application.yml 提供的属性。<code>/env</code> 还能获取单个属性的值，例如 <code>/env/amazon.associate_id</code>。</p>
+<p><code>/mappings</code> 罗列出应用程序发布的全部端点。<code>/metrics</code> 端点能查看运行时数据，例如 GC、内存、线程池等等。<code>/trace</code> 端点能报告所有Web请求的详细信息。<code>/dump</code> 端点生成当前线程活动的快照。<code>/health</code> 端点列出健康指示器，例如数据库是否能连上、邮件服务器是否能连上等。</p>
+<h2 id="部署Spring-Boot应用程序"><a href="#部署Spring-Boot应用程序" class="headerlink" title="部署Spring Boot应用程序"></a>部署Spring Boot应用程序</h2><h3 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h3><ul>
+<li>在 IDE 中运行应用程序</li>
+<li>使用 Maven的 <code>spring-boot:run</code> 或 Gradle 的 <code>bootRun</code></li>
+<li>使用 Maven 或 Gradle 生成可运行的 JAR 文件，随后在命令行中运行</li>
+<li>使用 Spring Boot CLI 在命令行中运行 Groovy 脚本</li>
+<li>使用 Spring Boot CLI 来生成可运行的 JAR 文件，随后在命令行中运行</li>
+</ul>
+<p>针对应用服务器的部署，常需要把应用程序打包成一个 WAR 文件。</p>
+<h3 id="构建WAR文件"><a href="#构建WAR文件" class="headerlink" title="构建WAR文件"></a>构建WAR文件</h3><p>如果使用 Gradle，只需应用 WAR 插件 <code>apply plugin: &#39;war&#39;</code>，并在 <code>build.gradle</code> 里用 war 配置替换原来的 jar 配置（只需把jar换成war）。</p>
+<p>使用 Maven 的话，获取 WAR 会更加容易，只要把 <code>&lt;packaing&gt;</code> 元素的值从 jar 改成 war。但是以上方法要启用 Spring MVC DispatcherServlet 的 <code>web.xml</code> 文件或者 Servlet 初始化类。</p>
+<p>而 Spring Boot 提供的 SpringBootServletInitializer 是一个支持 Spring Boot 的 Spring WebApplicationInitializer 实现。</p>
+<p>要使用SpringBootServletInitializer，只需创建一个子类，覆盖 configure() 方法来指定 Spring 配置类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadingListServletInitializer</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> SpringApplicationBuilder <span class="title">configure</span><span class="params">(SpringApplicationBuilder builder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> builder.sources(Application.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>configure()</code> 方法传入了一个 SpringApplicationBuilder 参数，并将其作为结果返回。期间它调用了 <code>sources()</code> 方法注册了一个 Spring 配置类（即 Application.class）。这个类既是启动类（带有 main 方法)，也是一个 Spring 配置类。</p>
+<p>之后可以使用 <code>gradle build</code> 或者 <code>mvn package</code> 打包。</p>
+<h2 id="Spring-Boot开发者工具"><a href="#Spring-Boot开发者工具" class="headerlink" title="Spring Boot开发者工具"></a>Spring Boot开发者工具</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&quot;org.springframework.boot:spring-boot-devtools&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以添加开发者工具。在激活了开发者工具后，classpath 里对文件做任何修改都会触发应用程序重启。为了让重启速度够快，不会修改的类（比如第三方 JAR 文件里的类）都加载到了基础类加载器里，而应用程序的代码则会加载到一个单独的重启类加载器里。检测到变更时，只有重启类加载器重启。</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring核心知识</title>
+    <url>/2019/08/08/Spring%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<blockquote>
+<p>笔记摘录于《Spring 实战》第四版，结合个人总结与思考。</p>
+</blockquote>
+<p>Spring 是一个轻量级的控制反转 (IoC) 和面向切面 (AOP) 的容器框架。Spring 不仅仅局限于服务器端开发，任何 Java 应用都能在简易性、可测试性和松耦合等方面从 Spring 中获益。</p>
+<h2 id="版本变更"><a href="#版本变更" class="headerlink" title="版本变更"></a>版本变更</h2><p>Spring 2.5 引入了基于注解的组件扫描，大量消除了显式 XML 配置。<br>Spring 3.0 引入了基于 Java 的配置，可以替代 XML。<br>Spring 4.0 引入了条件化配置。Spring Boot 就是利用条件化配置实现自动配置的。</p>
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><p>POJO (Plain Old Java Object)，简单老式 Java 对象。Spring 竭力避免因自身的 API 弄乱你的应用代码。Spring 不会强制你实现 Spring 规范的接口或继承 Spring 规范的类，相反，在基于 Spring 构建的应用中，它的类通常没有任何痕迹表明你使用了 Spring。最坏的场景是，一个类或许会使用 Spring 注解，但它仍然是 POJO。</p>
+<span id="more"></span>
+
+<h2 id="JavaBeans"><a href="#JavaBeans" class="headerlink" title="JavaBeans"></a>JavaBeans</h2><p>JavaBeans 是 Java 中一种特殊的类，可以将多个对象封装到一个对象 (bean) 中。特点是<em>可序列化</em>，提供<em>无参构造器</em>，提供 getter 方法和 setter 方法访问对象的属性。名称中的“Bean”是用于Java的可重用软件组件的惯用叫法。</p>
+<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入 (DI)"></a>依赖注入 (DI)</h2><p>Spring 把相互协作的关系称为依赖关系。假如A组件调用了B组件的方法，我们可称A组件依赖于B组件。在传统的程序设计过程中，通常由调用者来创建被调用者的实例。在依赖注入的模式下，创建被调用者的工作不再由调用者来完成，因此称为控制反转；创建被调用者实例的工作通常由 Spring 容器来完成，然后注入给调用者，因此也称为依赖注入。</p>
+<p>通过 DI，对象的依赖关系由系统中负责协调各对象的第三方组件在创建对象的时候进行设定。对象无需自行创建或管理它们的依赖关系，依赖关系将被自动注入到需要他们的对象当中去。</p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>AOP 允许把遍布应用各处的功能分离出来形成可重用的组件。AOP能使日志等服务模块化，并以声明的方式将它们应用到它们需要影响的组件中去。所造成的结果就是这些组件会具有更高的内聚性并且会更加关注自身的业务，完全不需要了解设计系统服务所带来的复杂性。</p>
+<h2 id="应用上下文"><a href="#应用上下文" class="headerlink" title="应用上下文"></a>应用上下文</h2><p>Spring 通过应用上下文 (Application Context) 装载 bean 的定义并把它们组装起来。Spring 应用上下文<strong>全权负责</strong>对象的创建和组装。</p>
+<h2 id="Spring容器"><a href="#Spring容器" class="headerlink" title="Spring容器"></a>Spring容器</h2><p>Spring 自带了多个容器实现，可以归为两种不同的类型。</p>
+<p>bean工厂 (org.springframework.beans.factory.BeanFactory) 是最简单的容器，提供基本的DI支持。</p>
+<p>应用上下文 (org.springframework.context.ApplicationContext) 基于BeanFactory构建，最常用。</p>
+<h2 id="Spring容器生命周期"><a href="#Spring容器生命周期" class="headerlink" title="Spring容器生命周期"></a>Spring容器生命周期</h2><p><img src="https://i.loli.net/2019/07/30/5d3fb280c110424872.png" alt="Spring容器生命周期"></p>
+<h2 id="Spring功能划分"><a href="#Spring功能划分" class="headerlink" title="Spring功能划分"></a>Spring功能划分</h2><p><img src="https://i.loli.net/2019/07/30/5d3fb34ccf49b86312.png" alt="Spring功能划分"></p>
+<h2 id="Spring装配机制"><a href="#Spring装配机制" class="headerlink" title="Spring装配机制"></a>Spring装配机制</h2><p>创建应用组件之间协作的行为通常称为装配 (wiring)。Spring有3种装配bean的方式。</p>
+<ul>
+<li>在XML中进行显式配置</li>
+<li>在Java中进行显示配置</li>
+<li>隐式的bean发现机制和自动装配</li>
+</ul>
+<p>尽可能使用自动装配的机制。进行显式配置时，JavaConfig是更好的方案，因为它更强大、类型安全并且对重构友好，它就是Java代码。</p>
+<h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><p><code>@Component</code> 注解表明该类会作为<strong>组件类</strong>，并告知Spring要为这个类创建 Bean。不过，组件扫描默认是不启用的，还需要显式配置一下Spring。<code>@ComponentScan</code> 注解能够在Spring中启用组件扫描。也可以在XML中使用 <code>&lt;context:component-scan&gt;</code> 元素。Spring会根据类名自动为扫描的bean指定一个ID。如果一个bean的类名为<code>SgtPeppers</code>，那么bean给定的ID为<code>sgtPeppers</code>，也就是类名首字母改为小写。</p>
+<p><code>@Autowired</code> 注解可以用在类的<strong>任何方法</strong>上。不管是构造器，Setter方法还是其他的方法，Spring都会尝试满足方法参数上所声明的依赖。假如有且只有一个 bean 匹配以来需求的话，那么这个 bean 将会被装配进来。如果没有匹配的 bean，那么在应用上下文创建的时候，Spring会抛出一个异常。如果有多个bean都能满足依赖关系的话，Spring也会抛出一个异常，表明没有明确指定要选择哪个bean进行自动装配。<code>@Autowired</code> 也可以用 <code>@Inject</code> 替换（大多数场景下可以相互替换）。</p>
+<h2 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h2><p>创建配置类的关键在于添加 <code>@Configuration</code> 注解。</p>
+<p>使用配置类需要在类内部声明要返回的Bean，如下所示:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CompactDisc <span class="title">sgtPeppers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> SgtPeppers();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现依赖注入采用如下的方式:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CDPlayer <span class="title">cdPlayer</span><span class="params">(CompactDisc compactDisc)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> CDPlayer(compactDisc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="XML配置"><a href="#XML配置" class="headerlink" title="XML配置"></a>XML配置</h2><p>XML 配置 Spring 配置要以 <code>&lt;beans&gt;</code> 元素为根。</p>
+<p>使用 <code>&lt;bean&gt;</code> 类似于 <code>@Bean</code> 注解。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;compactDisc&quot;</span> <span class="attr">class</span>=<span class="string">&quot;soundsystem.SgtPeppers&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构造器注入bean引用"><a href="#构造器注入bean引用" class="headerlink" title="构造器注入bean引用"></a>构造器注入bean引用</h3><p><code>&lt;constructor-arg&gt;</code> 元素会告知 Spring 要将一个 ID 为 compactDisc 的 bean 引用传递到CDPlayer 的构造器中。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cdPlayer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;soundsystem.CDPlayer&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;compactDisc&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用c-命名空间实现DI:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cdPlayer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;soundsystem.CDPlayer&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">c:cd-ref</span>=<span class="string">&quot;compactDisc&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>c:</code> 为c-命名空间前缀，<code>cd</code> 为构造器参数名（一般用_0，_1的形式），<code>-ref</code> 表示注入bean引用。</p>
+<h3 id="将字面量注入到构造器中"><a href="#将字面量注入到构造器中" class="headerlink" title="将字面量注入到构造器中"></a>将字面量注入到构造器中</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;compactDisc&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">&quot;soundsystem.BlankDisc&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">&quot;Sgt. Pepper&#x27;s Lonely Hearts Club Band&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">&quot;The Beatles&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置属性"><a href="#设置属性" class="headerlink" title="设置属性"></a>设置属性</h3><p>首先要编写属性的 Setter 方法，然后：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;compactDisc&quot;</span> <span class="attr">class</span>=<span class="string">&quot;soundsystem.BlankDisc&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;title&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Sgt. Pepper&#x27;s Lonely Hearts Club Band&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="导入和混合配置"><a href="#导入和混合配置" class="headerlink" title="导入和混合配置"></a>导入和混合配置</h2><p>JavaConfig 使用 <code>@Import(SampleConfig.class)</code> 注解和 <code>@ImportResource(&quot;classpath:sample-config.xml&quot;)</code>。</p>
+<p>XML使用 <code>&lt;import resource=&quot;sample-config.xml&quot; /&gt;</code>。</p>
+<p><code>&lt;import&gt;</code> 元素只能导入其他的XML配置文件，不能导入JavaConfig类，导入JavaConfig应该使用 <code>&lt;bean&gt;</code>。</p>
+<h2 id="高级装配"><a href="#高级装配" class="headerlink" title="高级装配"></a>高级装配</h2><h3 id="条件化的bean"><a href="#条件化的bean" class="headerlink" title="条件化的bean"></a>条件化的bean</h3><p>使用 <code>@Conditional</code> 注解。</p>
+<h3 id="处理自动装配的歧义性"><a href="#处理自动装配的歧义性" class="headerlink" title="处理自动装配的歧义性"></a>处理自动装配的歧义性</h3><p>使用 <code>@Primary</code> 注解表明此 bean 为首选的 bean。</p>
+<p>更强大的是 <code>@Qualifier</code> 注解，可以和 <code>@Autowired</code> 或 <code>@Inject</code> 协同使用。例如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(&quot;iceCream&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDessert</span><span class="params">(Dessert dessert)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.dessert = dessert;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以创建自定义的限定符:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Qualifier(&quot;cold&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IceCream</span> <span class="keyword">implements</span> <span class="title">Dessert</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h3><p>在默认情况下，Spring 应用上下文中所有 bean 都是作为以单例 (singleton) 的形式创建的。也就是说，不管给定的一个bean被注入到其他bean多少次，每次所注入的都是同一个实例。</p>
+<p>但有时候，如果所使用的类是易变的 (mutable)，它们会保持一些状态，因此重用是不安全的。Spring定义了多种作用域:</p>
+<ol>
+<li>单例 (singleton)</li>
+<li>原型 (prototype)：每次注入或者通过应用上下文获取的时候，都会创建一个新的实例。</li>
+<li>会话 (Session)：Web应用中，为每个会话创建一个实例。</li>
+<li>请求 (Request)：Web应用中，为每个请求创建一个实例。</li>
+</ol>
+<p>可以通过 <code>@Scope(&quot;prototype&quot;)</code> 注解改变作用域。</p>
+<h3 id="运行时注入"><a href="#运行时注入" class="headerlink" title="运行时注入"></a>运行时注入</h3><h4 id="属性占位符"><a href="#属性占位符" class="headerlink" title="属性占位符"></a>属性占位符</h4><p>将属性定义到外部的文件中，并使用占位符值将其插入到 bean 中。占位符的形式为 <code>$&#123;...&#125;</code>，例如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BlankDisc</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@Value(&quot;$&#123;disc.title&#125;&quot;)</span> String title,</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@Value(&quot;$&#123;disc.artist&#125;&quot;)</span> String artist)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="keyword">this</span>.artist = artist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Spring表达式语言"><a href="#Spring表达式语言" class="headerlink" title="Spring表达式语言"></a>Spring表达式语言</h4><p>SqEL的形式是 <code>#&#123;...&#125;</code>，<code>#&#123;1&#125;</code> 的结果就是1。</p>
+<p><code>#&#123;T(System).currentTimeMillis()&#125;</code> 中，<code>T()</code> 表达式会将 java.lang.System 视为 Java 中对应的类型，因此可以调用其 static 修饰的 <code>currentTimeMillis()</code> 方法。</p>
+<h2 id="AOP的Spring"><a href="#AOP的Spring" class="headerlink" title="AOP的Spring"></a>AOP的Spring</h2><p>在软件开发中，散布于应用中多处的功能被称为横切关注点 (cross-cutting concern)。通常来讲，这些横切关注点从概念上是与应用的业务逻辑相分离的 (但是往往会直接嵌入到应用的业务逻辑之中)。把这些横切关注点与业务逻辑相分离正是面向切面编程所要解决的问题。AOP可以实现横切关注点与它们所影响的对象之间的解耦。</p>
+<p>在使用面向切面编程时，我们仍然在一个地方定义通用功能，但是可以通过声明的方式定义这个功能要以何种方式在何处应用，而无需修改受影响的类。</p>
+<h3 id="AOP术语"><a href="#AOP术语" class="headerlink" title="AOP术语"></a>AOP术语</h3><p>通知 (Advice): 切面的工作。Spring切面可以应用5种类型的通知:</p>
+<ol>
+<li>前置通知 (Before)：在目标方法被调用之前通知功能</li>
+<li>后置通知 (After)：在目标方法完成之后调用通知，此时不会关心方法的输出是什么</li>
+<li>返回通知 (After-returning)：在目标方法成功执行之后调用通知</li>
+<li>异常通知 (After-throwing)：在目标方法抛出异常后调用通知</li>
+<li>环绕通知 (Around)：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为。</li>
+</ol>
+<p>连接点 (Join point)：在应用执行过程中能够插入切面的一个点。<br>切点 (Pointcut)：切点的定义会匹配通知所要织入的一个或多个连接点。<br>切面 (Aspect)：切面是通知和切点的结合。<br>引入 (Introduction)：引入允许我们向现有的类添加新方法或属性。<br>织入 (Weaving)：织入是把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有多个点可以进行织入。</p>
+<ul>
+<li>编译期：切面在目标类编译时被织入。这种方式需要特殊的编译器，AspectJ的织入编译器就是以这种方式织入切面的。</li>
+<li>类加载期：切面在目标类加载到JVM时被织入。这种方式需要特殊的类加载器 (ClassLoader)，它可以在目标类被引入应用之前增强该目标类的字节码。AspectJ 5的加载时织入 (load-time weaving, LTW) 就支持以这种方式织入切面。</li>
+<li>运行期：切面在应用运行的某个时刻被织入。一般情况下，在织入切面时，AOP容器会为目标对象动态地创建一个代理对象。Spring AOP就是以这种方式织入切面的。</li>
+</ul>
+<h3 id="Spring对AOP的支持"><a href="#Spring对AOP的支持" class="headerlink" title="Spring对AOP的支持"></a>Spring对AOP的支持</h3><p>Spring提供了4种类型的AOP支持，前3种都是Spring AOP实现的变体，Spring AOP构建在动态代理的基础上，因此，Spring对AOP的支持局限于方法拦截。如果AOP需求超过了简单的方法调用（如构造器或属性拦截），那么需要考虑使用AspectJ来实现切面。</p>
+<ul>
+<li>基于代理的经典 Spring AOP</li>
+<li>纯 POJO 切面</li>
+<li>@AspectJ 注解驱动的切面</li>
+<li>注入式 AspectJ 切面（适用于Spring各个版本）</li>
+</ul>
+<h3 id="Spring在运行时通知对象"><a href="#Spring在运行时通知对象" class="headerlink" title="Spring在运行时通知对象"></a>Spring在运行时通知对象</h3><p><img src="https://i.loli.net/2019/08/03/ZhwLsOWd96zYIrb.png" alt="Spring在运行时通知对象.png"></p>
+<p>通过在代理类中包裹切面，Spring在运行期把切面织入到Spring管理的bean中。</p>
+<h3 id="编写切点"><a href="#编写切点" class="headerlink" title="编写切点"></a>编写切点</h3><p><img src="https://i.loli.net/2019/08/03/wdGVmvpXL8zNAMI.png" alt="编写切点.png"></p>
+<p>使用 <code>execution()</code> 指示器选择 Performance 的 perform() 方法，方法表达式以 * 开始，表明不关心方法返回值的类型。然后指明全限定类名和方法名。对于方法参数列表，使用两个点号表明切点要选择任意的 perform() 方法，无论该方法的入参是什么。</p>
+<h3 id="AOP注解"><a href="#AOP注解" class="headerlink" title="AOP注解"></a>AOP注解</h3><p><code>@Aspect</code> 注解定义切面类，<code>@Pointcut</code> 注解定义（可重用的）切点，<code>@Before</code>，<code>@After</code>，<code>@Around</code>，<code>@AfterReturning</code>，<code>@AfterThrowing</code> 定义通知方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Before(&quot;execution(** concert.Performance.perform(..))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">silenceCellphones</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Silencing cell phones&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(&quot;execution(** concert.Performance.perform(..))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;CLAP CLAP CLAP!!!&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(** concert.Performance.perform(..))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performance</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;performance()&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">silenceCellphones</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Silencing cell phones&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(&quot;performance()&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;CLAP CLAP CLAP!!!&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启用AOP"><a href="#启用AOP" class="headerlink" title="启用AOP"></a>启用AOP</h3><p>如果使用JavaConfig的话，可以在配置类上通过使用 <code>@EnableAspectJAutoproxy</code> 注解启用自动代理功能。假如你在 Spring 中要使用 XML 来装配 bean 的话，那么需要使用 Spring aop 命名空间中的 <code>&lt;aop:aspectj-autoproxy&gt;</code> 元素。</p>
+<h3 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h3><p>使用 <code>@Around</code> 注解，方法必须接受 <code>ProceedingJoinPoint</code> 参数。当要将控制权交给被通知的方法时，需要调用 <code>ProceedingJoinPoint</code> 的 <code>proceed()</code> 方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Pointcut(execution(** concert.Performance.perform(..)))</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performance</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(&quot;performance()&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">watchPerformance</span><span class="params">(ProceedingJoinPoint jp)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Silencing cell phones&quot;</span>);</span><br><span class="line">        jp.proceed();</span><br><span class="line">        System.out.println(<span class="string">&quot;CLAP CLAP CLAP!!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在XML中声明切面"><a href="#在XML中声明切面" class="headerlink" title="在XML中声明切面"></a>在XML中声明切面</h3><p>使用XML声明切面的话就可以去掉所有注解。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;audience&quot;</span>&gt;</span></span><br><span class="line">    &lt;aop:pointcut</span><br><span class="line">      id=&quot;performance&quot;</span><br><span class="line">      expression=&quot;execution(* concert.Performance.perform(..))&quot;/&gt;</span><br><span class="line">    &lt;aop:before</span><br><span class="line">      pointcut-ref=&quot;performance&quot;</span><br><span class="line">      method=&quot;silenceCellPhones&quot;/&gt;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><p>初期的 Spring 通过代码加配置的形式为项目提供了良好的灵活性和扩展性，但随着 Spring 越来越庞大，其配置文件也越来越繁琐，xml 文件太多一直是 Spring 被人诟病的地方。特别是近些年其他简洁的 Web 方案层出不穷，如 Python 或 Node.js，几行代码就能实现一个 Web 服务器，对比起来，大家渐渐觉得 Spring 那一套太过繁琐。此时，Spring 社区推出了 Spring Boot，它的目的在于实现自动配置，降低项目搭建的复杂度，如需要搭建一个接口服务，通过 Spring Boot 几行代码即可实现。可以理解为 Spring Boot 是“开箱即用”的 Spring 框架。</p>
+<p>它使用“习惯优于配置”（项目中存在大量的配置，此外还内置了一个习惯性的配置，让你无需手动进行配置）的理念让你的项目快速运行起来。使用 Spring Boot 很容易创建一个独立运行（运行 jar，内嵌 Servlet 容器）、准生产级别的基于 Spring 框架的项目，使用 Spring Boot 可以不用或者只需要很少的 Spring 配置，适合微服务建构的开发。</p>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>微服务架构强调的重点是：业务系统需要彻底的组件化和服务化，原有的单个业务系统会拆分为多个可以独立开发、设计、运行和运维的小应用，这些小应用之间通过服务完成交互和集成。在微服务架构中我们强调彻底的组件化和服务化，每个微服务都可以独立的部署和投产，其实也就意味着很多的微服务有自己独立的数据库。</p>
+<h3 id="Spring-Cloud-生态圈"><a href="#Spring-Cloud-生态圈" class="headerlink" title="Spring Cloud 生态圈"></a>Spring Cloud 生态圈</h3><ul>
+<li><strong>Spring Cloud Config 配置中心</strong>，利用 Git 集中管理程序的配置。</li>
+<li><strong>Spring Cloud Netflix Eureka 服务中心</strong>（类似于管家的概念，需要什么直接从这里取就可以了），一个基于 REST 的服务，用于定位服务，以实现服务发现和故障转移。</li>
+<li><strong>Spring Cloud Netflix Hystrix 熔断器</strong>，容错管理工具，旨在通过熔断机制控制节点，从而对延迟和故障提供更强大的容错能力。</li>
+<li><strong>Spring Cloud Netflix Zuul 网关</strong>，是在云平台上提供动态路由、监控、弹性、安全等边缘服务的框架。Web 后端所有请求的前门。</li>
+<li> Spring Cloud Netflix Archaius 配置管理 API。</li>
+<li><strong>Spring Cloud Netflix Ribbon 负载均衡</strong>。</li>
+<li><strong>Spring Cloud Netflix Fegin REST客户端</strong>。</li>
+<li><strong>Spring Cloud Bus 消息总线</strong>，利用分布式消息将服务和服务实例连接在一起，用于在一个集群中传播状态的变化。</li>
+<li><strong>Spring Cloud Cluster 集群工具</strong>。</li>
+<li>Spring Cloud Consul 基于 Hashicorp Consul 实现的服务发现和配置管理。</li>
+<li><strong>Spring Cloud Security 安全控制</strong>。</li>
+<li><strong>Spring Cloud Sleuth 分布式链路监控</strong>，Spring Cloud 应用的分布式追踪系统，和 Zipkin、HTrace、ELK 兼容。</li>
+<li>Spring Cloud Task 任务工具。</li>
+<li>Spring Cloud Zookeeper 服务发现和配置管理，基于 Apache Zookeeper。</li>
+<li>Spring Cloud for Amazon Web Services 快速和亚马逊网络服务集成。</li>
+</ul>
+<h2 id="Spring-解决循环依赖"><a href="#Spring-解决循环依赖" class="headerlink" title="Spring 解决循环依赖"></a>Spring 解决循环依赖</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanA</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BeanB beanB;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanB</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BeanA beanA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>IOC 容器在读到上面的代码时，会按照顺序，先去实例化 beanA。然后发现 beanA 依赖于 beanB，接在又去实例化 beanB。实例化 beanB 时，发现 beanB 又依赖于 beanA。如果容器不处理循环依赖的话，容器会无限执行上面的流程，直到内存溢出、程序崩溃。当然，Spring 是不会让这种情况发生的。在容器再次发现 beanB 依赖于 beanA 时，容器会获取 beanA 对象的一个早期的引用（early reference），并把这个早期引用注入到 beanB 中，让 beanB 先完成实例化。beanB 完成实例化，beanA 就可以获取到 beanB 的引用，beanA 随之完成实例化。</p>
+<table>
+<thead>
+<tr>
+<th>缓存</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>singletonObjects</td>
+<td>用于存放完全初始化好的 bean，从该缓存中取出的 bean 可以直接使用</td>
+</tr>
+<tr>
+<td>earlySingletonObjects</td>
+<td>存放原始的 bean 对象（尚未填充属性），用于解决循环依赖</td>
+</tr>
+<tr>
+<td>singletonFactories</td>
+<td>存放 bean 工厂对象，用于解决循环依赖</td>
+</tr>
+</tbody></table>
+<p>这就是 Spring 的<strong>三级缓存</strong>机制。在创建 bean 的时候，首先想到的是从 cache 中获取这个单例的 bean，这个缓存就是 singletonObjects。如果获取不到，就再从二级缓存 earlySingletonObjects 中获取。如果还是获取不到且允许 singletonFactories 通过getObject() 获取，就从三级缓存 singletonFactory.getObject() 获取，如果获取到了则把工厂对象从 singletonFactories 中移除，并把 bean 放入 earlySingletonObjects 中。</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一文了解 Lombok 常用注解和隐藏坑点</title>
+    <url>/2021/11/25/%E4%B8%80%E6%96%87%E4%BA%86%E8%A7%A3Lombok%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%92%8C%E9%9A%90%E8%97%8F%E5%9D%91%E7%82%B9/</url>
+    <content><![CDATA[<blockquote>
+<p>看完这篇，你就是 Lombok 大师。</p>
+</blockquote>
+<h2 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h2><p><code>@Data</code> 注解：<code>@ToString</code>, <code>@EqualsAndHashCode</code>, <code>@Getter</code> on all fields, <code>@Setter</code> on all non-final fields, and <code>@RequiredArgsConstructor</code>。</p>
+<p>需要注意的是，如果存在任何写明的构造器，<code>@Data</code> 注解不会再生成新的构造器。</p>
+<h2 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h2><p><code>@Builder</code> 注解：允许 <code>Person.builder().name(&quot;Adam Savage&quot;).city(&quot;San Francisco&quot;).job(&quot;Mythbusters&quot;).job(&quot;Unchained Reaction&quot;).build();</code> 的形式创建对象。</p>
+<p>需要注意的是，<code>@Builder</code> 注解生成的 AllArgsConstructor 默认是 <code>@AllArgsConstructor(access = AccessLevel.PACKAGE)</code>，即构造器上没有 public 标识符，所以跨包生成时可能会出现访问权限问题。</p>
+<p>此外，<code>@Builder</code> 和 <code>@Data</code> 注解同时存在时，先生成包访问权限的 AllArgsConstructor，且因为有了构造器，<code>@Data</code> 注解不会再生成 RequiredArgsConstructor，因此结果是只有一个包访问权限的 AllArgsConstructor，因此需要再手动声明 <code>@AllArgsConstructor</code> 和 <code>@RequiredArgsConstructor</code>。不建议声明 <code>@NoArgsConstructor</code>，因为此构造器可以逃逸 Lombok 对 <code>@NonNull</code> 注解字段的 null-check。如果框架要求或其他情况非要使用，建议使用 <code>@NoArgsConstructor(onConstructor = @__(&#123;@Deprecated&#125;))</code> 表明该接口已废弃防止手动使用。</p>
+<span id="more"></span>
+
+<h2 id="构造器们"><a href="#构造器们" class="headerlink" title="构造器们"></a>构造器们</h2><p><code>@NoArgsConstructor</code>, <code>@RequiredArgsConstructor</code>, <code>@AllArgsConstructor</code>: generates constructors that take no arguments, one argument per final / non-null field, or one argument for every field.</p>
+<p>这三个构造器注解和其他 Lombok 注解不同，即便有同名、同入参<strong>个数</strong>的方法存在，也会生成构造方法。如果签名还恰巧一致，则会抛出编辑器错误。</p>
+<h2 id="EqualsAndHashCode"><a href="#EqualsAndHashCode" class="headerlink" title="@EqualsAndHashCode"></a>@EqualsAndHashCode</h2><p><code>@EqualsAndHashCode</code>: generate implementations of the <code>equals(Object other)</code> and <code>hashCode()</code> method. By default, it’ll use all non-static, non-transient fields.</p>
+<p><code>@EqualsAndHashCode</code> 默认是 <code>callSuper = false</code> 的，意思是只要两个子类的独有属性相同，即为相同。如果还要比较从父类继承的属性，需要设置  <code>callSuper = true</code>。 </p>
+<h2 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h2><p><code>@Value</code>: <code>@Data</code> 注解的不可变形式，不含 <code>@Setter</code>，<code>@RequiredArgsConstructor</code> 改为 <code>@AllArgsConstructor</code>。</p>
+<h2 id="NonNull"><a href="#NonNull" class="headerlink" title="@NonNull"></a>@NonNull</h2><p><code>@NonNull</code> 注解能和 <a href="https://stackoverflow.com/questions/44855981/lombok-builder-to-check-non-null-and-not-empty"><code>@Builder</code>注解良好合作</a>。在 POJO 上的 <code>@NonNull</code> 注解可以防止 set 入 null 值，防止构造器传入 null 值；在传入参数上的 <code>@NonNull</code> 注解可以防止参数为 null，<a href="https://javabydeveloper.com/lombok-nonnull-annotation-examples/">参考链接</a>。</p>
+<p>但是 Lombok 的 <code>@NoArgsConstructor</code> 注解不会进行 null-check，<a href="https://stackoverflow.com/questions/68545225/will-nonnull-give-an-error-on-using-noargsconstructor">参考链接</a>。所以说，无参构造器可以逃逸 null-check 检查，建议在无参构造器上增加 <code>@Deprecated</code> 注解。</p>
+<h2 id="Delombok"><a href="#Delombok" class="headerlink" title="Delombok"></a>Delombok</h2><p>Lombok 是绝对有用的，就算是组织或公司不允许使用 Lombok，也可以在 IDEA 中 delombok 把注解转换成生成的代码。这个也可以用于排查 Lombok 导致的疑难杂症。</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor(onConstructor = @__(&#123;@Deprecated&#125;))</span> <span class="comment">// 非必要不使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BestPractice</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> String nullableStr;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@NonNull</span></span><br><span class="line">   <span class="keyword">private</span> String mainStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从一次@Transactional注解失效探究Spring AOP的代理机制</title>
+    <url>/2021/03/09/%E4%BB%8E%E4%B8%80%E6%AC%A1-Transactional%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E6%8E%A2%E7%A9%B6Spring%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="问题还原"><a href="#问题还原" class="headerlink" title="问题还原"></a>问题还原</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processor</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Result result = save(message);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(timeout = 30, rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">save</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        serviceA.save(message);</span><br><span class="line"></span><br><span class="line">        Result result = serviceB.save(message);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>集成测试方法会调用 <code>Demo.processor</code>，然后 <code>processor</code> 方法会调用带有 @Transactional 注解的 <code>save</code> 方法。save 方法中的 <code>serviceA.save</code> 和 <code>serviceB.save</code> 方法都是带有 @Transactional 注解的。</p>
+<p>但是经过测试发现，ServiceA 和 serviceB 的事务都能生效，但是 Demo 类中 save 方法的事务无法生效，会出现 serviceA 成功，serviceB 失败，数据库中只写入了 serviceA 的结果的情况。很明显，Demo.save 方法上的 @Transactional 注解失效了。</p>
+<span id="more"></span>
+
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>首先，我想到的是事务的传播方式。可是 @Transactional 注解默认的传播方式为 <code>Propagation.REQUIRED</code>，即如果当前存在事务，则加入该事务，如果当前不存在事务，则创建一个新的事务。在上面的例子中，Demo.save 方法中 serviceA.save 和 ServiceB.save 都包含事务，那么这三个事务会合成一个大事务，是符合预期的。</p>
+<p>之后，通过搜索引擎了解到，​这是 Spring AOP 动态代理造成的，因为只有当事务方法被当前类以外的代码调用时，才会由 Spring 生成的代理对象来管理。在 Demo 类上添加了 @Transactional 注解，问题解决。（@Transactional 注解可以放在类和方法上，放在类上，表明该类的所有 <code>public</code> 方法都配置相同的事务信息。当配置在方法上时，方法的事务配置会覆盖类的事务配置。）</p>
+<p>但同时带来了一个小问题，此时 processor 方法也加上了 @Transactional 注解，而这段代码本不需要事务，对性能会有一定影响。</p>
+<h2 id="探究Spring-AOP"><a href="#探究Spring-AOP" class="headerlink" title="探究Spring AOP"></a>探究Spring AOP</h2><p>上面提到，在 Spring 默认的代理模式下，只有目标方法由外部调用，才能被 Spring 的事务拦截器拦截。在同一个类中的两个方法直接调用，不会被 Spring 的事务拦截器拦截。</p>
+<p>但这种说法很奇怪。为什么只有目标方法由外部类调用，Spring 才能拦截这一请求呢？Spring 完全可以做到在调用带有 @Transactional 注解的方法时就进行拦截，不管这个方法是由谁调用的啊？</p>
+<p>所以说，搜索引擎上的归因<strong>没有讲到点子上</strong>。最起码，这个原因无法让人信服。要搞清楚这个问题，需要深入了解 Spring AOP 的实现方式。</p>
+<p>首先，我们知道 Spring AOP 是通过动态代理的方式实现的。那么，Spring 是在什么时候生成代理类的呢？网络上有人说是在运行时，有人说是在类加载期，但最准确的说法是在 <em>IoC容器初始化Bean</em> 时。详情可见<br><code>org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Create a proxy with the configured interceptors if the bean is</span></span><br><span class="line"><span class="comment">* identified as one to proxy by the subclass.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@see</span> #getAdvicesAndAdvisorsForBean</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(<span class="meta">@Nullable</span> Object bean, String beanName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (bean != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object cacheKey = getCacheKey(bean.getClass(), beanName);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.earlyProxyReferences.remove(cacheKey) != bean) &#123;</span><br><span class="line">            <span class="keyword">return</span> wrapIfNecessary(bean, beanName, cacheKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>回到上面的例子，在 Spring IoC 容器初始化 Demo 类时，Spring 扫描到该类中有方法使用了 @Transactional 注解，并且并没有实现接口，便使用 CGLIB 生成了代理类，此代理类继承 Demo，由这个代理类来统一接受请求。</p>
+<p>也就是说，不管 @Transactional 注解是加在 processor 上、加在 save 上或者加在类上，Spring 都会创建这个类的代理类，并不会因为外部调用的方法没有 @Transactional 注解就不生成代理类。</p>
+<p><img src="https://i.loli.net/2021/03/10/LwIQDEdTHCt8Nfg.png" alt="Snipaste_2021-03-10_16-41-25.png"></p>
+<p>但是 Spring AOP 无论是 JDK 动态代理，还是 CGLIB 动态代理，都保留了原类和增强类两个类。它的意思是，增强类仍然持有原类（CGLIB 采用继承的方式，JDK 动态代理采用反射的方式），体现在图中就是代理类把原类包装了起来，<em>原类并没有被增强</em>。</p>
+<p>当外部调用 processor 方法，代理类判断此方法不需进行事务拦截，直接调用原类。原类再调用 this.save，此时 this 指向的是原类，并不含有事务拦截逻辑（事务拦截逻辑在代理类中），因此注解失效。</p>
+<p>此时，如果外部调用 save 方法，是会经过代理类拦截的，于是产生了网络上“只有目标方法由外部调用，才能被 Spring 的事务拦截器拦截”的说法。</p>
+<p><img src="https://i.loli.net/2021/03/10/zY7OneaoR1vxD84.png" alt="Snipaste_2021-03-10_16-52-51.png"></p>
+<h2 id="深层原因"><a href="#深层原因" class="headerlink" title="深层原因"></a>深层原因</h2><p>从上图中可以看出，此时 @Transactional 注解失效的原因在于原类中的 this 并没有被增强。如果 this 能够指向外部的 Proxy 类，这个问题就不会发生了。或者更进一步，既然我们都有代理类了，为什么还需要原类？直接在原类上增强，生成一个新的类，并只用这个增强类不就<strong>一劳永逸</strong>了吗？实际上，AspectJ 就是用这种方式增强类、实现 AOP 的。</p>
+<p>但是 Spring AOP 采用这样的逻辑是有原因的。Spring AOP 的核心理念就是<strong>动态代理</strong>，并且把 JDK 代理（通过接口使用反射增强类）和 CGLIB 增强（使用字节码增强生成子类）两种实现方式封装在一起，并能无缝切换。因此，尽管 CGLIB 增强能够生成一个全新的类，但 Spring AOP 还是通过依附于原类生成代理类的方式进行增强。（从目前的视角看，JDK 代理相比于 CGLIB 增强没有任何优势，但在 Java 5 时代 JDK 代理的性能是显著优于 CGLIB 增强的，算是一个历史遗留问题了。）</p>
+<p>Spring AOP 采用动态代理的好处就是做到了<strong>非侵入</strong>。这样做一在 Debug 时会调用到原类，方便定位到问题，提高了排查问题的效率；二代码增强并不是 100% 成功的，最可怕的场景是类被成功增强了，但是逻辑不符合预期。Spring AOP 就算生成的代理类存在问题，起码还能保证原类的逻辑是正确的。若是像 AspectJ 这样只使用增强类，若是增强过程发生了问题，其后果就会严重很多。</p>
+<p>这也导致了 Spring AOP 相比于 AspectJ，功能很弱。例如，Spring AOP 只能在 public 方法上进行拦截，对于 private 和 protected 方法不会生效，AspectJ 没有这个限制。又例如，Spring AOP 没办法在类的属性上、构造器上进行拦截，AspectJ 没有这个限制。但引入 AspectJ 需要用到 AJC (AspectJ Compiler)，且不太好和 Lombok 共存，引入的成本比较高。</p>
+<p>总结而言，Spring AOP 的动态代理实现方式<strong>并不符合直觉</strong>，也因此导致了上面例子中的问题。但是它这样实现也是有利有弊的，最大的好处是做到了侵入性很弱。</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>如果事务方法会被类内部的方法使用，为了不让 @Transactional 注解失效，按解决成本从低到高排序，有三种方法：</p>
+<ol>
+<li>把事务方法提到一个单独的类中。这也是我最后使用的方法。</li>
+<li>使用编程式事务，手动开启事务。</li>
+<li>改用 AspectJ 进行 AOP 增强。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>aop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从实用角度剖析 MySQL 的 Explain 语句</title>
+    <url>/2021/05/26/%E4%BB%8E%E5%AE%9E%E7%94%A8%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90MySQL%E7%9A%84Explain%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<p>MySQL 的 Explain 语句常用来分析慢 SQL 的原因，会返回以下的数据：</p>
+<p>select_type、table、partitions、type、possible_keys、key、key_len、ref、rows、filtered、extra。</p>
+<p>其中最重要的是 type、rows、key 和 extra 这四个字段。</p>
+<h2 id="MySQL-逻辑架构"><a href="#MySQL-逻辑架构" class="headerlink" title="MySQL 逻辑架构"></a>MySQL 逻辑架构</h2><p>先介绍一下基础知识，MySQL 的逻辑架构：</p>
+<p>客户端-&gt;（查询缓存，5.7.20 已 deprecated，8.0 已移除）-&gt;解析器（生成解析树）-&gt;预处理器（生成新解析树）-&gt;查询优化器（生成查询计划）-&gt;执行引擎（执行调度）-&gt;存储引擎（数据查找）-&gt;执行引擎（数据过滤、排序等）-&gt;客户端和查询缓存</p>
+<h2 id="type、rows-和-key-字段"><a href="#type、rows-和-key-字段" class="headerlink" title="type、rows 和 key 字段"></a>type、rows 和 key 字段</h2><p>type 字段用来说明连接的类型。连接类型从快到慢可以分为以下几种：</p>
+<ol>
+<li><p>const，system：最多一个匹配行，使用主键或者 unique 索引</p>
+</li>
+<li><p>eq_ref：返回一行数据，通常在联接（join）时出现，使用主键或 unique 索引</p>
+</li>
+<li><p>ref：使用 key 的<strong>最左前缀</strong>，且 key 不是主键或 unique 键</p>
+<span id="more"></span></li>
+<li><p>range：索引范围扫描，对索引的扫描开始于某一点，返回匹配的行</p>
+</li>
+<li><p>index：以索引的顺序进行<strong>全表扫描</strong>，优点是不用排序，缺点是还要全表扫描</p>
+</li>
+<li><p>all：全表扫描</p>
+</li>
+</ol>
+<p>其中，rows 字段是 MySQL 估算的为了找到所需记录而需要检索的行数，用来给查询优化器选择 key 作参考。</p>
+<p>index、all 类型要走全表扫描，一般来说 rows 对应的行数会很大。所以线上环境是要避免 index 和 all 的连接类型。</p>
+<p>key 字段说明了用到了什么索引，如果没有用到索引就为 null。</p>
+<p><strong>index</strong> 类型其实是相当有迷惑性的，名字上是<strong>索引</strong>，实际上根本没有利用索引进行查询，只是在全表扫描的基础上用索引进行排序，这点特别值得注意。</p>
+<h2 id="extra-字段"><a href="#extra-字段" class="headerlink" title="extra 字段"></a>extra 字段</h2><p>extra 字段用来说明额外的<strong>重要信息</strong>。从快到慢可以分为以下几种：</p>
+<ol>
+<li><p>using index：索引覆盖，查询只用到索引即可，无需读取数据块</p>
+</li>
+<li><p>using where：在存储引擎返回记录后再做过滤</p>
+</li>
+<li><p>using temporary：使用临时表，通常在使用 GROUP BY，ORDER BY 时出现</p>
+</li>
+<li><p>using filesort：用到非索引顺序的额外排序，当 ORDER BY 未用到索引时发生（有可能是内存排序，也有可能是外排）</p>
+</li>
+</ol>
+<p>在线上环境要注意尽量避免 using temporary 和 using filesort。</p>
+<h2 id="排查慢-SQL-最佳实践"><a href="#排查慢-SQL-最佳实践" class="headerlink" title="排查慢 SQL 最佳实践"></a>排查慢 SQL 最佳实践</h2><ol>
+<li><p>先看 key 字段，看有没有用到索引。</p>
+</li>
+<li><p>再看 type 字段，不能是 index 或 all。</p>
+</li>
+<li><p>最后看 extra 字段，不能是 using temporary 或 using filesort。</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>mysql</tag>
+        <tag>database</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单元测试真的是“测试”吗？</title>
+    <url>/2021/02/15/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9C%9F%E7%9A%84%E6%98%AF%E2%80%9C%E6%B5%8B%E8%AF%95%E2%80%9D%E5%90%97%EF%BC%9F/</url>
+    <content><![CDATA[<p>我一直在质疑单测的作用，无法理解单测到底对 RD 有什么实质的收益。</p>
+<p>举例来说，我花 20 分钟写了一段 80 行的代码，这时，我往往需要 40 分钟，写 200 行冗长、累赘、丑陋的 mock 代码去覆盖涉及的各个场景。很多时候，写单测比写业务逻辑还要费事—— mock 返回值太费劲了，尤其是 mock 一些静态或私有方法。而单测能带来什么呢？多数情况下，单测都能通过，而如果单测无法通过，只有两种可能性。毕竟单测只测试一个类，甚至只测试一个方法。如果连这种不和外部交互的代码你都能写错，一，你根本就没有理解需求，你写的代码是一团浆糊，你自己都不到自己在干什么；二，你犯了非常低级的失误（但不得不承认，最优秀的 RD 也会犯低级的失误）。需求没分析清楚，你该找 PM、翻 PRD；犯了低级失误，也犯不着写这么多“无用”的代码。在集成测试环境，用浏览器、Postman、模拟 RPC 很快就能测出这些低级错误，打个断点就能找到问题并修复，效率比写单测高太多了，也能测到很多单测根本无法涉及的地方。所以我一直认为单测是投入产出比是非常低的。</p>
+<span id="more"></span>
+
+<p>以上还只是针对理论场景，在实际的编码开发中，单测更加显得鸡肋。打开任意一个项目，相当一部分的单测根本就没有 Assert，换言之，这些单测永远能过，除非代码运行中途抛了个 Exception。这些单测，除了能提高单测覆盖率，没有任何实际作用。老实说，为了应付单测覆盖率门限，我也写过很多没有断言的单测。这就把单测放到了了一个相当尴尬的境地。我甚至可以基于以上的论据发表一个暴论：单元测试根本就不是测试！绝大多数的缺陷，都发生在系统和系统、模块和模块之间，只对系统的最小单元进行测试，对降低系统风险的作用微乎其微——这就相当于对桥梁质量进行验收时，只看每一根钢筋、每一颗螺丝是否符合质量标准，而不顾桥墩的设计、受力结构的分析、承重能力的测试。</p>
+<p>《软技能2：软件开发者职业生涯指南》一书的作者，是从 QA 转岗到软件开发的，他对单元测试和 TDD 的理解是比较独到且深入的。他也基本上认为“单元测试不是测试”，“当你运行单元测试程序的时候，你一般不会发现有些代码没有正常工作”。但单元测试是良好的<strong>代码规格说明书</strong>。通过单测，你规定了对应的代码在指定的输入下，该有怎样的表现或者输出。而单测的巧妙之处在于，它和纸质说明书不一样，它是<strong>可执行的</strong>。这也就意味着，在代码发生了变动之后，你可以通过执行单测来判断它是否还遵守着之前的规格说明。总结而言，单测的优势如下：</p>
+<ol>
+<li><p>单测能够进行基本的回归测试。单测能够保证在代码中引入的新变更不会破坏原有的功能，如果之前的单测明确指定了规格说明的话。可以把单元测试想象成你在幼树上看到的那些小支架，它们的作用就是确保小树长得笔直高大。你栽种了的一棵笔直的小树，并不意味着随着时间的推移它不会长弯。你的代码也是一样的。单元测试最初可以告诉你，你的代码就像一棵笔直挺拔、长势喜人的小树，然后它可以帮助你的代码一直保持这种良好状态，即使一些菜鸟级开发者给脆弱的代码带来了一场暴风骤雨。</p>
+</li>
+<li><p>单测能够提示代码的设计问题。代码的内聚性和可测试性是一对孪生兄弟。我曾尝试过在一个老系统中编写单测，它的逻辑散在各个方法中，同时流程很长，写单测会陷入一种两难局面：要么你只针对一个特别小的局部写单测，要么就要从头到尾 mock 整个流程。前者的收益太小，没什么意义；后者要 mock 的东西实在太多，我在接连 mock 了二十多个方法之后还是放弃了。分析原因，这个系统的代码随着需求演变，内聚性变得非常差，一个类根本完不成一件事情，代码像过程式编程一样散在各处，看得都费劲，更别说写单测了。所以说，单测可以提示设计中可能存在的问题，保证自己的设计遵循了“一个方法干一件事”、“一个类负责一类事”，高内聚低耦合，否则会恶心到写单测时的自己。</p>
+</li>
+<li><p>单测帮助我们正确理解需求。这点可能有些抽象。测试用例一经编写，要么通过，要么失败。测试以明确无误的方式规格化地定义了在某种情况下程序应该发生的事情。因此，单测确保我们在实现代码之前充分理解我们要做的工作是什么，进而确保我们“正确地”实现了它。说的明白一点，如果你坐下来写单测，但却不知道应该测试什么，这就意味着你对代码预期的功能还不甚了解，你需要问更多的问题。</p>
+</li>
+</ol>
+<p>最佳实践：</p>
+<ol>
+<li><p>至少，要在编码时同步写单测用例。是否要在编码开始之前就编写单元测试用例是一个很有争议的话题。但我确信，如果在编码完成后再写单测用例，单测用例就完全没有意义——<em>你早已在大脑里完成了编码的规格说明</em>。也正因为如此，我们才会觉得单测是多此一举，认为单测对 RD 而言没有什么收益。我们都已经在代码里注意到的点，为什么要在单测里再写一遍？在事后写单测，它既不能提示你的设计问题，也无法保证你理解需求，只能略微帮助回归测试。它的用处就是耗费你的时间，为你增加一点代码提交量。说实话，事后写单测，不如不写。</p>
+</li>
+<li><p>单元测试不能一直成功。也就是说，单测一定要有有意义的断言。否则，这就不是单测，执行它也只是让机器空转，没有断言的单测只是为了覆盖率好看的 KPI 产物。</p>
+</li>
+<li><p>若时间有限，针对典型应用场景写一个用例。只写最常见的一个用例也比不写用例要好，它带来的收益（回归、改进设计、理解需求）超出了它的时间成本。此外，单测也是会越写越熟练的。</p>
+</li>
+</ol>
+<p>最后可以总结，<strong>单元测试并不是真正的测试</strong>。但祸兮福之所倚，它<strong>同时具备了测试并不具有的价值</strong>，这些价值对开发人员非常重要。让集成测试、验收测试去做真正的“测试”工作吧，单测的价值，从来就不在所谓的测试上。</p>
+]]></content>
+      <categories>
+        <category>方法论总结</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>test</tag>
+        <tag>unit test</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>断路器与 Resilience4j</title>
+    <url>/2020/03/01/%E6%96%AD%E8%B7%AF%E5%99%A8%E4%B8%8EResilience4j/</url>
+    <content><![CDATA[<p>断路器 (Circuit Breaker) 一词来源于电气工程，在软件领域则是一种设计模式。</p>
+<p>它的作用类似于家庭里的空气开关，当某一个电器发生故障时，所在房间的空气开关会自动断路，防止故障扩散到其他房间，引发更大的事故。</p>
+<p>它的一个典型应用场景是：一个服务要发送 100 个请求，其中 99 个请求都正常，但是其中 1 个请求的接口发生了故障，要等待 5 秒。那么这个服务要完成加载就需要 5 秒以上的时间。如果发生故障的请求不在核心链路上，那么引入断路器就能以某种策略，不再请求那个出故障的接口，让服务正常加载。</p>
+<p>如果出故障的接口在核心链路上，可以为这个请求加上降级策略：如果调用该接口出现了故障，那么断路器可以将请求指向一个备用接口，来实现高可用性。</p>
+<h2 id="断路器的状态"><a href="#断路器的状态" class="headerlink" title="断路器的状态"></a>断路器的状态</h2><p>断路器有三种状态：Closed、Open 和 Half-Open。</p>
+<p><img src="https://i.loli.net/2020/03/01/oDvSaYkwhUGVHMO.jpg" alt="h_2732904-992404e807e83288.jpg"></p>
+<p>Closed 状态是断路器连通的状态，是默认状态；</p>
+<p>当失败次数达到某个阈值，就会进入 Open 状态，这个时候断路器会拦截所有调用并直接抛出 Exception；</p>
+<p>Half-Open 状态是“尝试”状态，在 Open 状态下会不定时尝试接口是否正常，若仍有故障退回 Open 状态，故障消除了的话就回到 Closed 状态。</p>
+<span id="more"></span>
+
+<h2 id="Hystrix-和-Resilience4j"><a href="#Hystrix-和-Resilience4j" class="headerlink" title="Hystrix 和 Resilience4j"></a>Hystrix 和 Resilience4j</h2><p>Java 语言生态中，常见的断路器有两个：Hystrix 和 Resilience4j。Hystrix 由 Netfilx 开发，目前已经停止开发，所以本文将以 Resilience4j 为主。</p>
+<p><a href="https://github.com/resilience4j/resilience4j">Resilience4j</a> 是一个开源项目，在 Github 进行托管，其特点是全部代码都遵从函数式编程范式。</p>
+<h2 id="引入-Resilience4j"><a href="#引入-Resilience4j" class="headerlink" title="引入 Resilience4j"></a>引入 Resilience4j</h2><p>如果使用 Spring Boot 的话，只需要使用：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.resilience4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>resilience4j-spring-boot2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Resilience4j"><a href="#使用-Resilience4j" class="headerlink" title="使用 Resilience4j"></a>使用 Resilience4j</h2><p>Resilience4j 默认使用装饰者模式，但在 Spring Boot 项目中肯定是用 <code>@CircuitBreaker</code> 的 AOP 注解更方便、侵入性也更小。</p>
+<p>详细的使用文档可以看 <a href="https://resilience4j.readme.io/docs">这里</a>。</p>
+<h2 id="Resilience4j-组件"><a href="#Resilience4j-组件" class="headerlink" title="Resilience4j 组件"></a>Resilience4j 组件</h2><p>Retry：重试<br>Circuit Breaker：断路器<br>Rate Limiter：限制比率<br>Time Limiter：限制时间<br>Bulkhead：隔板，控制等待区（环形缓冲区）容量<br>Cache：缓存<br>Fallback：后备</p>
+<h2 id="Resilience4j-配置文件"><a href="#Resilience4j-配置文件" class="headerlink" title="Resilience4j 配置文件"></a>Resilience4j 配置文件</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">resilience4j.circuitbreaker:</span></span><br><span class="line">    <span class="attr">backends:</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">        <span class="comment"># The size of ring buffer when the CircuitBreaker is closed</span></span><br><span class="line">        <span class="attr">ringBufferSizeInClosedState:</span> <span class="number">3</span></span><br><span class="line">        <span class="attr">ringBufferSizeInHalfOpenState:</span> <span class="number">3</span></span><br><span class="line">        <span class="comment"># The wait duration in millis which defines how long the CircuitBreaker should stay open before it switches to half open</span></span><br><span class="line">        <span class="attr">waitInterval:</span> <span class="number">1000</span></span><br><span class="line">        <span class="comment"># The failure rate threshold above which the CircuitBreaker opens and starts short-curcuiting calls</span></span><br><span class="line">        <span class="attr">failureRateThreshold:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="演示内容"><a href="#演示内容" class="headerlink" title="演示内容"></a>演示内容</h2><ol>
+<li>断路器拦截请求的功能</li>
+<li>断路器自动恢复到 Half_Open 状态的功能</li>
+<li>Half_Open 的回归逻辑</li>
+<li>断路器拦截慢请求的功能</li>
+<li>断路器后备方法的使用（fallback 仍视作一次失败，要绕过的话可以使用 transitionToClosedState）</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>circuit breaker</tag>
+        <tag>resilience4j</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Pandas Error Tokenizing Data</title>
+    <url>/2019/03/09/%E8%A7%A3%E5%86%B3Pandas-Error-Tokenizing-Data/</url>
+    <content><![CDATA[<p>在使用Pandas读取表格时，如果表格内容不规整（例如Schema信息包含8列，但是某一行包含了9列信息），Pandas会报 <code>Pandas Error Tokenizing Data</code> 的错，程序会立即停止执行。报这一错误可以分为两种场景：</p>
+<h2 id="表格Schema信息解析异常"><a href="#表格Schema信息解析异常" class="headerlink" title="表格Schema信息解析异常"></a>表格Schema信息解析异常</h2><p>第一种场景是表格的Schema信息，也即第一行不规整，导致Pandas无法正确解析。</p>
+<p>据官方文档，如果 <code>sep=None</code>（不传sep参数则默认为None），pandas会<strong>自动推断</strong>分隔符，但是在某些场景下自动推断并不好用。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">df = pandas.read_csv(fileName, sep=<span class="string">&#x27;delimiter&#x27;</span>, header=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>此时手动设置 <code>sep</code> 参数为需要的分隔符，可以避免pandas进行错误的自动推断。如果表格没有Schema信息的话就指定 <code>header=None</code>。</p>
+<h2 id="表格内容有误"><a href="#表格内容有误" class="headerlink" title="表格内容有误"></a>表格内容有误</h2><p>另一种场景是表格的某一行不规整，和Schema信息对不上，例如少了一列或者多了一列。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">data = pandas.read_csv(<span class="string">&#x27;file.csv&#x27;</span>，error_bad_lines=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这时可以通过设置 <code>error_bad_lines</code> 解决。这时pandas会跳过有问题的行，不再直接打断程序。</p>
+]]></content>
+      <categories>
+        <category>疑难杂症</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+</search>

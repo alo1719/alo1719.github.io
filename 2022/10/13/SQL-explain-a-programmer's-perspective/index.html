@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="google-site-verification" content="yV-JYTinFPFDZB8x1Av_1n37HYS9PVxuhfydxCKGWuE" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content">
+  <link rel="mask-icon" href="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alo1719.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MySQL’s explain statement is commonly used to analyze the cause of slow SQL and returns the following columns: select_type, table, partitions, type, possible_keys, key, key_len, ref, rows, filtered, e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL &quot;explain&quot; a programmer&#39;s perspective">
+<meta property="og:url" content="https://alo1719.github.io/2022/10/13/SQL-explain-a-programmer's-perspective/index.html">
+<meta property="og:site_name" content="Avery&#39;s Blog">
+<meta property="og:description" content="MySQL’s explain statement is commonly used to analyze the cause of slow SQL and returns the following columns: select_type, table, partitions, type, possible_keys, key, key_len, ref, rows, filtered, e">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-14T00:02:32.000Z">
+<meta property="article:modified_time" content="2023-06-13T07:10:49.300Z">
+<meta property="article:author" content="Xinyi Avery Zhang">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="database">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alo1719.github.io/2022/10/13/SQL-explain-a-programmer's-perspective/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SQL "explain" a programmer's perspective | Avery's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Avery's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Avery's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Work on Web Dev, Infra Dev & ML</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alo1719.github.io/2022/10/13/SQL-explain-a-programmer's-perspective/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+      <meta itemprop="name" content="Xinyi Avery Zhang">
+      <meta itemprop="description" content="M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Avery's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL "explain" a programmer's perspective
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-13 17:02:32" itemprop="dateCreated datePublished" datetime="2022-10-13T17:02:32-07:00">2022-10-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>MySQL’s <code>explain</code> statement is commonly used to analyze the cause of slow SQL and returns the following columns:</p>
+<p>select_type, table, partitions, type, possible_keys, key, key_len, ref, rows, filtered, extra.</p>
+<p>The most important fields are type, rows, key and extra.</p>
+<h2 id="Logical-Architecture-of-MySQL"><a href="#Logical-Architecture-of-MySQL" class="headerlink" title="Logical Architecture of MySQL"></a>Logical Architecture of MySQL</h2><p>Let’s start with the basics, the logical architecture of MySQL.</p>
+<p>Client -&gt; (Query Cache, 5.7.20 deprecated, 8.0 removed) -&gt; Parser (generates parse trees) -&gt; Preprocessor (generates new parse trees) -&gt; Query Optimizer (generates query plans) -&gt; Execution Engine (execution scheduling) -&gt; Storage Engine (data lookup) -&gt; Execution Engine (data filtering, sorting, etc.) -&gt; Client and Query Cache</p>
+<h2 id="“type”-“rows”-and-“key”-fields"><a href="#“type”-“rows”-and-“key”-fields" class="headerlink" title="“type”, “rows” and “key” fields"></a>“type”, “rows” and “key” fields</h2><p>The “type” field is used to indicate the type of connection. Connection types can be classified from fast to slow as follows:</p>
+<ol>
+<li><p>const, system: up to one matching row, using a primary key or unique index</p>
+</li>
+<li><p>eq_ref: returns a row of data, usually found in <code>join</code>, using a primary key or a unique index</p>
+</li>
+<li><p>ref: uses the <strong>leftmost prefix</strong> of the key, and the key is not a primary or unique key</p>
+</li>
+<li><p>range: index range scan, the scan of the index starts at a certain point and returns the matching row(s)</p>
+</li>
+<li><p>index: <strong>full table scan</strong> in the order of the index, the advantage is that there is no sorting, the disadvantage is that the whole table has to be scanned</p>
+</li>
+<li><p>all: full table scan</p>
+<span id="more"></span>
+
+</li>
+</ol>
+<p>The “rows” field is MySQL’s estimate of the number of rows needed to be scanned to find the desired record, and is used as a reference for the query optimizer to select keys.</p>
+<p>For types of “index” and “all”, the number of “rows” is usually very large for a full table scan. So “index” and “all” types should be avoided in an online environment.</p>
+<p>The “key” field indicates which index is used, if no index is used, it is null.</p>
+<p>The “<strong>index</strong>” type is actually quite confusing. It is <strong>index</strong>, but in fact there is no query using indices at all, just sorting with indices on the basis of a full table scan.</p>
+<h2 id="“extra”"><a href="#“extra”" class="headerlink" title="“extra”"></a>“extra”</h2><p>The “extra” field is used to indicate additional <strong>important information</strong>. They can be classified from fast to slow as follows:</p>
+<ol>
+<li><p>using index: index override, the query only uses the index, no need to read the data block</p>
+</li>
+<li><p>using where: filtering after the storage engine returns the records</p>
+</li>
+<li><p>using temporary: using temporary tables, usually seen when <code>GROUP BY</code>, <code>ORDER BY</code> appearing</p>
+</li>
+<li><p>using filesort: using non-index-ordered additional sorting, occurs when <code>ORDER BY</code> does not use indices (may be in-memory sorting, may also be external sorting)</p>
+</li>
+</ol>
+<p>In Online environments, “using temporary” and “using filesort” should be avoided.</p>
+<h2 id="Best-practice-to-debug-a-slow-SQL"><a href="#Best-practice-to-debug-a-slow-SQL" class="headerlink" title="Best practice to debug a slow SQL"></a>Best practice to debug a slow SQL</h2><ol>
+<li><p>Firstly, look at the “key” field, see whether indices are used.</p>
+</li>
+<li><p>Then look at the “type” field, it should not be “index” or “all”.</p>
+</li>
+<li><p>Finally, look at the “extra” field, it cannot be “using temporary” or “using filesort”.</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+              <a href="/tags/database/" rel="tag"><i class="fa fa-tag"></i> database</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/25/%E4%B8%80%E6%96%87%E4%BA%86%E8%A7%A3Lombok%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%92%8C%E9%9A%90%E8%97%8F%E5%9D%91%E7%82%B9/" rel="prev" title="一文了解 Lombok 常用注解和隐藏坑点">
+      <i class="fa fa-chevron-left"></i> 一文了解 Lombok 常用注解和隐藏坑点
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Logical-Architecture-of-MySQL"><span class="nav-number">1.</span> <span class="nav-text">Logical Architecture of MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Ctype%E2%80%9D-%E2%80%9Crows%E2%80%9D-and-%E2%80%9Ckey%E2%80%9D-fields"><span class="nav-number">2.</span> <span class="nav-text">“type”, “rows” and “key” fields</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Cextra%E2%80%9D"><span class="nav-number">3.</span> <span class="nav-text">“extra”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Best-practice-to-debug-a-slow-SQL"><span class="nav-number">4.</span> <span class="nav-text">Best practice to debug a slow SQL</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xinyi Avery Zhang"
+      src="https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content">
+  <p class="site-author-name" itemprop="name">Xinyi Avery Zhang</p>
+  <div class="site-description" itemprop="description">M.S. CompEng @ CMU | Seeking 24 SDE FT | ex-Meituan SDE | ex-Citigroup SDE Intern</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/xinyizh3" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;xinyizh3" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangxinyi1719@gmail.com" title="E-Mail → mailto:zhangxinyi1719@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/alo1719" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/alo1719" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;alo1719" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinyi Avery Zhang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '64eb8b4a1dacb9e5b625',
+      clientSecret: '2b54886c5ce3edac2d58678eb5dc6ca0fd1a7210',
+      repo        : 'alo1719.github.io',
+      owner       : 'alo1719',
+      admin       : ['alo1719'],
+      id          : 'b1815bc9fc9813aac4ddc93249c82ff4',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
