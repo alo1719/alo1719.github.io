@@ -40,10 +40,10 @@ custom_file_path:
 # ---------------------------------------------------------------
 
 favicon:
-  small: https://i.loli.net/2019/03/08/5c81e88fd409d.png
-  medium: https://i.loli.net/2019/03/08/5c81e88fd409d.png
-  apple_touch_icon: https://i.loli.net/2019/03/08/5c81e88fd409d.png
-  safari_pinned_tab: https://i.loli.net/2019/03/08/5c81e88fd409d.png
+  small: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content
+  medium: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content
+  apple_touch_icon: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content
+  safari_pinned_tab: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhY4mcyMjYjgAdhI5sQ/root/content
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -164,7 +164,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dgvFBJcRjada4WKvkDw/root/content
+  url: https://api.onedrive.com/v1.0/shares/s!Alj0Vk-T-u8dhYAuKn2qPc3oINJOhQ/root/content
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
@@ -415,7 +415,7 @@ font:
   enable: true
 
   # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
-  host:
+  host: https://fonts.googleapis.com
 
   # Font options:
   # `external: true` will load this font family from `host` above.
@@ -425,8 +425,8 @@ font:
   # Global font settings used for all elements inside <body>.
   global:
     external: true
-    family: Lato
-    size: 0.85
+    family: 'Roboto'
+    size: 0.95
 
   # Font settings for site title (.site-title).
   title:
